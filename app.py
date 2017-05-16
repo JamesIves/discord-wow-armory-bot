@@ -32,7 +32,7 @@ async def on_message(message):
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
             colour_code = classColour(info['class'])
-            msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(colour_code), url="%s" info['armory'], description="%s" info['realm'])
+            msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(colour_code), url="%s" % (info['armory']), description="%s" % (info['realm']))
 
             msg.set_image()
             msg.set_thumbnail(url="https://render-%s.worldofwarcraft.com/character/%s" % (WOW_REGION, info['thumbnail']))
