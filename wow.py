@@ -188,11 +188,13 @@ def characterInfo(name, realm):
     if info != '':
         achievements = characterAchievements(name, realm)
         progression = characterProgression(name, realm)
+        class_colour = classColour(info['class'])
 
         character_sheet = {
             'name': info["name"],
             'realm': info["realm"],
             'class_type': info['class'],
+            'class_colour': class_colour,
             'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (WOW_REGION, realm, name),
             'thumb': info["thumbnail"],
             'ilvl': info["items"]["averageItemLevelEquipped"],
