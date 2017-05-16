@@ -18,7 +18,7 @@ In order to power this bot you'll require a Discord API bot token, and an API ke
 | ------------- | ------------- |
 | `WOW_API_KEY`  | Required to make calls to the Blizzard API, you can sign up for a key [here](https://dev.battle.net/).  |
 | `WOW_REGION`  | The server region you'd like to query, for example `us`.  |
-| `LOCALE`  | The language you'd like the data to return as, for example `en_US`. Localizations depend on region, pleasse refer to the [Blizzard API documents](https://dev.battle.net/) for more information.  |
+| `LOCALE`  | The language for your selected WoW region, for example `en_US`. Locale depends on region, pleasse refer to the [Blizzard API documents](https://dev.battle.net/) for more information. At this time this bot will only return data in English.   |
 | `DISCORD_BOT_TOKEN`  | This is the token for your Discord bot user, you can sign up for one [here](https://discordapp.com/developers/docs/intro). |
 
 
