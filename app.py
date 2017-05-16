@@ -31,39 +31,23 @@ async def on_message(message):
 
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
-            data = """
-                    `Character Name` | `%s`
-                    `Realm` | `%s`
-                    `Equipped Item Level` | `%s`
-
-                    `Keystone Master` | `%s`
-                    `Keystone Conqueror` | `%s`
-
-                    `Emerald Nightmare Normal` | `%s/%s`
-                    `Emerald Nightmare Heroic` | `%s/%s`
-                    `Emerald Nightmare Mythic` | `%s/%s`
-                    `Emerald Nightmare AOTC` | `%s`
-
-                    `Trial of Valor Normal` | `%s/%s`
-                    `Trial of Valor Heroic` | `%s/%s`
-                    `Trial of Valor Mythic` | `%s/%s`
-                    `Trial of Valor AOTC` | `%s`
-
-                    `The Nighthold Normal` | `%s/%s`
-                    `The Nighthold Heroic` | `%s/%s`
-                    `The Nighthold Mythic` | `%s/%s`
-                    `The Nighthold AOTC` | `%s`
-
-                    %s""" % (info['name'], info['realm'], info['ilvl'], info['keystone_master'], \
-                    info['keystone_conqueror'], info['emerald_nightmare']['normal'], info['emerald_nightmare']['bosses'], info['emerald_nightmare']['heroic'], info['emerald_nightmare']['bosses'], \
-                    info['emerald_nightmare']['mythic'], info['emerald_nightmare']['bosses'], info['aotc_en'], \
-                    info['trial_of_valor']['normal'], info['trial_of_valor']['bosses'], info['trial_of_valor']['heroic'], info['trial_of_valor']['bosses'], \
-                    info['trial_of_valor']['mythic'], info['trial_of_valor']['bosses'], info['aotc_tov'], \
-                    info['the_nighthold']['normal'], info['the_nighthold']['bosses'], info['the_nighthold']['heroic'], info['the_nighthold']['bosses'], \
-                    info['the_nighthold']['mythic'], info['the_nighthold']['bosses'], info['aotc_nh'], info['armory'])
-
-            # Uses re to strip white space caused by the string fomratting.
-            msg = '%s'.format(message) % re.sub(r'(^[ \t]+|[ \t]+(?=:))', '', data, flags=re.M)
+            msg=discord.Embed(title="%s", url='%s', description="%s, Equipped Item Level %s") % (info['name'], info['armory'], info['realm'], info['ilvl'])
+            msg.set_thumbnail(url='https://render-%s.worldofwarcraft.com/character/%s') % (WOW_REGION, info['thumbnail'])
+            msg.add_field(name="Keystone Master", value="%s", inline=False) % (info['keystone_master'])
+            msg.add_field(name="Keystone Conqueror", value="%s", inline=False) % (info['keystone_conqueror'])
+            msg.add_field(name="EN Normal", value="%s", inline=True) % (info['emerald_nightmare']['normal'])
+            msg.add_field(name="EN Heroic", value="%s", inline=True) % (info['emerald_nightmare']['heroic'])
+            msg.add_field(name="EN Mythic", value="%s", inline=True) % (info['emerald_nightmare']['mythic'])
+            msg.add_field(name="EN AOTC", value="%s", inline=True) % (info['aotc_en'])
+            msg.add_field(name="TOV Normal", value="%s", inline=True) % (info['trial_of_valor']['normal'])
+            msg.add_field(name="TOV Heroic", value="%s", inline=True) % (info['trial_of_valor']['heroic'])
+            msg.add_field(name="TOV Mythic", value="%s", inline=True) % (info['trial_of_valor']['mythic'])
+            msg.add_field(name="TOV AOTC", value="%s", inline=True) % (info['aotc_tov'])
+            msg.add_field(name="NH Normal", value="%s", inline=True) % (info['the_nighthold']['normal'])
+            msg.add_field(name="NH Heroic", value="%s", inline=True) % (info['the_nighthold']['heroic'])
+            msg.add_field(name="NH Mythic", value="%s", inline=True) % (info['the_nighthold']['mythic'])
+            msg.add_field(name="NH AOTC", value="%s", inline=True) % (info['aotc_nh'])
+            await self.bot.say(embed=embed)
 
         await client.send_message(message.channel, msg)
 
