@@ -5,8 +5,8 @@ import os
 import json
 
 
-WOW_API_KEY = str(os.getenv('WOW_API_KEY'))
-WOW_API_SECRET = str(os.getenv('WOW_API_SECRET'))
+WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
+WOW_API_SECRET = str(os.environ.get('WOW_API_SECRET'))
 REGION = 'en_US'
 
 

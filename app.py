@@ -6,7 +6,7 @@ import re
 from wow import *
 
 
-DISCORD_BOT_TOKEN = str(os.getenv('DISCORD_BOT_TOKEN'))
+DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
 client = discord.Client()
 
 
