@@ -32,6 +32,8 @@ This bot can be deployed to [Heroku](https://www.heroku.com), simply deploy the 
 $ heroku ps:scale --app discord-wow-armory-bot worker=1
 ```
 
+You'll also need to setup your config variables within the `Settings` tab.
+
 
 ## Commands
 This is a rather simple bot and only has one command.
