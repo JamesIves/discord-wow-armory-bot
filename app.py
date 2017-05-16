@@ -41,13 +41,13 @@ async def on_message(message):
             msg.add_field(name="Keystone Achievements", value="**Master** %s\n**Conqueror** %s" % (info['keystone_master'], info['keystone_conqueror']), inline=True)
             msg.add_field(name="Emerald Nightmare", value="**Normal** %s/%s7\n**Heroic** %s/%s\n**Mythic** %s/%s\n**AOTC** %s" % (info['emerald_nightmare']['normal'], \
              info['emerald_nightmare']['bosses'], info['emerald_nightmare']['heroic'], info['emerald_nightmare']['bosses'], info['emerald_nightmare']['mythic'], \
-             info['emerald_nightmare']['bosses'], info['emerald_nightmare']['aotc']), inline=True)
+             info['emerald_nightmare']['bosses'], info['aotc_en']), inline=True)
             msg.add_field(name="Trial of Valor", value="**Normal** %s/%s\n**Heroic** %s/%s\n**Mythic** %s/%s\n**AOTC** %s" % (info['trial_of_valor']['normal'], \
              info['trial_of_valor']['bosses'], info['trial_of_valor']['heroic'], info['trial_of_valor']['bosses'], info['trial_of_valor']['mythic'], \
-             info['trial_of_valor']['bosses'], info['trial_of_valor']['aotc']), inline=True)
+             info['trial_of_valor']['bosses'], info['aotc_tov']), inline=True)
             msg.add_field(name="The Nighthold", value="**Normal** %s/%s\n**Heroic** %s/%s\n**Mythic** %s/%s\n**AOTC** %s" % (info['the_nighthold']['normal'], \
              info['the_nighthold']['bosses'], info['the_nighthold']['heroic'], info['the_nighthold']['bosses'], info['the_nighthold']['mythic'], \
-             info['the_nighthold']['bosses'], info['the_nighthold']['aotc']), inline=True)
+             info['the_nighthold']['bosses'], info['aotc_nh']), inline=True)
 
             await client.say(embed=embed)
 
