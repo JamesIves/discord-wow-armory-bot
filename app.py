@@ -31,7 +31,7 @@ async def on_message(message):
             await client.send_message(message.channel, msg)
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
-            colour_code = classColour(info['class'])
+            colour_code = classColour(info['class_type'])
             msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(colour_code), url="%s" % (info['armory']), description="%s" % (info['realm']))
 
             msg.set_image()
