@@ -17,7 +17,8 @@ In order to power this bot you'll require a Discord API bot token, and an API ke
 | Key  | Value Information |
 | ------------- | ------------- |
 | `WOW_API_KEY`  | Required to make calls to the Blizzard API, you can sign up for a key [here](https://dev.battle.net/).  |
-| `WOW_REGION`  | The server region you'd like to query, for example `en_US`.  |
+| `WOW_REGION`  | The server region you'd like to query, for example `us`.  |
+| `LOCALE`  | The language you'd like the data to return as, for example `en_US`.  |
 | `DISCORD_BOT_TOKEN`  | This is the token for your Discord bot user, you can sign up for one [here](https://discordapp.com/developers/docs/intro). |
 
 
