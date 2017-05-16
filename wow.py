@@ -126,47 +126,51 @@ def classColour(class_type):
 
     # Warrior
     if class_type == 1:
-        class_colour = '0xC79C6E'
+        class_colour = 0xC79C6E
 
     # Paladin
     if class_type == 2:
-        class_colour = '0xF58CBA'
+        class_colour = 0xF58CBA
 
     # Hunter
     if class_type == 3:
-        class_colour = '0xABD473'
+        class_colour = 0xABD473
 
     # Rogue
     if class_type == 4:
-        class_colour = '0xFFF569'
+        class_colour = 0xFFF569
 
     # Priest
     if class_type == 5:
-        class_colour = '0xFFFFFF'
+        class_colour = 0xFFFFFF
 
     # Death Knight
     if class_type == 6:
-        class_colour = '0xC41F3B'
+        class_colour = 0xC41F3B
 
     # Shaman
     if class_type == 7:
-        class_colour = '0x0070DE'
+        class_colour = 0x0070DE
 
     # Mage
     if class_type == 8:
-        class_colour = '0x69CCF0'
+        class_colour = 0x69CCF0
 
     # Warlock
     if class_type == 9:
-        class_colour = '0x9482C9'
+        class_colour = 0x9482C9
 
     # Monk
     if class_type == 10:
-        class_colour = '0x00FF96'
+        class_colour = 0x00FF96
 
     # Druid
     if class_type == 11:
-        class_colour = '0xFF7D0A'
+        class_colour = 0xFF7D0A
+
+    # Demon Hunter
+    if class_type == 12:
+        class_colour = 0xA330C9
 
     return class_colour
 
