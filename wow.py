@@ -119,6 +119,58 @@ def characterProgression(name, realm):
     return [emerald_nightmare, trial_of_valor, the_nighthold]
 
 
+def classColour(class_type):
+    """Accepts a class index and then determines the colour code for that class.
+    Used to fill the colour portion of the Discord embed. """
+    class_colour = ''
+
+    # Warrior
+    if class_type == 1:
+        class_colour = '0xC79C6E'
+
+    # Paladin
+    if class_type == 2:
+        class_colour = '0xF58CBA'
+
+    # Hunter
+    if class_type == 3:
+        class_colour = '0xABD473'
+
+    # Rogue
+    if class_type == 4:
+        class_colour = '0xFFF569'
+
+    # Priest
+    if class_type == 5:
+        class_colour = '0xFFFFFF'
+
+    # Death Knight
+    if class_type == 6:
+        class_colour = '0xC41F3B'
+
+    # Shaman
+    if class_type == 7:
+        class_colour = '0x0070DE'
+
+    # Mage
+    if class_type == 8:
+        class_colour = '0x69CCF0'
+
+    # Warlock
+    if class_type == 9:
+        class_colour = '0x9482C9'
+
+    # Monk
+    if class_type == 10:
+        class_colour = '0x00FF96'
+
+    # Druid
+    if class_type == 11:
+        class_colour = '0xFF7D0A'
+
+    return class_colour
+
+
 def characterInfo(name, realm):
     """Main function which accepts a name/realm. Builds a character sheet out of their
     name, realm, armory link, player thumbnail, ilvl, achievement and raid progress."""
@@ -136,6 +188,7 @@ def characterInfo(name, realm):
         character_sheet = {
             'name': info["name"],
             'realm': info["realm"],
+            'class_type': info['class'],
             'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (WOW_REGION, realm, name),
             'thumb': info["thumbnail"],
             'ilvl': info["items"]["averageItemLevelEquipped"],
