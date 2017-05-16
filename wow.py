@@ -136,7 +136,7 @@ def characterInfo(name, realm):
         character_sheet = {
             'name': info["name"],
             'realm': info["realm"],
-            'armory': 'http://us.battle.net/wow/en/character/%s/%s' % (realm, name),
+            'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (WOW_REGION, realm, name),
             'thumb': info["thumbnail"],
             'ilvl': info["items"]["averageItemLevelEquipped"],
             'keystone_master': achievements[0],
