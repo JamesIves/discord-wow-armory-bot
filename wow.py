@@ -107,14 +107,14 @@ def characterProgression(name, realm):
 
     for raid in info['progression']['raids']:
         # Loop over the raids and filter the most recent.
-        if raid['name'] == 'The Emerald Nightmare':
+        if raid['id'] == '8026':
             emerald_nightmare = calculateBossKills(raid)
 
-        if raid['name'] == 'Trial of Valor':
+        if raid['id'] == '8440':
             trial_of_valor = calculateBossKills(raid)
 
 
-        if raid['name'] == 'The Nighthold':
+        if raid['id'] == '8025':
             the_nighthold = calculateBossKills(raid)
 
     return [emerald_nightmare, trial_of_valor, the_nighthold]
