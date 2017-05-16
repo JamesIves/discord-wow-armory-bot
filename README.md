@@ -1,4 +1,4 @@
-# Discord World of Warcraft Armory Bot
+# World of Warcraft Armory Discord Bot
 This is a simple Discord bot built on [discord.py](https://github.com/Rapptz/discord.py) using [Python 3.6.1](https://www.python.org/). You're able to enter a character name and realm to get a quick view at a characters item level, notable achievements, and raid progression.
 
 
