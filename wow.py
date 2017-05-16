@@ -113,7 +113,6 @@ def characterProgression(name, realm):
         if raid['id'] == '8440':
             trial_of_valor = calculateBossKills(raid)
 
-
         if raid['id'] == '8025':
             the_nighthold = calculateBossKills(raid)
 
