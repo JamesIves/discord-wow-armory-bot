@@ -168,6 +168,10 @@ def classColour(class_type):
     if class_type == 11:
         class_colour = 0xFF7D0A
 
+    # Demon Hunter
+    if class_type == 12:
+        class_colour = 0xA330C9
+
     return class_colour
 
 
