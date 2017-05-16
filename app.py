@@ -39,7 +39,7 @@ async def on_message(message):
 
             msg.add_field(name="Character", value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Item Level`:** `%s`" % (info['name'], info['realm'], info['ilvl']), inline=True)
             msg.add_field(name="Keystone Achievements", value="**`Master`:** `%s`\n**`Conqueror`:** `%s`" % (info['keystone_master'], info['keystone_conqueror']), inline=True)
-            msg.add_field(name="Emerald Nightmare", value="**`Normal`:** `%s/%s`7\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (info['emerald_nightmare']['normal'], \
+            msg.add_field(name="Emerald Nightmare", value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (info['emerald_nightmare']['normal'], \
              info['emerald_nightmare']['bosses'], info['emerald_nightmare']['heroic'], info['emerald_nightmare']['bosses'], info['emerald_nightmare']['mythic'], \
              info['emerald_nightmare']['bosses'], info['aotc_en']), inline=True)
             msg.add_field(name="Trial of Valor", value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (info['trial_of_valor']['normal'], \
