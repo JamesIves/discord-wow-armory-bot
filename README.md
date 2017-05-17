@@ -46,11 +46,11 @@ The following commands are accepted.
 # PVE Progression/Raids
 !armory pve Jimo burning-legion
 
-# Displays a list of commands
+# Command List
 !armory help
 
 # Command Formatting
-!armory <content> <name> <server>
+!armory <content> <name> <realm>
 ```
 
 ![Screenshot](assets/screenshot.png)
