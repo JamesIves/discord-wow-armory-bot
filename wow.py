@@ -123,56 +123,69 @@ def classColour(class_type):
     """Accepts a class index and then determines the colour code for that class.
     Used to fill the colour portion of the Discord embed. """
     class_colour = ''
+    class_name = ''
 
     # Warrior
     if class_type == 1:
         class_colour = 0xC79C6E
+        class_name = 'Warrior'
 
     # Paladin
     if class_type == 2:
         class_colour = 0xF58CBA
+        class_name = 'Paladin'
 
     # Hunter
     if class_type == 3:
         class_colour = 0xABD473
+        class_name = 'Hunter'
 
     # Rogue
     if class_type == 4:
         class_colour = 0xFFF569
+        class_name = 'Rogue'
 
     # Priest
     if class_type == 5:
         class_colour = 0xFFFFFF
+        class_name = 'Priest'
 
     # Death Knight
     if class_type == 6:
         class_colour = 0xC41F3B
+        class_name = 'Death Knight'
 
     # Shaman
     if class_type == 7:
         class_colour = 0x0070DE
+        class_name = 'Shaman'
 
     # Mage
     if class_type == 8:
         class_colour = 0x69CCF0
+        class_name = 'Mage'
 
     # Warlock
     if class_type == 9:
         class_colour = 0x9482C9
+        class_name = 'Warlock'
 
     # Monk
     if class_type == 10:
         class_colour = 0x00FF96
+        class_name = 'Monk'
 
     # Druid
     if class_type == 11:
         class_colour = 0xFF7D0A
+        class_name = 'Druid'
 
     # Demon Hunter
     if class_type == 12:
         class_colour = 0xA330C9
+        class_name = 'Demon Hunter'
 
-    return class_colour
+    return [class_colour, class_name]
 
 
 def characterInfo(name, realm):
@@ -188,13 +201,13 @@ def characterInfo(name, realm):
     if info != '':
         achievements = characterAchievements(name, realm)
         progression = characterProgression(name, realm)
-        class_colour = classColour(info['class'])
+        class_data = classColour(info['class'])
 
         character_sheet = {
             'name': info["name"],
             'realm': info["realm"],
-            'class_type': info['class'],
-            'class_colour': class_colour,
+            'class_colour': class_data[0],
+            'class_type': class_data[1],
             'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (WOW_REGION, realm, name),
             'thumb': info["thumbnail"],
             'ilvl': info["items"]["averageItemLevelEquipped"],

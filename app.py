@@ -31,7 +31,7 @@ async def on_message(message):
             await client.send_message(message.channel, msg)
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
-            msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(info['class_colour']), url="%s" % (info['armory']), description="%s" % (info['realm']))
+            msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(info['class_colour']), url="%s" % (info['armory']), description="%s" % (info['class_type']))
 
             msg.set_thumbnail(url="https://render-%s.worldofwarcraft.com/character/%s" % (WOW_REGION, info['thumb']))
             msg.set_footer(text="Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues", icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
