@@ -31,7 +31,7 @@ def getData(name, realm, field):
     return request_json
 
 
-def characterAchievements(name, realm, content):
+def characterAchievements(name, realm):
     """Accepts a name/realm, and returns notable achievement progress.
     Tracks Ahead of the Curve for NH, EN, TOV, and Keystone Conqueror/Master"""
     info = getData(name, realm, 'achievements')
@@ -271,10 +271,10 @@ def characterInfo(name, realm, query):
     if info != '':
         class_data = classDetails(info['class'])
         faction_name = factionDetails(info['faction'])
+        achievements = characterAchievements(name, realm)
 
         # Builds a character sheet depending on the function argument.
         if query == 'pve':
-            achievements = characterAchievements(name, realm, 'pve')
             progression = characterProgression(name, realm)
 
             pve_character_sheet = {
@@ -301,7 +301,6 @@ def characterInfo(name, realm, query):
             return pve_character_sheet
 
         if query == 'pvp':
-            achievements = characterAchievements(name, realm, 'pvp')
             pvp = characterArenaProgress(name, realm)
 
             pvp_character_sheet = {
