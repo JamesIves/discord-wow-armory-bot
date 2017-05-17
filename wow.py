@@ -119,9 +119,8 @@ def characterProgression(name, realm):
     return [emerald_nightmare, trial_of_valor, the_nighthold]
 
 
-def classColour(class_type):
-    """Accepts a class index and then determines the colour code for that class.
-    Used to fill the colour portion of the Discord embed. """
+def classDetails(class_type):
+    """Accepts a class index and then determines the colour code and name for that class."""
     class_colour = ''
     class_name = ''
 
@@ -201,7 +200,7 @@ def characterInfo(name, realm):
     if info != '':
         achievements = characterAchievements(name, realm)
         progression = characterProgression(name, realm)
-        class_data = classColour(info['class'])
+        class_data = classDetails(info['class'])
 
         character_sheet = {
             'name': info["name"],
