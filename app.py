@@ -85,8 +85,8 @@ async def on_message(message):
             # Displays a players PVP progression, arena ratings, honorable kills, etc.
             !armory pvp <name> <realm>
             ```
-            > Bot created by James Ives (jamesives.co.uk)
-            > Feedback, Issues and Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
+            • Bot created by James Ives (jamesives.co.uk)
+            • Feedback, Issues and Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
             """
 
         msg = '%s'.format(message) % re.sub(r'(^[ \t]+|[ \t]+(?=:))', '', msg, flags=re.M)
