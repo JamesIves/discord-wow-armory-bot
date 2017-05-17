@@ -14,7 +14,7 @@ requests==2.14.2
 
 This bot can be deployed to any service such as [Heroku](https://www.heroku.com)
 
-For Heroku simply deploy the most recent version and assign your free dyno to the worker specified in the Procfile, and then scale it.
+For Heroku simply deploy the [most recent version](https://github.com/JamesIves/discord-wow-armory-bot/releases) and assign your free dyno to the worker specified in the Procfile, and then scale it.
 
 ```
 $ heroku ps:scale --app discord-wow-armory-bot worker=1
