@@ -206,6 +206,7 @@ def characterInfo(name, realm):
         character_sheet = {
             'name': info["name"],
             'realm': info["realm"],
+            'battlegroup': info["battlegroup"],
             'class_colour': class_data[0],
             'class_type': class_data[1],
             'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (WOW_REGION, realm, name),

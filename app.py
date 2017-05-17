@@ -36,7 +36,7 @@ async def on_message(message):
             msg.set_thumbnail(url="https://render-%s.worldofwarcraft.com/character/%s" % (WOW_REGION, info['thumb']))
             msg.set_footer(text="Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues", icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
 
-            msg.add_field(name="Character", value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Item Level`:** `%s`" % (info['name'], info['realm'], info['ilvl']), inline=True)
+            msg.add_field(name="Character", value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`" % (info['name'], info['realm'], info['battlegroup'], info['ilvl']), inline=True)
             msg.add_field(name="Keystone Achievements", value="**`Master`:** `%s`\n**`Conqueror`:** `%s`" % (info['keystone_master'], info['keystone_conqueror']), inline=True)
             msg.add_field(name="Emerald Nightmare", value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (info['emerald_nightmare']['normal'], \
              info['emerald_nightmare']['bosses'], info['emerald_nightmare']['heroic'], info['emerald_nightmare']['bosses'], info['emerald_nightmare']['mythic'], \
