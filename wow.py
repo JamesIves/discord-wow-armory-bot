@@ -8,7 +8,6 @@ WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
 WOW_REGION = str(os.environ.get('WOW_REGION'))
 LOCALE = str(os.environ.get('LOCALE'))
 
-
 def getData(name, realm, field):
     """Helper function that grabs data from the World of Warcraft API."""
     path = 'https://%s.api.battle.net/wow/character/%s/%s?fields=%s&locale=%s&apikey=%s' % (
@@ -36,10 +35,13 @@ def characterAchievements(name, realm, faction):
     """Accepts a name/realm/faction, and returns notable achievement progress.
     Tracks Ahead of the Curve for NH, EN, TOV, and Keystone Conqueror/Master"""
     info = getData(name, realm, 'achievements')
+    achievements = info['achievements']
 
     # Return In Progress/Incomplete unless they are found.
     keystone_master = 'In Progress'
     keystone_conqueror = 'In Progress'
+    keystone_challenger = 'In Progress'
+    challenging_look = 'In Progress'
     arena_challenger = 'In Progress'
     arena_rival = 'In Progress'
     arena_duelist = 'In Progress'
@@ -51,31 +53,37 @@ def characterAchievements(name, realm, faction):
     aotc_tov = 'Incomplete'
     aotc_nh = 'Incomplete'
 
-    if 11162 in info['achievements']['achievementsCompleted']:
-        keystone_master = 'Completed +15'
+    if 11611 in achievements['achievementsCompleted']:
+        challenging_look = 'Completed'
 
-    if 11185 in info['achievements']['achievementsCompleted']:
-        keystone_conqueror = 'Completed +10'
+    if 11162 in achievements['achievementsCompleted']:
+        keystone_master = 'Completed'
 
-    if 2090 in info['achievements']['achievementsCompleted']:
+    if 11185 in achievements['achievementsCompleted']:
+        keystone_conqueror = 'Completed'
+
+    if 11184 in achievements['achievementsCompleted']:
+        keystone_challenger = 'Completed'
+
+    if 2090 in achievements['achievementsCompleted']:
         arena_challenger = 'Completed'
 
-    if 2093 in info['achievements']['achievementsCompleted']:
+    if 2093 in achievements['achievementsCompleted']:
         arena_rival = 'Completed'
 
-    if 2092 in info['achievements']['achievementsCompleted']:
+    if 2092 in achievements['achievementsCompleted']:
         arena_duelist = 'Completed'
 
-    if 2091 in info['achievements']['achievementsCompleted']:
+    if 2091 in achievements['achievementsCompleted']:
         arena_gladiator = 'Completed'
 
-    if 11194 in info['achievements']['achievementsCompleted']:
+    if 11194 in achievements['achievementsCompleted']:
         aotc_en = 'Completed'
 
-    if 11581 in info['achievements']['achievementsCompleted']:
+    if 11581 in achievements['achievementsCompleted']:
         aotc_tov = 'Completed'
 
-    if 11195 in info['achievements']['achievementsCompleted']:
+    if 11195 in achievements['achievementsCompleted']:
         aotc_nh = 'Completed'
 
     # RBG achievements have a different id/name based on faction, checks these
@@ -85,13 +93,13 @@ def characterAchievements(name, realm, faction):
         rbg_2000_name = 'Lieutenant Commander'
         rbg_1500_name = 'Sergeant Major'
 
-        if 5343 in info['achievements']['achievementsCompleted']:
+        if 5343 in achievements['achievementsCompleted']:
             rbg_2400 = 'Completed'
 
-        if 5339 in info['achievements']['achievementsCompleted']:
+        if 5339 in achievements['achievementsCompleted']:
             rbg_2000 = 'Completed'
 
-        if 5334 in info['achievements']['achievementsCompleted']:
+        if 5334 in achievements['achievementsCompleted']:
             rbg_1500 = 'Completed'
 
     if faction == 'Horde':
@@ -99,18 +107,20 @@ def characterAchievements(name, realm, faction):
         rbg_2000_name = 'Champion'
         rbg_1500_name = 'First Sergeant'
 
-        if 5356 in info['achievements']['achievementsCompleted']:
+        if 5356 in achievements['achievementsCompleted']:
             rbg_2400 = 'Completed'
 
-        if 5353 in info['achievements']['achievementsCompleted']:
+        if 5353 in achievements['achievementsCompleted']:
             rbg_2000 = 'Completed'
 
-        if 5349 in info['achievements']['achievementsCompleted']:
+        if 5349 in achievements['achievementsCompleted']:
             rbg_1500 = 'Completed'
 
-    achievements = {
+    achievement_list = {
+        'challenging_look': challenging_look,
         'keystone_master': keystone_master,
         'keystone_conqueror': keystone_conqueror,
+        'keystone_challenger': keystone_challenger,
         'arena_challenger': arena_challenger,
         'arena_rival': arena_rival,
         'arena_duelist': arena_duelist,
@@ -126,7 +136,7 @@ def characterAchievements(name, realm, faction):
         'aotc_nh': aotc_nh
     }
 
-    return achievements
+    return achievement_list
 
 
 def calculateBossKills(raid):
@@ -172,8 +182,9 @@ def characterProgression(name, realm):
     """Accepts a name/realm and determines the players players
     current progression."""
     info = getData(name, realm, 'progression')
+    raids = info['progression']['raids']
 
-    for raid in info['progression']['raids']:
+    for raid in raids:
         # Loop over the raids and filter the most recent.
         if raid['id'] == 8026:
             emerald_nightmare = calculateBossKills(raid)
@@ -184,13 +195,13 @@ def characterProgression(name, realm):
         if raid['id'] == 8025:
             the_nighthold = calculateBossKills(raid)
 
-    raids = {
+    raid_stats = {
         'emerald_nightmare': emerald_nightmare,
         'trial_of_valor': trial_of_valor,
         'the_nighthold': the_nighthold
     }
 
-    return raids
+    return raid_stats
 
 
 def characterArenaProgress(name, realm):
@@ -333,8 +344,10 @@ def characterInfo(name, realm, query):
                     WOW_REGION, realm, name),
                 'thumb': info['thumbnail'],
                 'ilvl': info['items']['averageItemLevelEquipped'],
+                'challenging_look': achievements['challenging_look'],
                 'keystone_master': achievements['keystone_master'],
                 'keystone_conqueror': achievements['keystone_conqueror'],
+                'keystone_challenger': achievements['keystone_challenger'],
                 'aotc_en': achievements['aotc_en'],
                 'aotc_tov': achievements['aotc_tov'],
                 'aotc_nh': achievements['aotc_nh'],

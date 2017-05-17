@@ -61,6 +61,16 @@ The following commands are accepted by the bot.
 !armory help
 ```
 
+## FAQ
+Here's a list of frequently asked questions.
+```
+Q: Why does it show that my alt has completed a keystone achievement?
+A: Keystone achievements are account wide so the API response for your alt will be the same as your main.
+
+Q: Why doesn't the quantity of my keystone runs show?
+A: The quantity will only display if you've satisfied the achievement requirements more than once.
+```
+
 ## Issues and Feedback
 Please post any issues or feedback [here](https://github.com/JamesIves/discord-wow-armory-bot/issues).
 

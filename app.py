@@ -44,13 +44,14 @@ async def on_message(message):
                 icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
             msg.add_field(
                 name="Character",
-                value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Item Level`:** `%s`" % (
-                    info['name'], info['realm'], info['ilvl']),
+                value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Item Level`:** `%s`\n**`Artifact Challenge`:** `%s`" % (
+                    info['name'], info['realm'], info['ilvl'], info['challenging_look']),
                 inline=True)
             msg.add_field(
                 name="Keystone Achievements",
-                value="**`Master`:** `%s`\n**`Conqueror`:** `%s`" % (
-                    info['keystone_master'], info['keystone_conqueror']),
+                value="**`Master(+15)`:** `%s`\n**`Conqueror(+10)`:** `%s` \n**`Challenger(+5)`:** `%s`" % (
+                    info['keystone_master'], info['keystone_conqueror'],
+                    info['keystone_challenger']),
                 inline=True)
             msg.add_field(
                 name="Emerald Nightmare",
@@ -108,6 +109,19 @@ async def on_message(message):
                     info['name'], info['realm'], info['battlegroup'], info['ilvl']),
                 inline=True)
             msg.add_field(
+                name="Arena Achievements",
+                value="**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`" % (
+                    info['arena_challenger'], info['arena_rival'],
+                    info['arena_duelist'], info['arena_gladiator']),
+                inline=True)
+            msg.add_field(
+                name="RBG Achievements",
+                value="**`%s`:** `%s`\n**`%s`:** `%s`\n**`%s`:** `%s`" % (
+                    info['rbg_2400_name'], info['rbg_2400'],
+                    info['rbg_2000_name'], info['rbg_2000'],
+                    info['rbg_1500_name'], info['rbg_1500']),
+                inline=True)
+            msg.add_field(
                 name="Rated 2v2",
                 value="**`Rating`:** `%s`" % (
                     info['2v2']),
@@ -131,19 +145,6 @@ async def on_message(message):
                 name="Lifetime Honorable Kills",
                 value="**`Rating`:** `%s`" % (
                     info['kills']),
-                inline=True)
-            msg.add_field(
-                name="Arena Achievements",
-                value="**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`" % (
-                    info['arena_challenger'], info['arena_rival'],
-                    info['arena_duelist'], info['arena_gladiator']),
-                inline=True)
-            msg.add_field(
-                name="RBG Achievements",
-                value="**`%s`:** `%s`\n**`%s`:** `%s`\n**`%s`:** `%s`" % (
-                    info['rbg_2400_name'], info['rbg_2400'],
-                    info['rbg_2000_name'], info['rbg_2000'],
-                    info['rbg_1500_name'], info['rbg_1500']),
                 inline=True)
 
             await client.send_message(message.channel, embed=msg)
