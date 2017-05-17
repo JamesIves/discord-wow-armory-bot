@@ -204,6 +204,7 @@ def characterInfo(name, realm):
 
         character_sheet = {
             'name': info["name"],
+            'level': info["level"],
             'realm': info["realm"],
             'battlegroup': info["battlegroup"],
             'class_colour': class_data[0],
