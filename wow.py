@@ -8,9 +8,11 @@ WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
 WOW_REGION = str(os.environ.get('WOW_REGION'))
 LOCALE = str(os.environ.get('LOCALE'))
 
+
 def getData(name, realm, field):
     """Helper function that grabs data from the World of Warcraft API."""
-    path = 'https://%s.api.battle.net/wow/character/%s/%s?fields=%s&locale=%s&apikey=%s' % (WOW_REGION, realm, name, field, LOCALE, WOW_API_KEY)
+    path = 'https://%s.api.battle.net/wow/character/%s/%s?fields=%s&locale=%s&apikey=%s' % (
+        WOW_REGION, realm, name, field, LOCALE, WOW_API_KEY)
 
     request = requests.get(path)
     request_json = request.json()
@@ -22,9 +24,10 @@ def getData(name, realm, field):
         request_json = request.json()
 
     except requests.exceptions.RequestException as error:
-        # If there's an issue or a character doesn't exist, return an empty string.
+        # If there's an issue or a character doesn't exist, return an empty
+        # string.
         request_json = ''
-        print (error)
+        print(error)
 
     return request_json
 
@@ -75,7 +78,8 @@ def characterAchievements(name, realm, faction):
     if 11195 in info['achievements']['achievementsCompleted']:
         aotc_nh = 'Completed'
 
-    # RBG achievements have a different id/name based on faction, checks these based on function arg.
+    # RBG achievements have a different id/name based on faction, checks these
+    # based on function arg.
     if faction == 'Alliance':
         rbg_2400_name = 'Grand Marshall'
         rbg_2000_name = 'Lieutenant Commander'
@@ -84,7 +88,7 @@ def characterAchievements(name, realm, faction):
         if 5343 in info['achievements']['achievementsCompleted']:
             rbg_2400 = 'Completed'
 
-        if 5339 in info ['achievements']['achievementsCompleted']:
+        if 5339 in info['achievements']['achievementsCompleted']:
             rbg_2000 = 'Completed'
 
         if 5334 in info['achievements']['achievementsCompleted']:
@@ -165,8 +169,8 @@ def calculateBossKills(raid):
 
 
 def characterProgression(name, realm):
-    """Accepts a name/realm and determines the players players current progression.
-    Sends current raid data to the calculateBossKills function. """
+    """Accepts a name/realm and determines the players players
+    current progression."""
     info = getData(name, realm, 'progression')
 
     for raid in info['progression']['raids']:
@@ -190,13 +194,15 @@ def characterProgression(name, realm):
 
 
 def characterArenaProgress(name, realm):
-    """Accepts a name/realm and determines the players players current arena/bg progression. """
+    """Accepts a name/realm and determines the players players
+    current arena/bg progression. """
     info = getData(name, realm, 'pvp')
+    brackets = info['pvp']['brackets']
 
-    two_v_two = info['pvp']['brackets']['ARENA_BRACKET_2v2']['rating']
-    two_v_two_skirmish = info['pvp']['brackets']['ARENA_BRACKET_2v2_SKIRMISH']['rating']
-    three_v_three = info['pvp']['brackets']['ARENA_BRACKET_3v3']['rating']
-    rated_bg = info['pvp']['brackets']['ARENA_BRACKET_RBG']['rating']
+    two_v_two = brackets['ARENA_BRACKET_2v2']['rating']
+    two_v_two_skirmish = brackets['ARENA_BRACKET_2v2_SKIRMISH']['rating']
+    three_v_three = brackets['ARENA_BRACKET_3v3']['rating']
+    rated_bg = brackets['ARENA_BRACKET_RBG']['rating']
     honorable_kills = info['totalHonorableKills']
 
     pvp_data = {
@@ -222,7 +228,8 @@ def factionDetails(faction_id):
 
 
 def classDetails(class_type):
-    """Accepts a class index and then determines the colour code and name for that class."""
+    """Accepts a class index and then determines the
+    colour code and name for that class."""
     class_colour = ''
     class_name = ''
 
@@ -295,8 +302,9 @@ def classDetails(class_type):
 
 
 def characterInfo(name, realm, query):
-    """Main function which accepts a name/realm. Builds a character sheet out of their
-    name, realm, armory link, player thumbnail, ilvl, achievement and raid progress."""
+    """Main function which accepts a name/realm.
+    Builds a character sheet out of their name, realm,
+    armory link, player thumbnail, ilvl, achievement and raid progress."""
     name = name
     realm = realm
 
@@ -321,7 +329,8 @@ def characterInfo(name, realm, query):
                 'battlegroup': info['battlegroup'],
                 'class_colour': class_data['colour'],
                 'class_type': class_data['name'],
-                'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (WOW_REGION, realm, name),
+                'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (
+                    WOW_REGION, realm, name),
                 'thumb': info['thumbnail'],
                 'ilvl': info['items']['averageItemLevelEquipped'],
                 'keystone_master': achievements['keystone_master'],
@@ -347,7 +356,8 @@ def characterInfo(name, realm, query):
                 'battlegroup': info['battlegroup'],
                 'class_colour': class_data['colour'],
                 'class_type': class_data['name'],
-                'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (WOW_REGION, realm, name),
+                'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (
+                    WOW_REGION, realm, name),
                 'thumb': info['thumbnail'],
                 'ilvl': info['items']['averageItemLevelEquipped'],
                 'arena_challenger': achievements['arena_challenger'],
@@ -370,5 +380,6 @@ def characterInfo(name, realm, query):
             return pvp_character_sheet
 
     else:
-        # Otherwise return another empty string so the calling function knows how to handle it.
+        # Otherwise return another empty string so the calling function knows
+        # how to handle it.
         return ''
