@@ -105,20 +105,7 @@ async def on_message(message):
             msg.add_field(
                 name="Character",
                 value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`" % (
-                    info['name'], info['realm'], info['battlegroup'], info['ilvl']), 
-                inline=True)
-            msg.add_field(
-                name="Arena Achievements",
-                value="**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`" % (
-                    info['arena_challenger'], info['arena_rival'],
-                    info['arena_duelist'], info['arena_gladiator']),
-                inline=True)
-            msg.add_field(
-                name="RBG Achievements",
-                value="**`%s`:** `%s`\n**`%s`:** `%s`\n**`%s`:** `%s`" % (
-                    info['rbg_2400_name'], info['rbg_2400'],
-                    info['rbg_2000_name'], info['rbg_2000'],
-                    info['rbg_1500_name'], info['rbg_1500']),
+                    info['name'], info['realm'], info['battlegroup'], info['ilvl']),
                 inline=True)
             msg.add_field(
                 name="Rated 2v2",
@@ -144,6 +131,19 @@ async def on_message(message):
                 name="Lifetime Honorable Kills",
                 value="**`Rating`:** `%s`" % (
                     info['kills']),
+                inline=True)
+            msg.add_field(
+                name="Arena Achievements",
+                value="**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`" % (
+                    info['arena_challenger'], info['arena_rival'],
+                    info['arena_duelist'], info['arena_gladiator']),
+                inline=True)
+            msg.add_field(
+                name="RBG Achievements",
+                value="**`%s`:** `%s`\n**`%s`:** `%s`\n**`%s`:** `%s`" % (
+                    info['rbg_2400_name'], info['rbg_2400'],
+                    info['rbg_2000_name'], info['rbg_2000'],
+                    info['rbg_1500_name'], info['rbg_1500']),
                 inline=True)
 
             await client.send_message(message.channel, embed=msg)
