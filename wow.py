@@ -36,33 +36,57 @@ def characterAchievements(name, realm, content):
     Tracks Ahead of the Curve for NH, EN, TOV, and Keystone Conqueror/Master"""
     info = getData(name, realm, 'achievements')
 
-    if content == 'pve':
-        # Return In Progress/Incomplete unless they are found.
-        keystone_master = 'In Progress'
-        keystone_conqueror = 'In Progress'
-        aotc_en = 'Incomplete'
-        aotc_tov = 'Incomplete'
-        aotc_nh = 'Incomplete'
+    # Return In Progress/Incomplete unless they are found.
+    keystone_master = 'In Progress'
+    keystone_conqueror = 'In Progress'
+    arena_challenger = 'In Progress'
+    arena_rival = 'In Progress'
+    arena_duelist = 'In Progress'
+    arena_gladiator = 'In Progress'
+    aotc_en = 'Incomplete'
+    aotc_tov = 'Incomplete'
+    aotc_nh = 'Incomplete'
 
-        if 11162 in info['achievements']['achievementsCompleted']:
-            keystone_master = 'Completed +15'
+    if 11162 in info['achievements']['achievementsCompleted']:
+        keystone_master = 'Completed +15'
 
-        if 11185 in info['achievements']['achievementsCompleted']:
-            keystone_conqueror = 'Completed +10'
+    if 11185 in info['achievements']['achievementsCompleted']:
+        keystone_conqueror = 'Completed +10'
 
-        if 11194 in info['achievements']['achievementsCompleted']:
-            aotc_en = 'Completed'
+    if 2090 in info['achievements']['achievementsCompleted']:
+        arena_challenger = 'Completed'
 
-        if 11581 in info['achievements']['achievementsCompleted']:
-            aotc_tov = 'Completed'
+    if 2093 in info['achievements']['achievementsCompleted']:
+        arena_rival = 'Completed'
 
-        if 11195 in info['achievements']['achievementsCompleted']:
-            aotc_nh = 'Completed'
+    if 2092 in info['achievements']['achievementsCompleted']:
+        arena_duelist = 'Completed'
 
-        return [keystone_master, keystone_conqueror, aotc_en, aotc_tov, aotc_nh]
+    if 2091 in info['achievements']['achievementsCompleted']:
+        arena_gladiator = 'Completed'
 
-    if content == 'pvp':
-        return
+    if 11194 in info['achievements']['achievementsCompleted']:
+        aotc_en = 'Completed'
+
+    if 11581 in info['achievements']['achievementsCompleted']:
+        aotc_tov = 'Completed'
+
+    if 11195 in info['achievements']['achievementsCompleted']:
+        aotc_nh = 'Completed'
+
+    achievements = {
+        'keystone_master': keystone_master,
+        'keystone_conqueror': keystone_conqueror,
+        'arena_challenger': arena_challenger,
+        'arena_rival': arena_rival,
+        'arena_duelist': arena_duelist,
+        'arena_gladiator': arena_gladiator,
+        'aotc_en': aotc_en,
+        'aotc_tov': aotc_tov,
+        'aotc_nh': aotc_nh
+    }
+
+    return achievements
 
 
 def calculateBossKills(raid):
@@ -120,30 +144,24 @@ def characterProgression(name, realm):
         if raid['id'] == 8025:
             the_nighthold = calculateBossKills(raid)
 
-    return [emerald_nightmare, trial_of_valor, the_nighthold]
+    raids = {
+        'emerald_nightmare': emerald_nightmare,
+        'trial_of_valor': trial_of_valor,
+        'the_nighthold': the_nighthold
+    }
+
+    return raids
 
 
-def characterArenaProgress(name, realm)
+def characterArenaProgress(name, realm):
+    """Accepts a name/realm and determines the players players current arena/bg progression. """
     info = getData(name, realm, 'pvp')
-    
-    two_v_two = 0
-    two_v_two_skirmish = 0
-    three_v_three = 0
-    rated_bg = 0
+
+    two_v_two = info['pvp']['brackets']['ARENA_BRACKET_2v2']['rating']
+    two_v_two_skirmish = info['pvp']['brackets']['ARENA_BRACKET_2v2_SKIRMISH']['rating']
+    three_v_three = info['pvp']['brackets']['ARENA_BRACKET_3v3']['rating']
+    rated_bg = info['pvp']['brackets']['ARENA_BRACKET_RBG']['rating']
     honorable_kills = info['totalHonorableKills']
-
-    for bracket in info['pvp']['brackets']:
-        if bracket['slug'] == '2v2':
-            two_v_two = bracket['rating']
-
-        if bracket['slug'] == '2v2s':
-            two_v_two_skirmish = bracket['rating']
-
-        if bracket['slug'] == '3v3':
-            three_v_three = bracket['rating']
-
-        if bracket['slug'] == 'rbg':
-            rated_bg = bracket['rating']
 
     pvp_data = {
         '2v2': two_v_two,
@@ -154,6 +172,17 @@ def characterArenaProgress(name, realm)
     }
 
     return pvp_data
+
+
+def factionDetails(faction_id):
+    """Accepts a faction id and returns the name."""
+    if faction_id == 1:
+        faction_name = 'Horde'
+
+    if faction_id == 0:
+        faction_name = 'Alliance'
+
+    return faction_name
 
 
 def classDetails(class_type):
@@ -221,7 +250,12 @@ def classDetails(class_type):
         class_colour = 0xA330C9
         class_name = 'Demon Hunter'
 
-    return [class_colour, class_name]
+    class_details = {
+        'colour': class_colour,
+        'name': class_name
+    }
+
+    return class_details
 
 
 def characterInfo(name, realm, query):
@@ -236,29 +270,32 @@ def characterInfo(name, realm, query):
     # If the data returned isn't an empty string assume it found a character.
     if info != '':
         class_data = classDetails(info['class'])
+        faction_name = factionDetails(info['faction'])
 
+        # Builds a character sheet depending on the function argument.
         if query == 'pve':
             achievements = characterAchievements(name, realm, 'pve')
             progression = characterProgression(name, realm)
 
             pve_character_sheet = {
-                'name': info["name"],
-                'level': info["level"],
-                'realm': info["realm"],
-                'battlegroup': info["battlegroup"],
-                'class_colour': class_data[0],
-                'class_type': class_data[1],
+                'name': info['name'],
+                'level': info['level'],
+                'realm': info['realm'],
+                'faction': faction_name,
+                'battlegroup': info['battlegroup'],
+                'class_colour': class_data['colour'],
+                'class_type': class_data['name'],
                 'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (WOW_REGION, realm, name),
-                'thumb': info["thumbnail"],
-                'ilvl': info["items"]["averageItemLevelEquipped"],
-                'keystone_master': achievements[0],
-                'keystone_conqueror': achievements[1],
-                'aotc_en': achievements[2],
-                'aotc_tov': achievements[3],
-                'aotc_nh': achievements[4],
-                'emerald_nightmare': progression[0],
-                'trial_of_valor': progression[1],
-                'the_nighthold': progression[2]
+                'thumb': info['thumbnail'],
+                'ilvl': info['items']['averageItemLevelEquipped'],
+                'keystone_master': achievements['keystone_master'],
+                'keystone_conqueror': achievements['keystone_conqueror'],
+                'aotc_en': achievements['aotc_en'],
+                'aotc_tov': achievements['aotc_tov'],
+                'aotc_nh': achievements['aotc_nh'],
+                'emerald_nightmare': progression['emerald_nightmare'],
+                'trial_of_valor': progression['trial_of_valor'],
+                'the_nighthold': progression['the_nighthold']
             }
 
             return pve_character_sheet
@@ -268,24 +305,29 @@ def characterInfo(name, realm, query):
             pvp = characterArenaProgress(name, realm)
 
             pvp_character_sheet = {
-                'name': info["name"],
-                'level': info["level"],
-                'realm': info["realm"],
-                'battlegroup': info["battlegroup"],
-                'class_colour': class_data[0],
-                'class_type': class_data[1],
+                'name': info['name'],
+                'level': info['level'],
+                'realm': info['realm'],
+                'faction': faction_name,
+                'battlegroup': info['battlegroup'],
+                'class_colour': class_data['colour'],
+                'class_type': class_data['name'],
                 'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (WOW_REGION, realm, name),
-                'thumb': info["thumbnail"],
-                'ilvl': info["items"]["averageItemLevelEquipped"],
-                '2v2': pvp["2v2"],
-                '2v2s': pvp["2v2s"],
-                '3v3': pvp["3v3"],
-                'rbg': pvp["rbg"],
-                'kills': pvp["kills"]
+                'thumb': info['thumbnail'],
+                'ilvl': info['items']['averageItemLevelEquipped'],
+                'arena_challenger': achievements['arena_challenger'],
+                'arena_rival': achievements['arena_rival'],
+                'arena_duelist': achievements['arena_duelist'],
+                'arena_gladiator': achievements['arena_gladiator'],
+                '2v2': pvp['2v2'],
+                '2v2s': pvp['2v2s'],
+                '3v3': pvp['3v3'],
+                'rbg': pvp['rbg'],
+                'kills': pvp['kills']
             }
 
-            return pve_character_sheet
+            return pvp_character_sheet
 
     else:
-        # Otherwise return another empty string.
+        # Otherwise return another empty string so the calling function knows how to handle it.
         return ''

@@ -18,20 +18,21 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    # If it's not the bot and the message starts with '!armory' process it.
+    # If the author is not the bot, and the message starts with '!armory pve', display the characters PVE data sheet.
     if message.content.startswith('!armory pve'):
-        # Splits up the message, requires the user to type their message as '!wow Jimo burning-legion'.
-        # Sends the second word (name) and third word (realm) to the characterInfo function to build a character sheet.
+        # Splits up the message, requires the user to type their message as '!armory pve Jimo burning-legion'.
+        # Sends the query, third word (name), and fourth word (realm) to the characterInfo function to build a character sheet.
         split = message.content.split(" ")
-        info = characterInfo(split[2], split[3])
+        info = characterInfo(split[2], split[3], split[1])
 
         # If the returned data is an empty string send a message saying the player/realm couldn't be found.
         if info == '':
             msg = 'Could not find a player with that name/realm combination.'.format(message)
             await client.send_message(message.channel, msg)
+
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
-            msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(info['class_colour']), url="%s" % (info['armory']), description="%s %s" % (info['level'], info['class_type']))
+            msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(info['class_colour']), url="%s" % (info['armory']), description="%s %s %s" % (info['level'], info['faction'], info['class_type']))
 
             msg.set_thumbnail(url="https://render-%s.worldofwarcraft.com/character/%s" % (WOW_REGION, info['thumb']))
             msg.set_footer(text="Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues", icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
@@ -51,25 +52,23 @@ async def on_message(message):
             await client.send_message(message.channel, embed=msg)
 
 
-    # If it's not the bot and the message starts with '!armory' process it.
+    # Same as before, except this time it's building data for PVP.
     if message.content.startswith('!armory pvp'):
-        # Splits up the message, requires the user to type their message as '!wow Jimo burning-legion'.
-        # Sends the second word (name) and third word (realm) to the characterInfo function to build a character sheet.
         split = message.content.split(" ")
-        info = characterInfo(split[2], split[3])
+        info = characterInfo(split[2], split[3], split[1])
 
-        # If the returned data is an empty string send a message saying the player/realm couldn't be found.
         if info == '':
             msg = 'Could not find a player with that name/realm combination.'.format(message)
             await client.send_message(message.channel, msg)
-        # Otherwise respond with an incredibly long string of data holding all of the info.
+
         else:
-            msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(info['class_colour']), url="%s" % (info['armory']), description="%s %s" % (info['level'], info['class_type']))
+            msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(info['class_colour']), url="%s" % (info['armory']), description="%s %s %s" % (info['level'], info['faction'], info['class_type']))
 
             msg.set_thumbnail(url="https://render-%s.worldofwarcraft.com/character/%s" % (WOW_REGION, info['thumb']))
             msg.set_footer(text="Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues", icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
-
             msg.add_field(name="Character", value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`" % (info['name'], info['realm'], info['battlegroup'], info['ilvl']), inline=True)
+            msg.add_field(name="Arena Achievements", value="**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`" % (info['arena_challenger'], info['arena_rival'], \
+            info['arena_duelist'], info['arena_gladiator']), inline=True)
             msg.add_field(name="Rated 2v2", value="**`Rating`:** `%s`" % (info['2v2']), inline=True)
             msg.add_field(name="Rated 3v3", value="**`Rating`:** `%s`" % (info['3v3']), inline=True)
             msg.add_field(name="Rated Battlegrounds", value="**`Rating`:** `%s`" % (info['rbg']), inline=True)
@@ -77,5 +76,24 @@ async def on_message(message):
             msg.add_field(name="Lifetime Honorable Kills", value="**`Rating`:** `%s`" % (info['kills']), inline=True)
 
             await client.send_message(message.channel, embed=msg)
+
+
+    # Display a list of available commands and a set of credits.
+    if message.content.startswith('!armory help'):
+        msg = """The following commands can be entered:
+            ```
+            # Displays a players PVE progression, dungeon kills, keystone achievements, etc.
+            !armory pve <name> <realm>
+
+            # Displays a players PVP progression, arena ratings, honorable kills, etc.
+            !armory pvp <name> <realm>
+            ```
+            * Bot created by James Ives (jamesives.co.uk)
+            * Feedback & Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
+            """
+
+        msg = '%s'.format(message) % re.sub(r'(^[ \t]+|[ \t]+(?=:))', '', msg, flags=re.M)
+        await client.send_message(message.channel, msg)
+
 
 client.run(DISCORD_BOT_TOKEN)
