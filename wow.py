@@ -41,8 +41,11 @@ def characterAchievements(name, realm, faction):
     arena_rival = 'In Progress'
     arena_duelist = 'In Progress'
     arena_gladiator = 'In Progress'
+    rbg_2400_name = '2400'
     rbg_2400 = 'In Progress'
+    rbg_2000_name = '2000'
     rbg_2000 = 'In Progress'
+    rbg_1500_name = '1500'
     rbg_1500 = 'In Progress'
     aotc_en = 'Incomplete'
     aotc_tov = 'Incomplete'
@@ -305,6 +308,7 @@ def characterInfo(name, realm, query):
     if info != '':
         class_data = classDetails(info['class'])
         faction_name = factionDetails(info['faction'])
+        print(faction_name)
         achievements = characterAchievements(name, realm, faction_name)
 
         # Builds a character sheet depending on the function argument.
