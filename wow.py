@@ -41,11 +41,8 @@ def characterAchievements(name, realm, faction):
     arena_rival = 'In Progress'
     arena_duelist = 'In Progress'
     arena_gladiator = 'In Progress'
-    rbg_2400_name = '2400'
     rbg_2400 = 'In Progress'
-    rbg_2000_name = '2000'
     rbg_2000 = 'In Progress'
-    rbg_1500_name = '1500'
     rbg_1500 = 'In Progress'
     aotc_en = 'Incomplete'
     aotc_tov = 'Incomplete'
@@ -78,31 +75,33 @@ def characterAchievements(name, realm, faction):
     if 11195 in info['achievements']['achievementsCompleted']:
         aotc_nh = 'Completed'
 
-    # RBG achievements have a different id based on faction, checks these based on function arg.
+    # RBG achievements have a different id/name based on faction, checks these based on function arg.
     if faction == 'Alliance':
+        rbg_2400_name = 'Grand Marshall'
+        rbg_2000_name = 'Lieutenant Commander'
+        rbg_1500_name = 'Sergeant Major'
+
         if 5343 in info['achievements']['achievementsCompleted']:
-            rbg_2400_name = 'Grand Marshall'
             rbg_2400 = 'Completed'
 
         if 5339 in info ['achievements']['achievementsCompleted']:
-            rbg_2000_name = 'Lieutenant Commander'
             rbg_2000 = 'Completed'
 
         if 5334 in info['achievements']['achievementsCompleted']:
-            rbg_1500_name = 'Sergeant Major'
             rbg_1500 = 'Completed'
 
     if faction == 'Horde':
+        rbg_2400_name = 'High Warlord'
+        rbg_2000_name = 'Champion'
+        rbg_1500_name = 'First Sergeant'
+
         if 5356 in info['achievements']['achievementsCompleted']:
-            rbg_2400_name = 'High Warlord'
             rbg_2400 = 'Completed'
 
         if 5353 in info['achievements']['achievementsCompleted']:
-            rbg_2000_name = 'Champion'
             rbg_2000 = 'Completed'
 
         if 5349 in info['achievements']['achievementsCompleted']:
-            rbg_1500_name = 'First Sergeant'
             rbg_1500 = 'Completed'
 
     achievements = {
@@ -308,7 +307,6 @@ def characterInfo(name, realm, query):
     if info != '':
         class_data = classDetails(info['class'])
         faction_name = factionDetails(info['faction'])
-        print(faction_name)
         achievements = characterAchievements(name, realm, faction_name)
 
         # Builds a character sheet depending on the function argument.
