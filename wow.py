@@ -4,11 +4,9 @@ import requests
 import os
 import json
 
-
 WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
 WOW_REGION = str(os.environ.get('WOW_REGION'))
 LOCALE = str(os.environ.get('LOCALE'))
-
 
 def getData(name, realm, field):
     """Helper function that grabs data from the World of Warcraft API."""
@@ -31,8 +29,8 @@ def getData(name, realm, field):
     return request_json
 
 
-def characterAchievements(name, realm):
-    """Accepts a name/realm, and returns notable achievement progress.
+def characterAchievements(name, realm, faction):
+    """Accepts a name/realm/faction, and returns notable achievement progress.
     Tracks Ahead of the Curve for NH, EN, TOV, and Keystone Conqueror/Master"""
     info = getData(name, realm, 'achievements')
 
@@ -43,6 +41,9 @@ def characterAchievements(name, realm):
     arena_rival = 'In Progress'
     arena_duelist = 'In Progress'
     arena_gladiator = 'In Progress'
+    rbg_2400 = 'In Progress'
+    rbg_2000 = 'In Progress'
+    rbg_1500 = 'In Progress'
     aotc_en = 'Incomplete'
     aotc_tov = 'Incomplete'
     aotc_nh = 'Incomplete'
@@ -74,6 +75,33 @@ def characterAchievements(name, realm):
     if 11195 in info['achievements']['achievementsCompleted']:
         aotc_nh = 'Completed'
 
+    # RBG achievements have a different id based on faction, checks these based on function arg.
+    if faction == 'Alliance':
+        if 5343 in info['achievements']['achievementsCompleted']:
+            rbg_2400_name = 'Grand Marshall'
+            rbg_2400 = 'Completed'
+
+        if 5339 in info ['achievements']['achievementsCompleted']:
+            rbg_2000_name = 'Lieutenant Commander'
+            rbg_2000 = 'Completed'
+
+        if 5334 in info['achievements']['achievementsCompleted']:
+            rbg_1500_name = 'Sergeant Major'
+            rbg_1500 = 'Completed'
+
+    if faction == 'Horde':
+        if 5356 in info['achievements']['achievementsCompleted']:
+            rbg_2400_name = 'High Warlord'
+            rbg_2400 = 'Completed'
+
+        if 5353 in info['achievements']['achievementsCompleted']:
+            rbg_2000_name = 'Champion'
+            rbg_2000 = 'Completed'
+
+        if 5349 in info['achievements']['achievementsCompleted']:
+            rbg_1500_name = 'First Sergeant'
+            rbg_1500 = 'Completed'
+
     achievements = {
         'keystone_master': keystone_master,
         'keystone_conqueror': keystone_conqueror,
@@ -81,6 +109,12 @@ def characterAchievements(name, realm):
         'arena_rival': arena_rival,
         'arena_duelist': arena_duelist,
         'arena_gladiator': arena_gladiator,
+        'rbg_2400_name': rbg_2400_name,
+        'rbg_2000_name': rbg_2000_name,
+        'rbg_1500_name': rbg_1500_name,
+        'rbg_2400': rbg_2400,
+        'rbg_2000': rbg_2000,
+        'rbg_1500': rbg_1500,
         'aotc_en': aotc_en,
         'aotc_tov': aotc_tov,
         'aotc_nh': aotc_nh
@@ -271,7 +305,7 @@ def characterInfo(name, realm, query):
     if info != '':
         class_data = classDetails(info['class'])
         faction_name = factionDetails(info['faction'])
-        achievements = characterAchievements(name, realm)
+        achievements = characterAchievements(name, realm, faction_name)
 
         # Builds a character sheet depending on the function argument.
         if query == 'pve':
@@ -322,7 +356,13 @@ def characterInfo(name, realm, query):
                 '2v2s': pvp['2v2s'],
                 '3v3': pvp['3v3'],
                 'rbg': pvp['rbg'],
-                'kills': pvp['kills']
+                'kills': pvp['kills'],
+                'rbg_2400_name': achievements['rbg_2400_name'],
+                'rbg_2400': achievements['rbg_2400'],
+                'rbg_2000_name': achievements['rbg_2000_name'],
+                'rbg_2000': achievements['rbg_2000'],
+                'rbg_1500_name': achievements['rbg_1500_name'],
+                'rbg_1500': achievements['rbg_1500'],
             }
 
             return pvp_character_sheet

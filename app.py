@@ -5,10 +5,8 @@ import os
 import re
 from wow import *
 
-
 DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
 client = discord.Client()
-
 
 @client.event
 async def on_message(message):
@@ -33,10 +31,8 @@ async def on_message(message):
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
             msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(info['class_colour']), url="%s" % (info['armory']), description="%s %s %s" % (info['level'], info['faction'], info['class_type']))
-
             msg.set_thumbnail(url="https://render-%s.worldofwarcraft.com/character/%s" % (WOW_REGION, info['thumb']))
             msg.set_footer(text="Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues", icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
-
             msg.add_field(name="Character", value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Item Level`:** `%s`" % (info['name'], info['realm'], info['ilvl']), inline=True)
             msg.add_field(name="Keystone Achievements", value="**`Master`:** `%s`\n**`Conqueror`:** `%s`" % (info['keystone_master'], info['keystone_conqueror']), inline=True)
             msg.add_field(name="Emerald Nightmare", value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (info['emerald_nightmare']['normal'], \
@@ -63,12 +59,13 @@ async def on_message(message):
 
         else:
             msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(info['class_colour']), url="%s" % (info['armory']), description="%s %s %s" % (info['level'], info['faction'], info['class_type']))
-
             msg.set_thumbnail(url="https://render-%s.worldofwarcraft.com/character/%s" % (WOW_REGION, info['thumb']))
             msg.set_footer(text="Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues", icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
             msg.add_field(name="Character", value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`" % (info['name'], info['realm'], info['battlegroup'], info['ilvl']), inline=True)
             msg.add_field(name="Arena Achievements", value="**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`" % (info['arena_challenger'], info['arena_rival'], \
             info['arena_duelist'], info['arena_gladiator']), inline=True)
+            msg.add_field(name="RBG Achievements", value="**`%s`:** `%s`\n**`%s`:** `%s`\n**`%s`:** `%s`" % (info['rbg_2400_name'], info['rbg_2400'], \
+            info['rbg_2000_name'], info['rbg_2000'], info['rbg_1500_name'], info['rbg_1500']), inline=True)
             msg.add_field(name="Rated 2v2", value="**`Rating`:** `%s`" % (info['2v2']), inline=True)
             msg.add_field(name="Rated 3v3", value="**`Rating`:** `%s`" % (info['3v3']), inline=True)
             msg.add_field(name="Rated Battlegrounds", value="**`Rating`:** `%s`" % (info['rbg']), inline=True)
@@ -88,8 +85,8 @@ async def on_message(message):
             # Displays a players PVP progression, arena ratings, honorable kills, etc.
             !armory pvp <name> <realm>
             ```
-            * Bot created by James Ives (jamesives.co.uk)
-            * Feedback & Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
+            > Bot created by James Ives (jamesives.co.uk)
+            > Feedback, Issues and Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
             """
 
         msg = '%s'.format(message) % re.sub(r'(^[ \t]+|[ \t]+(?=:))', '', msg, flags=re.M)

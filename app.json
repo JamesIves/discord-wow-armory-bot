@@ -1,0 +1,32 @@
+{
+  "name": "World of Warcraft Armory Discord Bot",
+  "description": "Discord bot which displays notable PVE/PVP achievements and progress.",
+  "repository": "https://github.com/JamesIves/discord-wow-armory-bot",
+  "keywords": [
+    "python",
+    "python3",
+    "discord",
+    "discord-bot",
+    "blizzard",
+    "blizzard-api", "world-of-warcraft", "wow", "wow-api"],
+    "website": "https://jamesiv.es",
+    "env": {
+      "WOW_API_KEY": {
+        "description": "Required to make calls to the Blizzard API key, you can sign up for a key here: https://dev.battle.net/",
+        "value": "replace_me"
+      },
+      "WOW_REGION": {
+        "description": "The region you'd like to query, for example us or eu.",
+        "value": "us"
+      },
+      "LOCALE": {
+        "description": "The language for your selected WoW region, for example en_US.",
+        "value": "en_US"
+      },
+      "DISCORD_BOT_TOKEN": {
+        "description": "The token for your Discord bot user, you can sign up for one here: https://discordapp.com/developers/docs/intro",
+        "value": "replace_me"
+      }
+    }
+  }
+}
