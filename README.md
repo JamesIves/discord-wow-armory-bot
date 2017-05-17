@@ -37,14 +37,20 @@ You'll also need to setup your config variables within the `Settings` tab.
 
 
 ## Commands
-This is a rather simple bot and only has one command.
+The following commands are accepted.
 
 ```
-# This will display the armory information for the player Helenek on the realm Illidan.
-!armory Helenek Illidan
+# PVP/Arena Ratings
+!armory pvp Helenek illidan
+
+# PVE Progression/Raids
+!armory pve Jimo burning-legion
+
+# Displays a list of commands
+!armory help
 
 # Command Formatting
-!armory <name> <server>
+!armory <content> <name> <server>
 ```
 
 ![Screenshot](assets/screenshot.png)
