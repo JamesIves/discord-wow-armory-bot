@@ -8,7 +8,6 @@ from wow import *
 DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
 client = discord.Client()
 
-
 @client.event
 async def on_message(message):
     """Listens for specific user messages."""
@@ -17,24 +16,19 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    # If the author is not the bot, and the message starts with '!armory pve',
-    # display the characters PVE data sheet.
+    # If the author is not the bot, and the message starts with '!armory pve', display the characters PVE data sheet.
     if message.content.startswith('!armory pve'):
         # Splits up the message, requires the user to type their message as '!armory pve Jimo burning-legion'.
-        # Sends the query, third word (name), and fourth word (realm) to the
-        # characterInfo function to build a character sheet.
+        # Sends the query, third word (name), and fourth word (realm) to the characterInfo function to build a character sheet.
         split = message.content.split(" ")
         info = characterInfo(split[2], split[3], split[1])
 
-        # If the returned data is an empty string send a message saying the
-        # player/realm couldn't be found.
+        # If the returned data is an empty string send a message saying the player/realm couldn't be found.
         if info == '':
-            msg = 'Could not find a player with that name/realm combination.'.format(
-                message)
+            msg = 'Could not find a player with that name/realm combination.'.format(message)
             await client.send_message(message.channel, msg)
 
-        # Otherwise respond with an incredibly long string of data holding all
-        # of the info.
+        # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
             msg = discord.Embed(
                 title="%s" % (info['name']),
@@ -85,41 +79,75 @@ async def on_message(message):
 
             await client.send_message(message.channel, embed=msg)
 
+
     # Same as before, except this time it's building data for PVP.
     if message.content.startswith('!armory pvp'):
         split = message.content.split(" ")
         info = characterInfo(split[2], split[3], split[1])
 
         if info == '':
-            msg = 'Could not find a player with that name/realm combination.'.format(
-                message)
+            msg = 'Could not find a player with that name/realm combination.'.format(message)
             await client.send_message(message.channel, msg)
 
         else:
-            msg = discord.Embed(title="%s" % (info['name']), colour=discord.Colour(info['class_colour']), url="%s" % (
-                info['armory']), description="%s %s %s" % (info['level'], info['faction'], info['class_type']))
+            msg = discord.Embed(
+                title="%s" % (info['name']),
+                colour=discord.Colour(info['class_colour']),
+                url="%s" % (info['armory']),
+                description="%s %s %s" % (
+                    info['level'], info['faction'], info['class_type']))
             msg.set_thumbnail(
-                url="https://render-%s.worldofwarcraft.com/character/%s" % (WOW_REGION, info['thumb']))
-            msg.set_footer(text="!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues",
-                           icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
-            msg.add_field(name="Character", value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`" %
-                          (info['name'], info['realm'], info['battlegroup'], info['ilvl']), inline=True)
-            msg.add_field(name="Arena Achievements", value="**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`" % (info['arena_challenger'], info['arena_rival'],
-                                                                                                                                                      info['arena_duelist'], info['arena_gladiator']), inline=True)
-            msg.add_field(name="RBG Achievements", value="**`%s`:** `%s`\n**`%s`:** `%s`\n**`%s`:** `%s`" % (info['rbg_2400_name'], info['rbg_2400'],
-                                                                                                             info['rbg_2000_name'], info['rbg_2000'], info['rbg_1500_name'], info['rbg_1500']), inline=True)
-            msg.add_field(name="Rated 2v2", value="**`Rating`:** `%s`" %
-                          (info['2v2']), inline=True)
-            msg.add_field(name="Rated 3v3", value="**`Rating`:** `%s`" %
-                          (info['3v3']), inline=True)
-            msg.add_field(name="Rated Battlegrounds",
-                          value="**`Rating`:** `%s`" % (info['rbg']), inline=True)
-            msg.add_field(name="2v2 Skirmish", value="**`Rating`:** `%s`" %
-                          (info['2v2s']), inline=True)
-            msg.add_field(name="Lifetime Honorable Kills",
-                          value="**`Rating`:** `%s`" % (info['kills']), inline=True)
+                url="https://render-%s.worldofwarcraft.com/character/%s" % (
+                    WOW_REGION, info['thumb']))
+            msg.set_footer(
+                text="!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues",
+                icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
+            msg.add_field(
+                name="Character",
+                value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`" % (
+                    info['name'], info['realm'], info['battlegroup'], info['ilvl']), 
+                inline=True)
+            msg.add_field(
+                name="Arena Achievements",
+                value="**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`" % (
+                    info['arena_challenger'], info['arena_rival'],
+                    info['arena_duelist'], info['arena_gladiator']),
+                inline=True)
+            msg.add_field(
+                name="RBG Achievements",
+                value="**`%s`:** `%s`\n**`%s`:** `%s`\n**`%s`:** `%s`" % (
+                    info['rbg_2400_name'], info['rbg_2400'],
+                    info['rbg_2000_name'], info['rbg_2000'],
+                    info['rbg_1500_name'], info['rbg_1500']),
+                inline=True)
+            msg.add_field(
+                name="Rated 2v2",
+                value="**`Rating`:** `%s`" % (
+                    info['2v2']),
+                inline=True)
+            msg.add_field(
+                name="Rated 3v3",
+                value="**`Rating`:** `%s`" % (
+                    info['3v3']),
+                inline=True)
+            msg.add_field(
+                name="Rated Battlegrounds",
+                value="**`Rating`:** `%s`" % (
+                    info['rbg']),
+                inline=True)
+            msg.add_field(
+                name="2v2 Skirmish",
+                value="**`Rating`:** `%s`" % (
+                    info['2v2s']),
+                inline=True)
+            msg.add_field(
+                name="Lifetime Honorable Kills",
+                value="**`Rating`:** `%s`" % (
+                    info['kills']),
+                inline=True)
 
             await client.send_message(message.channel, embed=msg)
+
 
     # Display a list of available commands and a set of credits.
     if message.content.startswith('!armory help'):
@@ -135,8 +163,7 @@ async def on_message(message):
             • Feedback, Issues and Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
             """
 
-        msg = '%s'.format(message) % re.sub(
-            r'(^[ \t]+|[ \t]+(?=:))', '', msg, flags=re.M)
+        msg = '%s'.format(message) % re.sub(r'(^[ \t]+|[ \t]+(?=:))', '', msg, flags=re.M)
         await client.send_message(message.channel, msg)
 
 
