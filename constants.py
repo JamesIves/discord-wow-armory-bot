@@ -23,6 +23,14 @@ AC_GRAND_MARSHALL = 5343
 AC_LIEUTENANT_COMMANDER = 5339
 AC_SERGEANT_MAJOR = 5334
 
+# Achievement Title Constants
+AC_HIGH_WARLORD_NAME = 'High Warlord'
+AC_CHAMPION_NAME = 'Champion'
+AC_FIRST_SERGEANT_NAME = 'First Sergeant'
+AC_GRAND_MARSHALL_NAME = 'Grand Marshall'
+AC_LIEAUTENANT_COMMANDER_NAME = 'Lieutenant Commander'
+AC_SERGEANT_MAJOR_NAME = 'Sergeant Major'
+
 # Raid Constants
 RAID_EN = 8026
 RAID_TOV = 8440

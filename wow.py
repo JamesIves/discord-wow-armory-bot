@@ -90,9 +90,9 @@ def character_achievements(achievement_data, faction):
     # RBG achievements have a different id/name based on faction, checks these
     # based on function arg.
     if faction == 'Alliance':
-        rbg_2400_name = 'Grand Marshall'
-        rbg_2000_name = 'Lieutenant Commander'
-        rbg_1500_name = 'Sergeant Major'
+        rbg_2400_name = AC_GRAND_MARSHALL_NAME
+        rbg_2000_name = AC_LIEAUTENANT_COMMANDER_NAME
+        rbg_1500_name = AC_SERGEANT_MAJOR_NAME
 
         if AC_GRAND_MARSHALL in achievements['achievementsCompleted']:
             rbg_2400 = 'Completed'
@@ -104,9 +104,9 @@ def character_achievements(achievement_data, faction):
             rbg_1500 = 'Completed'
 
     if faction == 'Horde':
-        rbg_2400_name = 'High Warlord'
-        rbg_2000_name = 'Champion'
-        rbg_1500_name = 'First Sergeant'
+        rbg_2400_name = AC_HIGH_WARLORD_NAME
+        rbg_2000_name = AC_CHAMPION_NAME
+        rbg_1500_name = AC_FIRST_SERGEANT_NAME
 
         if AC_HIGH_WARLORD in achievements['achievementsCompleted']:
             rbg_2400 = 'Completed'
@@ -145,7 +145,6 @@ def calculate_boss_kills(raid):
     the player has killed and at what difficulty."""
 
     # Initiate values at zero.
-    raid_name = raid['name']
     lfr_kills = 0
     normal_kills = 0
     heroic_kills = 0

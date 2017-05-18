@@ -95,5 +95,176 @@ class BaseTest(unittest.TestCase):
         self.assertEqual(faction_details(FACTION_HORDE), 'Horde')
 
 
+    def test_for_achievement_progress(self):
+        # Passes in some mock API data and expects it to return as completed.
+        # Tests for accuracy on each id check, not API data.
+        self.maxDiff = None
+        input_data_horde_sample = {
+            "achievements": {
+                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
+                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349]
+            }
+        }
+
+        input_data_alliance_sample = {
+            "achievements": {
+                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
+                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334]
+            }
+        }
+
+        expected_horde_data = {
+            'challenging_look': 'Completed',
+            'keystone_master': 'Completed',
+            'keystone_conqueror': 'Completed',
+            'keystone_challenger': 'Completed',
+            'arena_challenger': 'Completed',
+            'arena_rival': 'Completed',
+            'arena_duelist': 'Completed',
+            'arena_gladiator': 'Completed',
+            'rbg_2400_name': AC_HIGH_WARLORD_NAME,
+            'rbg_2000_name': AC_CHAMPION_NAME,
+            'rbg_1500_name': AC_FIRST_SERGEANT_NAME,
+            'rbg_2400': 'Completed',
+            'rbg_2000': 'Completed',
+            'rbg_1500': 'Completed',
+            'aotc_en': 'Completed',
+            'aotc_tov': 'Completed',
+            'aotc_nh': 'Completed'
+        }
+
+        expected_alliance_data = {
+            'challenging_look': 'Completed',
+            'keystone_master': 'Completed',
+            'keystone_conqueror': 'Completed',
+            'keystone_challenger': 'Completed',
+            'arena_challenger': 'Completed',
+            'arena_rival': 'Completed',
+            'arena_duelist': 'Completed',
+            'arena_gladiator': 'Completed',
+            'rbg_2400_name': AC_GRAND_MARSHALL_NAME,
+            'rbg_2000_name': AC_LIEAUTENANT_COMMANDER_NAME,
+            'rbg_1500_name': AC_SERGEANT_MAJOR_NAME,
+            'rbg_2400': 'Completed',
+            'rbg_2000': 'Completed',
+            'rbg_1500': 'Completed',
+            'aotc_en': 'Completed',
+            'aotc_tov': 'Completed',
+            'aotc_nh': 'Completed'
+        }
+
+        self.assertEqual(character_achievements(input_data_horde_sample, 'Horde'), expected_horde_data)
+        self.assertEqual(character_achievements(input_data_alliance_sample, 'Alliance'), expected_alliance_data)
+
+    def test_pvp_progression(self):
+        # Passes in some mock API data and expects it to return an object with the correct data.
+        # Tests for accuracy on each data check, not API data.
+        self.maxDiff = None
+        sample_data = {
+           "pvp": {
+                "brackets": {
+                    "ARENA_BRACKET_2v2": {
+                        "rating": 5928,
+                    },
+                    "ARENA_BRACKET_3v3": {
+                        "rating": 1858,
+                    },
+                    "ARENA_BRACKET_RBG": {
+                        "rating": 5999,
+                    },
+                    "ARENA_BRACKET_2v2_SKIRMISH": {
+                        "rating": 2985,
+                    }
+                }
+            },
+            "totalHonorableKills": 888399
+        }
+
+        expected_data = {
+            '2v2': 5928,
+            '2v2s': 2985,
+            '3v3': 1858,
+            'rbg': 5999,
+            'kills': 888399
+        }
+
+        self.assertEqual(character_arena_progress(sample_data), expected_data)
+
+    def test_pve_progression(self):
+        # Passes in some mock API data and expects it to return an object with the correct data.
+        # Tests for accuracy on each data check, not API data.
+        self.maxDiff = None
+        sample_data = {
+            "progression": {
+                "raids": [
+                    {
+                    "id": 8026,
+                    "bosses": [{
+                        "lfrKills": 19,
+                        "normalKills": 8,
+                        "heroicKills": 5,
+                        "mythicKills": 3,
+                        },
+                        {
+                        "lfrKills": 3,
+                        "normalKills": 7,
+                        "heroicKills": 3,
+                        "mythicKills": 2,
+                        }]
+                    },
+                    {
+                    "id": 8440,
+                    "bosses": [{
+                        "lfrKills": 7,
+                        "normalKills": 1,
+                        "heroicKills": 1,
+                        "mythicKills": 0,
+                        }]
+                    },
+                    {
+                    "id": 8025,
+                    "bosses": [{
+                        "lfrKills": 3,
+                        "normalKills": 2,
+                        "heroicKills": 1,
+                        "mythicKills": 0,
+                        },
+                        {
+                        "lfrKills": 5,
+                        "normalKills": 2,
+                        "heroicKills": 2,
+                        "mythicKills": 0,
+                        }]
+                    }]
+                }
+            }
+
+        expected_data = {
+            'emerald_nightmare':{
+                  'lfr':2,
+                  'normal':2,
+                  'heroic':2,
+                  'mythic':2,
+                  'bosses':2
+               },
+               'trial_of_valor':{
+                  'lfr':1,
+                  'normal':1,
+                  'heroic':1,
+                  'mythic':0,
+                  'bosses':1
+               },
+               'the_nighthold':{
+                  'lfr':2,
+                  'normal':2,
+                  'heroic':2,
+                  'mythic':0,
+                  'bosses':2
+               }
+        }
+
+        self.assertEqual(character_progression(sample_data), expected_data)
+
+
 if __name__ == '__main__':
     unittest.main()
