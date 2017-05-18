@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import requests
-import os
 import json
 
 def get_data(name, realm, field):

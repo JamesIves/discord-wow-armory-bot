@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import discord
-import os
 import re
 from constants import *
 from wow import *
