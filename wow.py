@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import requests
 import json
+from constants import *
 
 def get_data(name, realm, field):
     """Helper function that grabs data from the World of Warcraft API."""

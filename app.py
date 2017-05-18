@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import discord
 import re
-from constants import *
+from constants import DISCORD_BOT_TOKEN
 from wow import *
 
 client = discord.Client()
