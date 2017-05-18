@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import discord
+import os
 import re
-from constants import DISCORD_BOT_TOKEN
 from wow import *
 
+DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
 client = discord.Client()
 
 @client.event

@@ -1,16 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import os
 
 """Dictionary of constants used throughout the application."""
-
-# Discord API
-DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
-
-# Blizzard API
-WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
-WOW_REGION = str(os.environ.get('WOW_REGION'))
-LOCALE = str(os.environ.get('LOCALE'))
 
 # Achievement Constants
 AC_CHALLENGING_LOOK = 11611
