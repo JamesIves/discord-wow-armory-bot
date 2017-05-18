@@ -1,8 +1,13 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-"""Dictionary of id numbers used inside wow.py
-    Each value ties back to an achievement/raid/faction/name."""
+"""Dictionary of constants used throughout the application."""
+
+# API Credentials
+DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
+WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
+WOW_REGION = str(os.environ.get('WOW_REGION'))
+LOCALE = str(os.environ.get('LOCALE'))
 
 # Achievement Constants
 AC_CHALLENGING_LOOK = 11611

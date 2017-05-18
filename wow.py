@@ -3,11 +3,8 @@
 import requests
 import os
 import json
-from const import *
+from constants import *
 
-WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
-WOW_REGION = str(os.environ.get('WOW_REGION'))
-LOCALE = str(os.environ.get('LOCALE'))
 
 def get_data(name, realm, field):
     """Helper function that grabs data from the World of Warcraft API."""

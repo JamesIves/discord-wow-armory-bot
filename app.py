@@ -3,9 +3,9 @@
 import discord
 import os
 import re
+from constants import *
 from wow import *
 
-DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
 client = discord.Client()
 
 @client.event
