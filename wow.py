@@ -34,8 +34,8 @@ def get_data(name, realm, field):
 
 
 def character_achievements(achievement_data, faction):
-    """Accepts a name/realm/faction, and returns notable achievement progress.
-    Tracks Ahead of the Curve for NH, EN, TOV, and Keystone Conqueror/Master"""
+    """Accepts achievement data json and a faction string,
+    and returns notable achievement progress. """
     achievements = achievement_data['achievements']
 
     # Return In Progress/Incomplete unless they are found.
@@ -88,7 +88,7 @@ def character_achievements(achievement_data, faction):
         aotc_nh = 'Completed'
 
     # RBG achievements have a different id/name based on faction, checks these
-    # based on function arg.
+    # based on function argument.
     if faction == 'Alliance':
         rbg_2400_name = AC_GRAND_MARSHALL_NAME
         rbg_2000_name = AC_LIEAUTENANT_COMMANDER_NAME
@@ -179,8 +179,8 @@ def calculate_boss_kills(raid):
 
 
 def character_progression(progression_data):
-    """Accepts a name/realm and determines the players players
-    current progression."""
+    """Accepts a JSON object containing raid data
+    and returns the players current progression."""
     raids = progression_data['progression']['raids']
 
     for raid in raids:
@@ -204,8 +204,8 @@ def character_progression(progression_data):
 
 
 def character_arena_progress(pvp_data):
-    """Accepts a name/realm and determines the players players
-    current arena/bg progression. """
+    """Accepts a JSON object containing pvp data
+    and returns the players current arena/bg progression. """
     brackets = pvp_data['pvp']['brackets']
 
     two_v_two = brackets['ARENA_BRACKET_2v2']['rating']
@@ -311,9 +311,9 @@ def class_details(class_type):
 
 
 def character_info(name, realm, query):
-    """Main function which accepts a name/realm.
+    """Main function which accepts a name/realm/query(pvp or pve).
     Builds a character sheet out of their name, realm,
-    armory link, player thumbnail, ilvl, achievement and raid progress."""
+    armory link, player thumbnail, ilvl, achievement and raid progress and more."""
     name = name
     realm = realm
 
