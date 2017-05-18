@@ -64,7 +64,7 @@ def character_achievements(name, realm, faction):
     if AC_ARENA_CHALLENGER in achievements['achievementsCompleted']:
         arena_challenger = 'Completed'
 
-    if AC_ARENA_RIVA in achievements['achievementsCompleted']:
+    if AC_ARENA_RIVAL in achievements['achievementsCompleted']:
         arena_rival = 'Completed'
 
     if AC_ARENA_DUELIST in achievements['achievementsCompleted']:
