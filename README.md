@@ -1,4 +1,5 @@
 # World of Warcraft Armory Discord Bot
+[![Build Status](https://travis-ci.org/JamesIves/discord-wow-armory-bot.svg?branch=master)](https://travis-ci.org/JamesIves/discord-wow-armory-bot)
 This is a simple Discord bot for World of Warcraft built on [discord.py](https://github.com/Rapptz/discord.py). You're able to enter a character name and realm to get a quick view at a characters item level, notable achievements, and pve/pvp progression.
 
 
@@ -45,6 +46,8 @@ Once the application is running you'll need to invite the bot to your Discord se
 
 ## Running the Application
 This application can be executed locally by running `$ python3 app.py`. This will initialize the script and connect the bot. If the bot has already been invited to a server it will change its status to online.
+
+There are a number of tests that can be ran by running `$ python3 tests.py` which check the returned data for accuracy.
 
 
 ## Commands
