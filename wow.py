@@ -5,7 +5,7 @@ import json
 import os
 from constants import *
 
-# Blizzard API
+# Blizzard API values
 WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
 WOW_REGION = str(os.environ.get('WOW_REGION'))
 LOCALE = str(os.environ.get('LOCALE'))

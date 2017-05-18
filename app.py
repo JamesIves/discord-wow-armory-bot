@@ -5,6 +5,7 @@ import os
 import re
 from wow import *
 
+# Discord API values
 DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
 client = discord.Client()
 
