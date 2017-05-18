@@ -5,6 +5,7 @@ import os
 import re
 from wow import *
 
+# Discord API values
 DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
 client = discord.Client()
 
@@ -21,7 +22,7 @@ async def on_message(message):
         # Splits up the message, requires the user to type their message as '!armory pve Jimo burning-legion'.
         # Sends the query, third word (name), and fourth word (realm) to the characterInfo function to build a character sheet.
         split = message.content.split(" ")
-        info = characterInfo(split[2], split[3], split[1])
+        info = character_info(split[2], split[3], split[1])
 
         # If the returned data is an empty string send a message saying the player/realm couldn't be found.
         if info == '':
@@ -44,13 +45,14 @@ async def on_message(message):
                 icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
             msg.add_field(
                 name="Character",
-                value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Item Level`:** `%s`" % (
-                    info['name'], info['realm'], info['ilvl']),
+                value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Item Level`:** `%s`\n**`Artifact Challenge`:** `%s`" % (
+                    info['name'], info['realm'], info['ilvl'], info['challenging_look']),
                 inline=True)
             msg.add_field(
                 name="Keystone Achievements",
-                value="**`Master`:** `%s`\n**`Conqueror`:** `%s`" % (
-                    info['keystone_master'], info['keystone_conqueror']),
+                value="**`Master(+15)`:** `%s`\n**`Conqueror(+10)`:** `%s` \n**`Challenger(+5)`:** `%s`" % (
+                    info['keystone_master'], info['keystone_conqueror'],
+                    info['keystone_challenger']),
                 inline=True)
             msg.add_field(
                 name="Emerald Nightmare",
@@ -83,7 +85,7 @@ async def on_message(message):
     # Same as before, except this time it's building data for PVP.
     if message.content.startswith('!armory pvp'):
         split = message.content.split(" ")
-        info = characterInfo(split[2], split[3], split[1])
+        info = character_info(split[2], split[3], split[1])
 
         if info == '':
             msg = 'Could not find a player with that name/realm combination.'.format(message)
@@ -105,7 +107,7 @@ async def on_message(message):
             msg.add_field(
                 name="Character",
                 value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`" % (
-                    info['name'], info['realm'], info['battlegroup'], info['ilvl']), 
+                    info['name'], info['realm'], info['battlegroup'], info['ilvl']),
                 inline=True)
             msg.add_field(
                 name="Arena Achievements",
