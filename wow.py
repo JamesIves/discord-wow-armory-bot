@@ -248,62 +248,62 @@ def class_details(class_type):
 
     # Warrior
     if class_type == CLASS_WARRIOR:
-        class_colour = 0xC79C6E
-        class_name = 'Warrior'
+        class_colour = CLASS_WARRIOR_COLOUR
+        class_name = CLASS_WARRIOR_NAME
 
     # Paladin
     if class_type == CLASS_PALADIN:
-        class_colour = 0xF58CBA
-        class_name = 'Paladin'
+        class_colour = CLASS_PALADIN_COLOUR
+        class_name = CLASS_PALADIN_NAME
 
     # Hunter
     if class_type == CLASS_HUNTER:
-        class_colour = 0xABD473
-        class_name = 'Hunter'
+        class_colour = CLASS_HUNTER_COLOUR
+        class_name = CLASS_HUNTER_NAME
 
     # Rogue
     if class_type == CLASS_ROGUE:
-        class_colour = 0xFFF569
-        class_name = 'Rogue'
+        class_colour = CLASS_ROGUE_COLOUR
+        class_name = CLASS_ROGUE_NAME
 
     # Priest
     if class_type == CLASS_PRIEST:
-        class_colour = 0xFFFFFF
-        class_name = 'Priest'
+        class_colour = CLASS_PRIEST_COLOUR
+        class_name = CLASS_PRIEST_NAME
 
     # Death Knight
     if class_type == CLASS_DEATH_KNIGHT:
-        class_colour = 0xC41F3B
+        class_colour = CLASS_DEATH_KNIGHT_COLOUR
         class_name = 'Death Knight'
 
     # Shaman
     if class_type == CLASS_SHAMAN:
-        class_colour = 0x0070DE
+        class_colour = CLASS_SHAMAN_COLOUR
         class_name = 'Shaman'
 
     # Mage
     if class_type == CLASS_MAGE:
-        class_colour = 0x69CCF0
+        class_colour = CLASS_MAGE_COLOUR
         class_name = 'Mage'
 
     # Warlock
     if class_type == CLASS_WARLOCK:
-        class_colour = 0x9482C9
+        class_colour = CLASS_WARLOCK_COLOUR
         class_name = 'Warlock'
 
     # Monk
     if class_type == CLASS_MONK:
-        class_colour = 0x00FF96
+        class_colour = CLASS_MONK_COLOUR
         class_name = 'Monk'
 
     # Druid
     if class_type == CLASS_DRUID:
-        class_colour = 0xFF7D0A
+        class_colour = CLASS_DRUID_COLOUR
         class_name = 'Druid'
 
     # Demon Hunter
     if class_type == CLASS_DEMON_HUNTER:
-        class_colour = 0xA330C9
+        class_colour = CLASS_DEMON_HUNTER_COLOUR
         class_name = 'Demon Hunter'
 
     class_data = {
