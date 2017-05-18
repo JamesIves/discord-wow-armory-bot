@@ -33,11 +33,10 @@ def get_data(name, realm, field):
     return request_json
 
 
-def character_achievements(name, realm, faction):
+def character_achievements(achievement_data, faction):
     """Accepts a name/realm/faction, and returns notable achievement progress.
     Tracks Ahead of the Curve for NH, EN, TOV, and Keystone Conqueror/Master"""
-    info = get_data(name, realm, 'achievements')
-    achievements = info['achievements']
+    achievements = achievement_data['achievements']
 
     # Return In Progress/Incomplete unless they are found.
     keystone_master = 'In Progress'
@@ -91,9 +90,9 @@ def character_achievements(name, realm, faction):
     # RBG achievements have a different id/name based on faction, checks these
     # based on function arg.
     if faction == 'Alliance':
-        rbg_2400_name = 'Grand Marshall'
-        rbg_2000_name = 'Lieutenant Commander'
-        rbg_1500_name = 'Sergeant Major'
+        rbg_2400_name = AC_GRAND_MARSHALL_NAME
+        rbg_2000_name = AC_LIEAUTENANT_COMMANDER_NAME
+        rbg_1500_name = AC_SERGEANT_MAJOR_NAME
 
         if AC_GRAND_MARSHALL in achievements['achievementsCompleted']:
             rbg_2400 = 'Completed'
@@ -105,9 +104,9 @@ def character_achievements(name, realm, faction):
             rbg_1500 = 'Completed'
 
     if faction == 'Horde':
-        rbg_2400_name = 'High Warlord'
-        rbg_2000_name = 'Champion'
-        rbg_1500_name = 'First Sergeant'
+        rbg_2400_name = AC_HIGH_WARLORD_NAME
+        rbg_2000_name = AC_CHAMPION_NAME
+        rbg_1500_name = AC_FIRST_SERGEANT_NAME
 
         if AC_HIGH_WARLORD in achievements['achievementsCompleted']:
             rbg_2400 = 'Completed'
@@ -146,7 +145,6 @@ def calculate_boss_kills(raid):
     the player has killed and at what difficulty."""
 
     # Initiate values at zero.
-    raid_name = raid['name']
     lfr_kills = 0
     normal_kills = 0
     heroic_kills = 0
@@ -180,11 +178,10 @@ def calculate_boss_kills(raid):
     return raid_data
 
 
-def character_progression(name, realm):
+def character_progression(progression_data):
     """Accepts a name/realm and determines the players players
     current progression."""
-    info = get_data(name, realm, 'progression')
-    raids = info['progression']['raids']
+    raids = progression_data['progression']['raids']
 
     for raid in raids:
         # Loop over the raids and filter the most recent.
@@ -206,17 +203,16 @@ def character_progression(name, realm):
     return raid_stats
 
 
-def character_arena_progress(name, realm):
+def character_arena_progress(pvp_data):
     """Accepts a name/realm and determines the players players
     current arena/bg progression. """
-    info = get_data(name, realm, 'pvp')
-    brackets = info['pvp']['brackets']
+    brackets = pvp_data['pvp']['brackets']
 
     two_v_two = brackets['ARENA_BRACKET_2v2']['rating']
     two_v_two_skirmish = brackets['ARENA_BRACKET_2v2_SKIRMISH']['rating']
     three_v_three = brackets['ARENA_BRACKET_3v3']['rating']
     rated_bg = brackets['ARENA_BRACKET_RBG']['rating']
-    honorable_kills = info['totalHonorableKills']
+    honorable_kills = pvp_data['totalHonorableKills']
 
     pvp_data = {
         '2v2': two_v_two,
@@ -232,10 +228,10 @@ def character_arena_progress(name, realm):
 def faction_details(faction_id):
     """Accepts a faction id and returns the name."""
     if faction_id == FACTION_HORDE:
-        faction_name = 'Horde'
+        faction_name = FACTION_HORDE_NAME
 
     if faction_id == FACTION_ALLIANCE:
-        faction_name = 'Alliance'
+        faction_name = FACTION_ALLIANCE_NAME
 
     return faction_name
 
@@ -248,63 +244,63 @@ def class_details(class_type):
 
     # Warrior
     if class_type == CLASS_WARRIOR:
-        class_colour = 0xC79C6E
-        class_name = 'Warrior'
+        class_colour = CLASS_WARRIOR_COLOUR
+        class_name = CLASS_WARRIOR_NAME
 
     # Paladin
     if class_type == CLASS_PALADIN:
-        class_colour = 0xF58CBA
-        class_name = 'Paladin'
+        class_colour = CLASS_PALADIN_COLOUR
+        class_name = CLASS_PALADIN_NAME
 
     # Hunter
     if class_type == CLASS_HUNTER:
-        class_colour = 0xABD473
-        class_name = 'Hunter'
+        class_colour = CLASS_HUNTER_COLOUR
+        class_name = CLASS_HUNTER_NAME
 
     # Rogue
     if class_type == CLASS_ROGUE:
-        class_colour = 0xFFF569
-        class_name = 'Rogue'
+        class_colour = CLASS_ROGUE_COLOUR
+        class_name = CLASS_ROGUE_NAME
 
     # Priest
     if class_type == CLASS_PRIEST:
-        class_colour = 0xFFFFFF
-        class_name = 'Priest'
+        class_colour = CLASS_PRIEST_COLOUR
+        class_name = CLASS_PRIEST_NAME
 
     # Death Knight
     if class_type == CLASS_DEATH_KNIGHT:
-        class_colour = 0xC41F3B
-        class_name = 'Death Knight'
+        class_colour = CLASS_DEATH_KNIGHT_COLOUR
+        class_name = CLASS_DEATH_KNIGHT_NAME
 
     # Shaman
     if class_type == CLASS_SHAMAN:
-        class_colour = 0x0070DE
-        class_name = 'Shaman'
+        class_colour = CLASS_SHAMAN_COLOUR
+        class_name = CLASS_SHAMAN_NAME
 
     # Mage
     if class_type == CLASS_MAGE:
-        class_colour = 0x69CCF0
-        class_name = 'Mage'
+        class_colour = CLASS_MAGE_COLOUR
+        class_name = CLASS_MAGE_NAME
 
     # Warlock
     if class_type == CLASS_WARLOCK:
-        class_colour = 0x9482C9
-        class_name = 'Warlock'
+        class_colour = CLASS_WARLOCK_COLOUR
+        class_name = CLASS_WARLOCK_NAME
 
     # Monk
     if class_type == CLASS_MONK:
-        class_colour = 0x00FF96
-        class_name = 'Monk'
+        class_colour = CLASS_MONK_COLOUR
+        class_name = CLASS_MONK_NAME
 
     # Druid
     if class_type == CLASS_DRUID:
-        class_colour = 0xFF7D0A
-        class_name = 'Druid'
+        class_colour = CLASS_DRUID_COLOUR
+        class_name = CLASS_DRUID_NAME
 
     # Demon Hunter
     if class_type == CLASS_DEMON_HUNTER:
-        class_colour = 0xA330C9
-        class_name = 'Demon Hunter'
+        class_colour = CLASS_DEMON_HUNTER_COLOUR
+        class_name = CLASS_DEMON_HUNTER_NAME
 
     class_data = {
         'colour': class_colour,
@@ -328,11 +324,13 @@ def character_info(name, realm, query):
     if info != '':
         class_data = class_details(info['class'])
         faction_name = faction_details(info['faction'])
-        achievements = character_achievements(name, realm, faction_name)
+        achievement_data = get_data(name, realm, 'achievements')
+        achievements = character_achievements(achievement_data, faction_name)
 
         # Builds a character sheet depending on the function argument.
         if query == 'pve':
-            progression = character_progression(name, realm)
+            progression_data = get_data(name, realm, 'progression')
+            progression = character_progression(progression_data)
 
             pve_character_sheet = {
                 'name': info['name'],
@@ -361,7 +359,8 @@ def character_info(name, realm, query):
             return pve_character_sheet
 
         if query == 'pvp':
-            pvp = character_arena_progress(name, realm)
+            pvp_data = get_data(name, realm, 'pvp')
+            pvp = character_arena_progress(pvp_data)
 
             pvp_character_sheet = {
                 'name': info['name'],
