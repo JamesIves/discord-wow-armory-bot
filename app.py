@@ -21,7 +21,7 @@ async def on_message(message):
         # Splits up the message, requires the user to type their message as '!armory pve Jimo burning-legion'.
         # Sends the query, third word (name), and fourth word (realm) to the characterInfo function to build a character sheet.
         split = message.content.split(" ")
-        info = characterInfo(split[2], split[3], split[1])
+        info = character_info(split[2], split[3], split[1])
 
         # If the returned data is an empty string send a message saying the player/realm couldn't be found.
         if info == '':
@@ -84,7 +84,7 @@ async def on_message(message):
     # Same as before, except this time it's building data for PVP.
     if message.content.startswith('!armory pvp'):
         split = message.content.split(" ")
-        info = characterInfo(split[2], split[3], split[1])
+        info = character_info(split[2], split[3], split[1])
 
         if info == '':
             msg = 'Could not find a player with that name/realm combination.'.format(message)

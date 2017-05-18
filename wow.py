@@ -3,12 +3,13 @@
 import requests
 import os
 import json
+from const import *
 
 WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
 WOW_REGION = str(os.environ.get('WOW_REGION'))
 LOCALE = str(os.environ.get('LOCALE'))
 
-def getData(name, realm, field):
+def get_data(name, realm, field):
     """Helper function that grabs data from the World of Warcraft API."""
     path = 'https://%s.api.battle.net/wow/character/%s/%s?fields=%s&locale=%s&apikey=%s' % (
         WOW_REGION, realm, name, field, LOCALE, WOW_API_KEY)
@@ -31,10 +32,10 @@ def getData(name, realm, field):
     return request_json
 
 
-def characterAchievements(name, realm, faction):
+def character_achievements(name, realm, faction):
     """Accepts a name/realm/faction, and returns notable achievement progress.
     Tracks Ahead of the Curve for NH, EN, TOV, and Keystone Conqueror/Master"""
-    info = getData(name, realm, 'achievements')
+    info = get_data(name, realm, 'achievements')
     achievements = info['achievements']
 
     # Return In Progress/Incomplete unless they are found.
@@ -53,37 +54,37 @@ def characterAchievements(name, realm, faction):
     aotc_tov = 'Incomplete'
     aotc_nh = 'Incomplete'
 
-    if 11611 in achievements['achievementsCompleted']:
+    if AC_CHALLENGING_LOOK in achievements['achievementsCompleted']:
         challenging_look = 'Completed'
 
-    if 11162 in achievements['achievementsCompleted']:
+    if AC_KEYSTONE_MASTER in achievements['achievementsCompleted']:
         keystone_master = 'Completed'
 
-    if 11185 in achievements['achievementsCompleted']:
+    if AC_KEYSTONE_CONQUEROR in achievements['achievementsCompleted']:
         keystone_conqueror = 'Completed'
 
-    if 11184 in achievements['achievementsCompleted']:
+    if AC_KEYSTONE_CHALLENGER in achievements['achievementsCompleted']:
         keystone_challenger = 'Completed'
 
-    if 2090 in achievements['achievementsCompleted']:
+    if AC_ARENA_CHALLENGER in achievements['achievementsCompleted']:
         arena_challenger = 'Completed'
 
-    if 2093 in achievements['achievementsCompleted']:
+    if AC_ARENA_RIVA in achievements['achievementsCompleted']:
         arena_rival = 'Completed'
 
-    if 2092 in achievements['achievementsCompleted']:
+    if AC_ARENA_DUELIST in achievements['achievementsCompleted']:
         arena_duelist = 'Completed'
 
-    if 2091 in achievements['achievementsCompleted']:
+    if AC_ARENA_GLADIATOR in achievements['achievementsCompleted']:
         arena_gladiator = 'Completed'
 
-    if 11194 in achievements['achievementsCompleted']:
+    if AC_AOTC_EN in achievements['achievementsCompleted']:
         aotc_en = 'Completed'
 
-    if 11581 in achievements['achievementsCompleted']:
+    if AC_AOTC_TOV in achievements['achievementsCompleted']:
         aotc_tov = 'Completed'
 
-    if 11195 in achievements['achievementsCompleted']:
+    if AC_AOTC_NH in achievements['achievementsCompleted']:
         aotc_nh = 'Completed'
 
     # RBG achievements have a different id/name based on faction, checks these
@@ -93,13 +94,13 @@ def characterAchievements(name, realm, faction):
         rbg_2000_name = 'Lieutenant Commander'
         rbg_1500_name = 'Sergeant Major'
 
-        if 5343 in achievements['achievementsCompleted']:
+        if AC_GRAND_MARSHALL in achievements['achievementsCompleted']:
             rbg_2400 = 'Completed'
 
-        if 5339 in achievements['achievementsCompleted']:
+        if AC_LIEUTENANT_COMMANDER in achievements['achievementsCompleted']:
             rbg_2000 = 'Completed'
 
-        if 5334 in achievements['achievementsCompleted']:
+        if AC_SERGEANT_MAJOR in achievements['achievementsCompleted']:
             rbg_1500 = 'Completed'
 
     if faction == 'Horde':
@@ -107,13 +108,13 @@ def characterAchievements(name, realm, faction):
         rbg_2000_name = 'Champion'
         rbg_1500_name = 'First Sergeant'
 
-        if 5356 in achievements['achievementsCompleted']:
+        if AC_HIGH_WARLORD in achievements['achievementsCompleted']:
             rbg_2400 = 'Completed'
 
-        if 5353 in achievements['achievementsCompleted']:
+        if AC_CHAMPION in achievements['achievementsCompleted']:
             rbg_2000 = 'Completed'
 
-        if 5349 in achievements['achievementsCompleted']:
+        if AC_FIRST_SERGEANT in achievements['achievementsCompleted']:
             rbg_1500 = 'Completed'
 
     achievement_list = {
@@ -139,7 +140,7 @@ def characterAchievements(name, realm, faction):
     return achievement_list
 
 
-def calculateBossKills(raid):
+def calculate_boss_kills(raid):
     """Accepts character raid data and figures out how many bosses
     the player has killed and at what difficulty."""
 
@@ -178,22 +179,22 @@ def calculateBossKills(raid):
     return raid_data
 
 
-def characterProgression(name, realm):
+def character_progression(name, realm):
     """Accepts a name/realm and determines the players players
     current progression."""
-    info = getData(name, realm, 'progression')
+    info = get_data(name, realm, 'progression')
     raids = info['progression']['raids']
 
     for raid in raids:
         # Loop over the raids and filter the most recent.
-        if raid['id'] == 8026:
-            emerald_nightmare = calculateBossKills(raid)
+        if raid['id'] == RAID_EN:
+            emerald_nightmare = calculate_boss_kills(raid)
 
-        if raid['id'] == 8440:
-            trial_of_valor = calculateBossKills(raid)
+        if raid['id'] == RAID_TOV:
+            trial_of_valor = calculate_boss_kills(raid)
 
-        if raid['id'] == 8025:
-            the_nighthold = calculateBossKills(raid)
+        if raid['id'] == RAID_NH:
+            the_nighthold = calculate_boss_kills(raid)
 
     raid_stats = {
         'emerald_nightmare': emerald_nightmare,
@@ -207,7 +208,7 @@ def characterProgression(name, realm):
 def characterArenaProgress(name, realm):
     """Accepts a name/realm and determines the players players
     current arena/bg progression. """
-    info = getData(name, realm, 'pvp')
+    info = get_data(name, realm, 'pvp')
     brackets = info['pvp']['brackets']
 
     two_v_two = brackets['ARENA_BRACKET_2v2']['rating']
@@ -227,92 +228,92 @@ def characterArenaProgress(name, realm):
     return pvp_data
 
 
-def factionDetails(faction_id):
+def faction_details(faction_id):
     """Accepts a faction id and returns the name."""
-    if faction_id == 1:
+    if faction_id == FACTION_HORDE:
         faction_name = 'Horde'
 
-    if faction_id == 0:
+    if faction_id == FACTION_ALLIANCE:
         faction_name = 'Alliance'
 
     return faction_name
 
 
-def classDetails(class_type):
+def class_details(class_type):
     """Accepts a class index and then determines the
     colour code and name for that class."""
     class_colour = ''
     class_name = ''
 
     # Warrior
-    if class_type == 1:
+    if class_type == CLASS_WARRIOR:
         class_colour = 0xC79C6E
         class_name = 'Warrior'
 
     # Paladin
-    if class_type == 2:
+    if class_type == CLASS_PALADIN:
         class_colour = 0xF58CBA
         class_name = 'Paladin'
 
     # Hunter
-    if class_type == 3:
+    if class_type == CLASS_HUNTER:
         class_colour = 0xABD473
         class_name = 'Hunter'
 
     # Rogue
-    if class_type == 4:
+    if class_type == CLASS_ROGUE:
         class_colour = 0xFFF569
         class_name = 'Rogue'
 
     # Priest
-    if class_type == 5:
+    if class_type == CLASS_PRIEST:
         class_colour = 0xFFFFFF
         class_name = 'Priest'
 
     # Death Knight
-    if class_type == 6:
+    if class_type == CLASS_DEATH_KNIGHT:
         class_colour = 0xC41F3B
         class_name = 'Death Knight'
 
     # Shaman
-    if class_type == 7:
+    if class_type == CLASS_SHAMAN:
         class_colour = 0x0070DE
         class_name = 'Shaman'
 
     # Mage
-    if class_type == 8:
+    if class_type == CLASS_MAGE:
         class_colour = 0x69CCF0
         class_name = 'Mage'
 
     # Warlock
-    if class_type == 9:
+    if class_type == CLASS_WARLOCK:
         class_colour = 0x9482C9
         class_name = 'Warlock'
 
     # Monk
-    if class_type == 10:
+    if class_type == CLASS_MONK:
         class_colour = 0x00FF96
         class_name = 'Monk'
 
     # Druid
-    if class_type == 11:
+    if class_type == CLASS_DRUID:
         class_colour = 0xFF7D0A
         class_name = 'Druid'
 
     # Demon Hunter
-    if class_type == 12:
+    if class_type == CLASS_DEMON_HUNTER:
         class_colour = 0xA330C9
         class_name = 'Demon Hunter'
 
-    class_details = {
+    class_data = {
         'colour': class_colour,
         'name': class_name
     }
 
-    return class_details
+    return class_data
 
 
-def characterInfo(name, realm, query):
+def character_info(name, realm, query):
     """Main function which accepts a name/realm.
     Builds a character sheet out of their name, realm,
     armory link, player thumbnail, ilvl, achievement and raid progress."""
@@ -320,17 +321,17 @@ def characterInfo(name, realm, query):
     realm = realm
 
     # Grabs overall character data including their ilvl.
-    info = getData(name, realm, 'items')
+    info = get_data(name, realm, 'items')
 
     # If the data returned isn't an empty string assume it found a character.
     if info != '':
-        class_data = classDetails(info['class'])
-        faction_name = factionDetails(info['faction'])
-        achievements = characterAchievements(name, realm, faction_name)
+        class_data = class_details(info['class'])
+        faction_name = faction_details(info['faction'])
+        achievements = character_achievements(name, realm, faction_name)
 
         # Builds a character sheet depending on the function argument.
         if query == 'pve':
-            progression = characterProgression(name, realm)
+            progression = character_progression(name, realm)
 
             pve_character_sheet = {
                 'name': info['name'],
