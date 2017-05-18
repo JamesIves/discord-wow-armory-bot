@@ -3,7 +3,7 @@
 import requests
 import os
 import json
-import const
+from const import *
 
 WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
 WOW_REGION = str(os.environ.get('WOW_REGION'))
