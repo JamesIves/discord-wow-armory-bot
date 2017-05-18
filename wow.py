@@ -206,7 +206,7 @@ def character_progression(name, realm):
     return raid_stats
 
 
-def characterArenaProgress(name, realm):
+def character_arena_progress(name, realm):
     """Accepts a name/realm and determines the players players
     current arena/bg progression. """
     info = get_data(name, realm, 'pvp')
@@ -361,7 +361,7 @@ def character_info(name, realm, query):
             return pve_character_sheet
 
         if query == 'pvp':
-            pvp = characterArenaProgress(name, realm)
+            pvp = character_arena_progress(name, realm)
 
             pvp_character_sheet = {
                 'name': info['name'],
