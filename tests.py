@@ -5,7 +5,7 @@ from wow import *
 
 class BaseTest(unittest.TestCase):
 
-    def test_for_class_detils(self):
+    def test_for_class_details(self):
         """Makes sure that when a class id is passed we get the correct name/colour."""
         self.assertEqual(class_details(CLASS_WARRIOR),
         {'colour': 0xC79C6E, 'name': 'Warrior'})

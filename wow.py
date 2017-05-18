@@ -33,11 +33,10 @@ def get_data(name, realm, field):
     return request_json
 
 
-def character_achievements(name, realm, faction):
+def character_achievements(achievement_data, faction):
     """Accepts a name/realm/faction, and returns notable achievement progress.
     Tracks Ahead of the Curve for NH, EN, TOV, and Keystone Conqueror/Master"""
-    info = get_data(name, realm, 'achievements')
-    achievements = info['achievements']
+    achievements = achievement_data['achievements']
 
     # Return In Progress/Incomplete unless they are found.
     keystone_master = 'In Progress'
@@ -180,11 +179,10 @@ def calculate_boss_kills(raid):
     return raid_data
 
 
-def character_progression(name, realm):
+def character_progression(progression_data):
     """Accepts a name/realm and determines the players players
     current progression."""
-    info = get_data(name, realm, 'progression')
-    raids = info['progression']['raids']
+    raids = progression_data['progression']['raids']
 
     for raid in raids:
         # Loop over the raids and filter the most recent.
@@ -206,17 +204,16 @@ def character_progression(name, realm):
     return raid_stats
 
 
-def character_arena_progress(name, realm):
+def character_arena_progress(pvp_data):
     """Accepts a name/realm and determines the players players
     current arena/bg progression. """
-    info = get_data(name, realm, 'pvp')
-    brackets = info['pvp']['brackets']
+    brackets = pvp_data['pvp']['brackets']
 
     two_v_two = brackets['ARENA_BRACKET_2v2']['rating']
     two_v_two_skirmish = brackets['ARENA_BRACKET_2v2_SKIRMISH']['rating']
     three_v_three = brackets['ARENA_BRACKET_3v3']['rating']
     rated_bg = brackets['ARENA_BRACKET_RBG']['rating']
-    honorable_kills = info['totalHonorableKills']
+    honorable_kills = pvp_data['totalHonorableKills']
 
     pvp_data = {
         '2v2': two_v_two,
@@ -328,11 +325,13 @@ def character_info(name, realm, query):
     if info != '':
         class_data = class_details(info['class'])
         faction_name = faction_details(info['faction'])
-        achievements = character_achievements(name, realm, faction_name)
+        achievement_data = get_data(name, realm, 'achievements')
+        achievements = character_achievements(achievement_data, faction_name)
 
         # Builds a character sheet depending on the function argument.
         if query == 'pve':
-            progression = character_progression(name, realm)
+            progression_data = get_data(name, realm, 'progression')
+            progression = character_progression(progression_data)
 
             pve_character_sheet = {
                 'name': info['name'],
@@ -361,7 +360,8 @@ def character_info(name, realm, query):
             return pve_character_sheet
 
         if query == 'pvp':
-            pvp = character_arena_progress(name, realm)
+            pvp_data = get_data(name, realm, 'pvp')
+            pvp = character_arena_progress(pvp_data)
 
             pvp_character_sheet = {
                 'name': info['name'],
