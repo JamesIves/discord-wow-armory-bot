@@ -232,10 +232,10 @@ def character_arena_progress(name, realm):
 def faction_details(faction_id):
     """Accepts a faction id and returns the name."""
     if faction_id == FACTION_HORDE:
-        faction_name = 'Horde'
+        faction_name = FACTION_HORDE_NAME
 
     if faction_id == FACTION_ALLIANCE:
-        faction_name = 'Alliance'
+        faction_name = FACTION_ALLIANCE_NAME
 
     return faction_name
 
@@ -274,37 +274,37 @@ def class_details(class_type):
     # Death Knight
     if class_type == CLASS_DEATH_KNIGHT:
         class_colour = CLASS_DEATH_KNIGHT_COLOUR
-        class_name = 'Death Knight'
+        class_name = CLASS_DEATH_KNIGHT_NAME
 
     # Shaman
     if class_type == CLASS_SHAMAN:
         class_colour = CLASS_SHAMAN_COLOUR
-        class_name = 'Shaman'
+        class_name = CLASS_SHAMAN_NAME
 
     # Mage
     if class_type == CLASS_MAGE:
         class_colour = CLASS_MAGE_COLOUR
-        class_name = 'Mage'
+        class_name = CLASS_MAGE_NAME
 
     # Warlock
     if class_type == CLASS_WARLOCK:
         class_colour = CLASS_WARLOCK_COLOUR
-        class_name = 'Warlock'
+        class_name = CLASS_WARLOCK_NAME
 
     # Monk
     if class_type == CLASS_MONK:
         class_colour = CLASS_MONK_COLOUR
-        class_name = 'Monk'
+        class_name = CLASS_MONK_NAME
 
     # Druid
     if class_type == CLASS_DRUID:
         class_colour = CLASS_DRUID_COLOUR
-        class_name = 'Druid'
+        class_name = CLASS_DRUID_NAME
 
     # Demon Hunter
     if class_type == CLASS_DEMON_HUNTER:
         class_colour = CLASS_DEMON_HUNTER_COLOUR
-        class_name = 'Demon Hunter'
+        class_name = CLASS_DEMON_HUNTER_NAME
 
     class_data = {
         'colour': class_colour,

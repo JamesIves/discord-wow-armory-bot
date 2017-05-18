@@ -4,69 +4,50 @@ from constants import *
 from wow import *
 
 class BaseTest(unittest.TestCase):
-    """Base test cases to make sure things are returning accurate data."""
 
     def test_for_class_detils(self):
-        # Make sure when the Warrior id is passed we get the correct data
+        """Makes sure that when a class id is passed we get the correct name/colour."""
         self.assertEqual(class_details(CLASS_WARRIOR),
-        {'colour': CLASS_WARRIOR_COLOUR, 'name': CLASS_WARRIOR_NAME})
+        {'colour': 0xC79C6E, 'name': 'Warrior'})
 
-    def test_for_paladin_class(self):
-        # Make sure when the Paladin id is passed we get the correct data
         self.assertEqual(class_details(CLASS_PALADIN),
-        {'colour': CLASS_PALADIN_COLOUR, 'name': CLASS_PALADIN_NAME})
+        {'colour': 0xF58CBA, 'name': 'Paladin'})
 
-    def test_for_hunter_class(self):
-        # Make sure when the Hunter id is passed we get the correct data
         self.assertEqual(class_details(CLASS_HUNTER),
-        {'colour': CLASS_HUNTER_COLOUR, 'name': CLASS_HUNTER_NAME})
+        {'colour': 0xABD473, 'name': 'Hunter'})
 
-    def test_for_rogue_class(self):
-        # Make sure when the Rogue id is passed we get the correct data
         self.assertEqual(class_details(CLASS_ROGUE),
-        {'colour': CLASS_ROGUE_COLOUR, 'name': CLASS_ROGUE_NAME})
+        {'colour': 0xFFF569, 'name': 'Rogue'})
 
-    def test_for_death_knight_class(self):
-        # Make sure when the Death Knight id is passed we get the correct data
+        self.assertEqual(class_details(CLASS_PRIEST),
+        {'colour': 0xFFFFFF, 'name': 'Priest'})
+
         self.assertEqual(class_details(CLASS_DEATH_KNIGHT),
-        {'colour': CLASS_DEATH_KNIGHT_COLOUR, 'name': CLASS_DEATH_KNIGHT_NAME})
+        {'colour': 0xC41F3B, 'name': 'Death Knight'})
 
-    def test_for_shaman_class(self):
-        # Make sure when the Shaman id is passed we get the correct data
         self.assertEqual(class_details(CLASS_SHAMAN),
-        {'colour': CLASS_SHAMAN_COLOUR, 'name': CLASS_SHAMAN_NAME})
+        {'colour': 0x0070DE, 'name': 'Shaman'})
 
-    def test_for_mage_class(self):
-        # Make sure when the Mage id is passed we get the correct data
         self.assertEqual(class_details(CLASS_MAGE),
-        {'colour': CLASS_MAGE_COLOUR, 'name': CLASS_MAGE_NAME})
+        {'colour': 0x69CCF0, 'name': 'Mage'})
 
-    def test_for_warlock_class(self):
-        # Make sure when the Warlock id is passed we get the correct data
         self.assertEqual(class_details(CLASS_WARLOCK),
-        {'colour': CLASS_WARLOCK_COLOUR, 'name': CLASS_WARLOCK_NAME})
+        {'colour': 0x9482C9, 'name': 'Warlock'})
 
-    def test_for_monk_class(self):
-        # Make sure when the Monk id is passed we get the correct data
-        self.assertEqual(class_details(CLASS_WARLOCK),
-        {'colour': CLASS_WARLOCK_COLOUR, 'name': CLASS_WARLOCK_NAME})
+        self.assertEqual(class_details(CLASS_MONK),
+        {'colour': 0x00FF96, 'name': 'Monk'})
 
-    def test_for_druid_class(self):
-        # Make sure when the Druid id is passed we get the correct data
         self.assertEqual(class_details(CLASS_DRUID),
-        {'colour': CLASS_DRUID_COLOUR, 'name': CLASS_DRUID_NAME})
+        {'colour': 0xFF7D0A, 'name': 'Druid'})
 
-    def test_for_demon_hunter_class(self):
-        # Make sure when the Demon Hunter id is passed we get the correct data
         self.assertEqual(class_details(CLASS_DEMON_HUNTER),
-        {'colour': CLASS_DEMON_HUNTER_COLOUR, 'name': CLASS_DEMON_HUNTER_NAME})
+        {'colour': 0xA330C9, 'name': 'Demon Hunter'})
 
-    def test_for_alliance_faction_name(self):
-        # Makes sure that when the Alliance id is passed it gets 'Alliance' as the name.
+
+    def test_for_faction_name(self):
+        """Makes sure that when a faction is passed we get the correct name."""
         self.assertEqual(faction_details(FACTION_ALLIANCE), 'Alliance')
 
-    def test_for_horde_faction_name(self):
-        # Makes sure that when the Horde id is passed it gets 'Horde' as the name.'
         self.assertEqual(faction_details(FACTION_HORDE), 'Horde')
 
 
