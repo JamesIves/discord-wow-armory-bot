@@ -4,10 +4,6 @@ import requests
 import os
 import json
 
-WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
-WOW_REGION = str(os.environ.get('WOW_REGION'))
-LOCALE = str(os.environ.get('LOCALE'))
-
 def get_data(name, realm, field):
     """Helper function that grabs data from the World of Warcraft API."""
     path = 'https://%s.api.battle.net/wow/character/%s/%s?fields=%s&locale=%s&apikey=%s' % (
