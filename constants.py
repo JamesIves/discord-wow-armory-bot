@@ -3,8 +3,10 @@
 
 """Dictionary of constants used throughout the application."""
 
-# API Credentials
+# Discord API Credentials
 DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
+
+# Blizzard API Credentials
 WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
 WOW_REGION = str(os.environ.get('WOW_REGION'))
 LOCALE = str(os.environ.get('LOCALE'))
