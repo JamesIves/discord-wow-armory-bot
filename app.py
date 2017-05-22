@@ -4,10 +4,12 @@ import discord
 import os
 import re
 from wow import *
+from util import *
 
 # Discord API values
 DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
 client = discord.Client()
+bot_error = 'Could not find a player with that name/realm combination. Type `!armory help` for more a list of valid commands.'
 
 @client.event
 async def on_message(message):
@@ -19,14 +21,14 @@ async def on_message(message):
 
     # If the author is not the bot, and the message starts with '!armory pve', display the characters PVE data sheet.
     if message.content.startswith('!armory pve'):
-        # Splits up the message, requires the user to type their message as '!armory pve Jimo burning-legion'.
-        # Sends the query, third word (name), and fourth word (realm) to the characterInfo function to build a character sheet.
-        split = message.content.split(" ")
-        info = character_info(split[2], split[3], split[1])
+        # Sends the query to be split via a utility function. Accepts either a character/realm, or an armory link.
+        split = split_string(message.content, 'pve')
+        # Sends the returned data to the character_info function to build a character sheet.
+        info = character_info(split[0], split[1], split[2])
 
         # If the returned data is an empty string send a message saying the player/realm couldn't be found.
         if info == '':
-            msg = 'Could not find a player with that name/realm combination.'.format(message)
+            msg = bot_error.format(message)
             await client.send_message(message.channel, msg)
 
         # Otherwise respond with an incredibly long string of data holding all of the info.
@@ -84,11 +86,11 @@ async def on_message(message):
 
     # Same as before, except this time it's building data for PVP.
     if message.content.startswith('!armory pvp'):
-        split = message.content.split(" ")
-        info = character_info(split[2], split[3], split[1])
+        split = split_string(message.content, 'pvp')
+        info = character_info(split[0], split[1], split[2])
 
         if info == '':
-            msg = 'Could not find a player with that name/realm combination.'.format(message)
+            msg = bot_error.format(message)
             await client.send_message(message.channel, msg)
 
         else:
@@ -157,9 +159,12 @@ async def on_message(message):
             ```
             # Displays a players PVE progression, dungeon kills, keystone achievements, etc.
             !armory pve <name> <realm>
+            !armory pve <armory-link>
 
             # Displays a players PVP progression, arena ratings, honorable kills, etc.
             !armory pvp <name> <realm>
+            !armory pvp <armory-link>
+
             ```
             • Bot created by James Ives (jamesives.co.uk)
             • Feedback, Issues and Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
