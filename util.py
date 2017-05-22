@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-def split_string(message, content):
+def split_query(message, content):
     """Helper function that splits a string and returns data
         in a predictable order. """
 

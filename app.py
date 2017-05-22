@@ -22,7 +22,7 @@ async def on_message(message):
     # If the author is not the bot, and the message starts with '!armory pve', display the characters PVE data sheet.
     if message.content.startswith('!armory pve'):
         # Sends the query to be split via a utility function. Accepts either a character/realm, or an armory link.
-        split = split_string(message.content, 'pve')
+        split = split_query(message.content, 'pve')
         # Sends the returned data to the character_info function to build a character sheet.
         info = character_info(split[0], split[1], split[2])
 
@@ -86,7 +86,7 @@ async def on_message(message):
 
     # Same as before, except this time it's building data for PVP.
     if message.content.startswith('!armory pvp'):
-        split = split_string(message.content, 'pvp')
+        split = split_query(message.content, 'pvp')
         info = character_info(split[0], split[1], split[2])
 
         if info == '':
