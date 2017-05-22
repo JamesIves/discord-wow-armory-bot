@@ -12,6 +12,7 @@ class BaseTest(unittest.TestCase):
 
         self.assertEqual(split_query(sample_query, 'pve'), ['jimo', 'burning-legion', 'pve'])
 
+
     def test_for_url_query_split(self):
         # Tests to ensure that the query string gets split properly when the bot gets a url based message.
         # Example query: '!armory pve/pvp <armory-link>' (Accepts either a world of warcraft or battle net link)
@@ -20,6 +21,7 @@ class BaseTest(unittest.TestCase):
 
         self.assertEqual(split_query(sample_wow_url, 'pve'), ['jimo', 'burning-legion', 'pve'])
         self.assertEqual(split_query(sample_battlenet_url, 'pvp'), ['jimo', 'burning-legion', 'pvp'])
+
 
     def test_for_warrior_class(self):
         # Makes sure that when the id for the Warrior class is passed we get the
