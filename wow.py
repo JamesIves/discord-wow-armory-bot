@@ -225,6 +225,28 @@ def character_arena_progress(pvp_data):
     return pvp_data
 
 
+def character_talents(talent_data):
+    """Accepts a JSON object containing a players talents
+    and returns the players current active specalization."""
+    talents = talent_data['talents']
+
+    # Starts empty just incase the player hasn't got a spec selected.
+    active_spec = ''
+
+    for talent in talents:
+        # The API returns the selected key only if it's selected, therefore this check
+        # makes sure we're not looking for something that doesn't exist.
+        if 'selected' in talent.keys():
+            if talent['selected'] == True:
+                active_spec = talent['spec']['name']
+
+    talent_data = {
+        'active_spec': active_spec
+    }
+
+    return talent_data
+
+
 def faction_details(faction_id):
     """Accepts a faction id and returns the name."""
     if faction_id == FACTION_HORDE:
@@ -324,8 +346,14 @@ def character_info(name, realm, query):
     if info != '':
         class_data = class_details(info['class'])
         faction_name = faction_details(info['faction'])
+
+        # Gathers achievement data from the achievements API.
         achievement_data = get_data(name, realm, 'achievements')
         achievements = character_achievements(achievement_data, faction_name)
+
+        # Gathers talent data from the talents API.
+        talent_data = get_data(name, realm, 'talents')
+        talents = character_talents(talent_data)
 
         # Builds a character sheet depending on the function argument.
         if query == 'pve':
@@ -337,6 +365,7 @@ def character_info(name, realm, query):
                 'level': info['level'],
                 'realm': info['realm'],
                 'faction': faction_name,
+                'spec': talents['active_spec'],
                 'battlegroup': info['battlegroup'],
                 'class_colour': class_data['colour'],
                 'class_type': class_data['name'],
@@ -367,6 +396,7 @@ def character_info(name, realm, query):
                 'level': info['level'],
                 'realm': info['realm'],
                 'faction': faction_name,
+                'spec': talents['active_spec'],
                 'battlegroup': info['battlegroup'],
                 'class_colour': class_data['colour'],
                 'class_type': class_data['name'],

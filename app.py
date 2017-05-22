@@ -37,8 +37,8 @@ async def on_message(message):
                 title="%s" % (info['name']),
                 colour=discord.Colour(info['class_colour']),
                 url="%s" % (info['armory']),
-                description="%s %s %s" % (
-                    info['level'], info['faction'], info['class_type']))
+                description="%s %s %s %s" % (
+                    info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
                 url="https://render-%s.worldofwarcraft.com/character/%s" % (
                     WOW_REGION, info['thumb']))
@@ -98,8 +98,8 @@ async def on_message(message):
                 title="%s" % (info['name']),
                 colour=discord.Colour(info['class_colour']),
                 url="%s" % (info['armory']),
-                description="%s %s %s" % (
-                    info['level'], info['faction'], info['class_type']))
+                description="%s %s %s %s" % (
+                    info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
                 url="https://render-%s.worldofwarcraft.com/character/%s" % (
                     WOW_REGION, info['thumb']))

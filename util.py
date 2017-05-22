@@ -4,7 +4,7 @@ import re
 
 def split_query(message, content):
     """Helper function that splits a string and returns data
-        in a predictable order. """
+    in a predictable order. """
 
     # If the word 'worldofwarcraft' or 'battle.net' exist
     # it splits the string starting at 'character/'
