@@ -55,17 +55,46 @@ def character_achievements(achievement_data, faction):
     nh_feat = ''
 
     if AC_CHALLENGING_LOOK in achievements['achievementsCompleted']:
-        challenging_look = 'Completed'
+        # Checks to see if the character being queried if the one who's completed the criteria.
+        # There are multiple criteria completition id's to check against for each spec.
+        for criteria in AC_CRITERIA_CHALLENGING_LOOK:
+            if int(criteria) in achievements['criteria']:
+                challenging_look = 'Completed'
 
-    if AC_KEYSTONE_MASTER in achievements['achievementsCompleted']:
+    if AC_CRITERIA_KEYSTONE_MASTER in achievements['criteria']:
         keystone_master = 'Completed'
 
-    if AC_KEYSTONE_CONQUEROR in achievements['achievementsCompleted']:
+    if AC_CRITERIA_KEYSTONE_CONQUEROR in achievements['criteria']:
         keystone_conqueror = 'Completed'
 
-    if AC_KEYSTONE_CHALLENGER in achievements['achievementsCompleted']:
+    if AC_CRITERIA_KEYSTONE_CHALLENGER in achievements['criteria']:
         keystone_challenger = 'Completed'
 
+    if AC_CRITERIA_AOTC_EN in achievements['criteria']:
+        en_feat = 'Ahead of the Curve'
+
+        # Checks to see if the user has completed tier 2 of the AOTC achievement.
+        if AC_CRITERIA_CE_EN in achievements['criteria']:
+            en_feat = 'Cutting Edge'
+
+    # For some reason TOV has two criterias to check against, therefore they are checked here.
+    if AC_AOTC_TOV in achievements['achievementsCompleted']:
+        for criteria in AC_CRITERIA_AOTC_TOV:
+            if int(criteria) in achievements['criteria']:
+                tov_feat = 'Ahead of the Curve'
+
+        if AC_CE_TOV in achievements['achievementsCompleted']:
+            for criteria in AC_CRITERIA_CE_TOV:
+                if int(criteria) in achievements['criteria']:
+                    tov_feat = 'Cutting Edge'
+
+    if AC_CRITERIA_AOTC_NH in achievements['criteria']:
+        nh_feat = 'Ahead of the Curve'
+
+        if AC_CRITERIA_CE_NH in achievements['criteria']:
+            nh_feat = 'Cutting Edge'
+
+    # Because PVP achievements work slightly differently criteria id's are not checked against.
     if AC_ARENA_CHALLENGER in achievements['achievementsCompleted']:
         arena_challenger = 'Completed'
 
@@ -77,26 +106,6 @@ def character_achievements(achievement_data, faction):
 
     if AC_ARENA_GLADIATOR in achievements['achievementsCompleted']:
         arena_gladiator = 'Completed'
-
-    if AC_AOTC_EN in achievements['achievementsCompleted']:
-        en_feat = 'Ahead of the Curve'
-
-        # Checks to see if the user has completed tier 2 of the AOTC achievement.
-        if AC_CE_EN in achievements['achievementsCompleted']:
-            en_feat = 'Cutting Edge'
-
-    if AC_AOTC_TOV in achievements['achievementsCompleted']:
-        tov_feat = 'Ahead of the Curve'
-
-        if AC_CE_TOV in achievements['achievementsCompleted']:
-            tov_feat = 'Cutting Edge'
-
-    if AC_AOTC_NH in achievements['achievementsCompleted']:
-        nh_feat = 'Ahead of the Curve'
-
-        if AC_CE_NH in achievements['achievementsCompleted']:
-            nh_feat = 'Cutting Edge'
-
 
     # RBG achievements have a different id/name based on faction, checks these
     # based on function argument.

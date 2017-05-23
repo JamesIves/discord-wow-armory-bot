@@ -120,15 +120,17 @@ class BaseTest(unittest.TestCase):
         self.maxDiff = None
         input_data_horde_sample = {
             "achievements": {
-                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192]
+                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093, 11192,
+                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11580, 11191, 11191, 11192],
+                "criteria": [35637, 32028, 33098, 33097, 32453, 35493, 32456, 35491, 32455]
             }
         }
 
         input_data_alliance_sample = {
             "achievements": {
-                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192]
+                "achievementsCompleted": [11611, 11162, 11185, 11580, 11191, 11184, 2090, 2093, 11192,
+                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192],
+                "criteria": [35639, 32028, 33098, 33097, 35494, 32456, 32454, 32455]
             }
         }
 
@@ -148,8 +150,8 @@ class BaseTest(unittest.TestCase):
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
             'en_feat': 'Cutting Edge',
-            'tov_feat': 'Ahead of the Curve',
-            'nh_feat': 'Cutting Edge'
+            'tov_feat': 'Cutting Edge',
+            'nh_feat': 'Ahead of the Curve'
         }
 
         expected_alliance_data = {
