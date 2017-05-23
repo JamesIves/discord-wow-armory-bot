@@ -121,14 +121,14 @@ class BaseTest(unittest.TestCase):
         input_data_horde_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192]
             }
         }
 
         input_data_alliance_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192]
             }
         }
 
@@ -147,9 +147,9 @@ class BaseTest(unittest.TestCase):
             'rbg_2400': 'Completed',
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
-            'aotc_en': 'Completed',
-            'aotc_tov': 'Completed',
-            'aotc_nh': 'Completed'
+            'en_feat': 'Cutting Edge',
+            'tov_feat': 'Ahead of the Curve',
+            'nh_feat': 'Cutting Edge'
         }
 
         expected_alliance_data = {
@@ -167,9 +167,9 @@ class BaseTest(unittest.TestCase):
             'rbg_2400': 'Completed',
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
-            'aotc_en': 'Completed',
-            'aotc_tov': 'Completed',
-            'aotc_nh': 'Completed'
+            'en_feat': 'Ahead of the Curve',
+            'tov_feat': 'Ahead of the Curve',
+            'nh_feat': 'Cutting Edge'
         }
 
         self.assertEqual(character_achievements(input_data_horde_sample, 'Horde'), expected_horde_data)

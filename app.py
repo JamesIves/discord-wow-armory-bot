@@ -9,11 +9,11 @@ from util import *
 # Discord API values
 DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
 client = discord.Client()
-bot_error = 'Could not find a player with that name/realm combination. Type `!armory help` for more a list of valid commands.'
 
 @client.event
 async def on_message(message):
     """Listens for specific user messages."""
+    bot_error = 'Could not find a player with that name/realm combination. Type `!armory help` for more a list of valid commands.'
 
     # If the author is the bot do nothing.
     if message.author == client.user:
@@ -33,6 +33,10 @@ async def on_message(message):
 
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
+            en_feat = '**`%s`**' % (info['en_feat'])
+            tov_feat = '**`%s`**' % (info['tov_feat'])
+            nh_feat = '**`%s`**' % (info['nh_feat'])
+
             msg = discord.Embed(
                 title="%s" % (info['name']),
                 colour=discord.Colour(info['class_colour']),
@@ -58,27 +62,27 @@ async def on_message(message):
                 inline=True)
             msg.add_field(
                 name="Emerald Nightmare",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (
+                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
                     info['emerald_nightmare']['normal'], info['emerald_nightmare']['bosses'],
                     info['emerald_nightmare']['heroic'], info['emerald_nightmare']['bosses'],
                     info['emerald_nightmare']['mythic'], info['emerald_nightmare']['bosses'],
-                    info['aotc_en']),
+                    en_feat),
                 inline=True)
             msg.add_field(
                 name="Trial of Valor",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (
+                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
                     info['trial_of_valor']['normal'], info['trial_of_valor']['bosses'],
                     info['trial_of_valor']['heroic'], info['trial_of_valor']['bosses'],
                     info['trial_of_valor']['mythic'], info['trial_of_valor']['bosses'],
-                    info['aotc_tov']),
+                    tov_feat),
                 inline=True)
             msg.add_field(
                 name="The Nighthold",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (
+                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
                     info['the_nighthold']['normal'], info['the_nighthold']['bosses'],
                     info['the_nighthold']['heroic'], info['the_nighthold']['bosses'],
                     info['the_nighthold']['mythic'], info['the_nighthold']['bosses'],
-                    info['aotc_nh']),
+                    nh_feat),
                 inline=True)
 
             await client.send_message(message.channel, embed=msg)
@@ -94,6 +98,7 @@ async def on_message(message):
             await client.send_message(message.channel, msg)
 
         else:
+
             msg = discord.Embed(
                 title="%s" % (info['name']),
                 colour=discord.Colour(info['class_colour']),

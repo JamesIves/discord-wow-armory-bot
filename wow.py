@@ -38,7 +38,7 @@ def character_achievements(achievement_data, faction):
     and returns notable achievement progress. """
     achievements = achievement_data['achievements']
 
-    # Return In Progress/Incomplete unless they are found.
+    # Return In Progress or empty unless they are found.
     keystone_master = 'In Progress'
     keystone_conqueror = 'In Progress'
     keystone_challenger = 'In Progress'
@@ -50,9 +50,9 @@ def character_achievements(achievement_data, faction):
     rbg_2400 = 'In Progress'
     rbg_2000 = 'In Progress'
     rbg_1500 = 'In Progress'
-    aotc_en = 'Incomplete'
-    aotc_tov = 'Incomplete'
-    aotc_nh = 'Incomplete'
+    en_feat = ''
+    tov_feat = ''
+    nh_feat = ''
 
     if AC_CHALLENGING_LOOK in achievements['achievementsCompleted']:
         challenging_look = 'Completed'
@@ -79,13 +79,24 @@ def character_achievements(achievement_data, faction):
         arena_gladiator = 'Completed'
 
     if AC_AOTC_EN in achievements['achievementsCompleted']:
-        aotc_en = 'Completed'
+        en_feat = 'Ahead of the Curve'
+
+        # Checks to see if the user has completed tier 2 of the AOTC achievement.
+        if AC_CE_EN in achievements['achievementsCompleted']:
+            en_feat = 'Cutting Edge'
 
     if AC_AOTC_TOV in achievements['achievementsCompleted']:
-        aotc_tov = 'Completed'
+        tov_feat = 'Ahead of the Curve'
+
+        if AC_CE_TOV in achievements['achievementsCompleted']:
+            tov_feat = 'Cutting Edge'
 
     if AC_AOTC_NH in achievements['achievementsCompleted']:
-        aotc_nh = 'Completed'
+        nh_feat = 'Ahead of the Curve'
+
+        if AC_CE_NH in achievements['achievementsCompleted']:
+            nh_feat = 'Cutting Edge'
+
 
     # RBG achievements have a different id/name based on faction, checks these
     # based on function argument.
@@ -132,9 +143,9 @@ def character_achievements(achievement_data, faction):
         'rbg_2400': rbg_2400,
         'rbg_2000': rbg_2000,
         'rbg_1500': rbg_1500,
-        'aotc_en': aotc_en,
-        'aotc_tov': aotc_tov,
-        'aotc_nh': aotc_nh
+        'en_feat': en_feat,
+        'tov_feat': tov_feat,
+        'nh_feat': nh_feat
     }
 
     return achievement_list
@@ -351,7 +362,7 @@ def character_info(name, realm, query):
         achievement_data = get_data(name, realm, 'achievements')
         achievements = character_achievements(achievement_data, faction_name)
 
-        # Gathers talent data from the talents API.
+        # Gathers talent data
         talent_data = get_data(name, realm, 'talents')
         talents = character_talents(talent_data)
 
@@ -377,9 +388,9 @@ def character_info(name, realm, query):
                 'keystone_master': achievements['keystone_master'],
                 'keystone_conqueror': achievements['keystone_conqueror'],
                 'keystone_challenger': achievements['keystone_challenger'],
-                'aotc_en': achievements['aotc_en'],
-                'aotc_tov': achievements['aotc_tov'],
-                'aotc_nh': achievements['aotc_nh'],
+                'en_feat': achievements['en_feat'],
+                'tov_feat': achievements['tov_feat'],
+                'nh_feat': achievements['nh_feat'],
                 'emerald_nightmare': progression['emerald_nightmare'],
                 'trial_of_valor': progression['trial_of_valor'],
                 'the_nighthold': progression['the_nighthold']
