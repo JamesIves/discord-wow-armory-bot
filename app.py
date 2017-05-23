@@ -4,6 +4,7 @@ import discord
 import os
 import re
 from wow import *
+from util import *
 
 # Discord API values
 DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
@@ -12,6 +13,7 @@ client = discord.Client()
 @client.event
 async def on_message(message):
     """Listens for specific user messages."""
+    bot_error = 'Could not find a player with that name/realm combination. Type `!armory help` for more a list of valid commands.'
 
     # If the author is the bot do nothing.
     if message.author == client.user:
@@ -19,24 +21,38 @@ async def on_message(message):
 
     # If the author is not the bot, and the message starts with '!armory pve', display the characters PVE data sheet.
     if message.content.startswith('!armory pve'):
-        # Splits up the message, requires the user to type their message as '!armory pve Jimo burning-legion'.
-        # Sends the query, third word (name), and fourth word (realm) to the characterInfo function to build a character sheet.
-        split = message.content.split(" ")
-        info = character_info(split[2], split[3], split[1])
+        # Sends the query to be split via a utility function. Accepts either a character/realm, or an armory link.
+        split = split_query(message.content, 'pve')
+        # Sends the returned data to the character_info function to build a character sheet.
+        info = character_info(split[0], split[1], split[2])
 
         # If the returned data is an empty string send a message saying the player/realm couldn't be found.
         if info == '':
-            msg = 'Could not find a player with that name/realm combination.'.format(message)
+            msg = bot_error.format(message)
             await client.send_message(message.channel, msg)
 
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
+            # Format the AOTC/CE strings if they exist.
+            en_feat = ''
+            tov_feat = ''
+            nh_feat = ''
+
+            if info['en_feat'] != '':
+                en_feat = '**`%s`**' % (info['en_feat'])
+
+            if info['tov_feat'] != '':
+                tov_feat = '**`%s`**' % (info['tov_feat'])
+
+            if info['nh_feat'] != '':
+                nh_feat = '**`%s`**' % (info['nh_feat'])
+
             msg = discord.Embed(
                 title="%s" % (info['name']),
                 colour=discord.Colour(info['class_colour']),
                 url="%s" % (info['armory']),
-                description="%s %s %s" % (
-                    info['level'], info['faction'], info['class_type']))
+                description="%s %s %s %s" % (
+                    info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
                 url="https://render-%s.worldofwarcraft.com/character/%s" % (
                     WOW_REGION, info['thumb']))
@@ -56,27 +72,27 @@ async def on_message(message):
                 inline=True)
             msg.add_field(
                 name="Emerald Nightmare",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (
+                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
                     info['emerald_nightmare']['normal'], info['emerald_nightmare']['bosses'],
                     info['emerald_nightmare']['heroic'], info['emerald_nightmare']['bosses'],
                     info['emerald_nightmare']['mythic'], info['emerald_nightmare']['bosses'],
-                    info['aotc_en']),
+                    en_feat),
                 inline=True)
             msg.add_field(
                 name="Trial of Valor",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (
+                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
                     info['trial_of_valor']['normal'], info['trial_of_valor']['bosses'],
                     info['trial_of_valor']['heroic'], info['trial_of_valor']['bosses'],
                     info['trial_of_valor']['mythic'], info['trial_of_valor']['bosses'],
-                    info['aotc_tov']),
+                    tov_feat),
                 inline=True)
             msg.add_field(
                 name="The Nighthold",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n**`AOTC`:** `%s`" % (
+                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
                     info['the_nighthold']['normal'], info['the_nighthold']['bosses'],
                     info['the_nighthold']['heroic'], info['the_nighthold']['bosses'],
                     info['the_nighthold']['mythic'], info['the_nighthold']['bosses'],
-                    info['aotc_nh']),
+                    nh_feat),
                 inline=True)
 
             await client.send_message(message.channel, embed=msg)
@@ -84,20 +100,21 @@ async def on_message(message):
 
     # Same as before, except this time it's building data for PVP.
     if message.content.startswith('!armory pvp'):
-        split = message.content.split(" ")
-        info = character_info(split[2], split[3], split[1])
+        split = split_query(message.content, 'pvp')
+        info = character_info(split[0], split[1], split[2])
 
         if info == '':
-            msg = 'Could not find a player with that name/realm combination.'.format(message)
+            msg = bot_error.format(message)
             await client.send_message(message.channel, msg)
 
         else:
+
             msg = discord.Embed(
                 title="%s" % (info['name']),
                 colour=discord.Colour(info['class_colour']),
                 url="%s" % (info['armory']),
-                description="%s %s %s" % (
-                    info['level'], info['faction'], info['class_type']))
+                description="%s %s %s %s" % (
+                    info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
                 url="https://render-%s.worldofwarcraft.com/character/%s" % (
                     WOW_REGION, info['thumb']))
@@ -157,9 +174,12 @@ async def on_message(message):
             ```
             # Displays a players PVE progression, dungeon kills, keystone achievements, etc.
             !armory pve <name> <realm>
+            !armory pve <armory-link>
 
             # Displays a players PVP progression, arena ratings, honorable kills, etc.
             !armory pvp <name> <realm>
+            !armory pvp <armory-link>
+
             ```
             • Bot created by James Ives (jamesives.co.uk)
             • Feedback, Issues and Source: https://github.com/JamesIves/discord-wow-armory-bot/issues

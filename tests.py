@@ -1,8 +1,27 @@
 import unittest
 from constants import *
 from wow import *
+from util import *
 
 class BaseTest(unittest.TestCase):
+
+    def test_for_normal_query_split(self):
+        # Tests to ensure that the query gets split properly when the bot gets a message.
+        # Example query: '!armory pve/pvp <name> <realm>'
+        sample_query = '!armory pve jimo burning-legion'
+
+        self.assertEqual(split_query(sample_query, 'pve'), ['jimo', 'burning-legion', 'pve'])
+
+
+    def test_for_url_query_split(self):
+        # Tests to ensure that the query string gets split properly when the bot gets a url based message.
+        # Example query: '!armory pve/pvp <armory-link>' (Accepts either a world of warcraft or battle net link)
+        sample_wow_url = 'https://worldofwarcraft.com/en-us/character/burning-legion/jimo'
+        sample_battlenet_url = 'http://us.battle.net/wow/en/character/burning-legion/jimo/advanced'
+
+        self.assertEqual(split_query(sample_wow_url, 'pve'), ['jimo', 'burning-legion', 'pve'])
+        self.assertEqual(split_query(sample_battlenet_url, 'pvp'), ['jimo', 'burning-legion', 'pvp'])
+
 
     def test_for_warrior_class(self):
         # Makes sure that when the id for the Warrior class is passed we get the
@@ -102,14 +121,14 @@ class BaseTest(unittest.TestCase):
         input_data_horde_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192]
             }
         }
 
         input_data_alliance_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192]
             }
         }
 
@@ -128,9 +147,9 @@ class BaseTest(unittest.TestCase):
             'rbg_2400': 'Completed',
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
-            'aotc_en': 'Completed',
-            'aotc_tov': 'Completed',
-            'aotc_nh': 'Completed'
+            'en_feat': 'Cutting Edge',
+            'tov_feat': 'Ahead of the Curve',
+            'nh_feat': 'Cutting Edge'
         }
 
         expected_alliance_data = {
@@ -148,9 +167,9 @@ class BaseTest(unittest.TestCase):
             'rbg_2400': 'Completed',
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
-            'aotc_en': 'Completed',
-            'aotc_tov': 'Completed',
-            'aotc_nh': 'Completed'
+            'en_feat': 'Ahead of the Curve',
+            'tov_feat': 'Ahead of the Curve',
+            'nh_feat': 'Cutting Edge'
         }
 
         self.assertEqual(character_achievements(input_data_horde_sample, 'Horde'), expected_horde_data)
@@ -264,6 +283,39 @@ class BaseTest(unittest.TestCase):
         }
 
         self.assertEqual(character_progression(sample_data), expected_data)
+
+    def test_player_talents(self):
+        # Passes in some mock API data and expects it to return an object with the correct data.
+        # Tests for accuracy on each data check, not API data.
+
+        sample_data = {
+            'talents': [
+            {
+                'selected':True,
+                'spec':{
+                    'name':'Holy',
+                    'role':'HEALING'
+                }
+            },
+            {
+                'spec':{
+                    'name':'Shadow',
+                    'role': 'DAMAGE'
+                }
+            },
+            {
+                'spec':{
+                    'name':'Discipline',
+                    'role':'HEALING'
+                }
+            }
+        ]}
+
+        expected_data = {
+            'active_spec': 'Holy'
+        }
+
+        self.assertEqual(character_talents(sample_data), expected_data)
 
 
 if __name__ == '__main__':
