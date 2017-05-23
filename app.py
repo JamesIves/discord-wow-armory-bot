@@ -33,19 +33,9 @@ async def on_message(message):
 
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
-            # Format the AOTC/CE strings if they exist.
-            en_feat = ''
-            tov_feat = ''
-            nh_feat = ''
-
-            if info['en_feat'] != '':
-                en_feat = '**`%s`**' % (info['en_feat'])
-
-            if info['tov_feat'] != '':
-                tov_feat = '**`%s`**' % (info['tov_feat'])
-
-            if info['nh_feat'] != '':
-                nh_feat = '**`%s`**' % (info['nh_feat'])
+            en_feat = '**`%s`**' % (info['en_feat'])
+            tov_feat = '**`%s`**' % (info['tov_feat'])
+            nh_feat = '**`%s`**' % (info['nh_feat'])
 
             msg = discord.Embed(
                 title="%s" % (info['name']),

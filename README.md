@@ -70,7 +70,7 @@ The following commands are accepted by the bot.
 Here's a list of frequently asked questions.
 ```
 Q: Why does it show that my alt has completed an achievement?
-A: Some achievements are account wide so the API response for your alt will be the same as your main. For PVE achievements the bot will check to see if the character being queried is the one who has completed it, but for PVP it always tracks account-wide. This is partly because the API doesn't return unique criteria id's for some of the RBG/Arena achievements.
+A: Some achievements are account wide so the API response for your alt will be the same as your main.
 ```
 
 ## Issues and Feedback
