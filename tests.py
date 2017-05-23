@@ -121,14 +121,14 @@ class BaseTest(unittest.TestCase):
         input_data_horde_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192, 11874]
             }
         }
 
         input_data_alliance_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192, 11874, 11875]
             }
         }
 
@@ -149,7 +149,8 @@ class BaseTest(unittest.TestCase):
             'rbg_1500': 'Completed',
             'en_feat': 'Cutting Edge',
             'tov_feat': 'Ahead of the Curve',
-            'nh_feat': 'Cutting Edge'
+            'nh_feat': 'Cutting Edge',
+            'tos_feat': 'Ahead of the Curve'
         }
 
         expected_alliance_data = {
@@ -169,7 +170,8 @@ class BaseTest(unittest.TestCase):
             'rbg_1500': 'Completed',
             'en_feat': 'Ahead of the Curve',
             'tov_feat': 'Ahead of the Curve',
-            'nh_feat': 'Cutting Edge'
+            'nh_feat': 'Cutting Edge',
+            'tos_feat': 'Cutting Edge'
         }
 
         self.assertEqual(character_achievements(input_data_horde_sample, 'Horde'), expected_horde_data)
@@ -241,6 +243,15 @@ class BaseTest(unittest.TestCase):
                         }]
                     },
                     {
+                    "id": 8524,
+                    "bosses": [{
+                        "lfrKills": 3,
+                        "normalKills": 2,
+                        "heroicKills": 4,
+                        "mythicKills": 1,
+                        }]
+                    },
+                    {
                     "id": 8025,
                     "bosses": [{
                         "lfrKills": 3,
@@ -279,6 +290,13 @@ class BaseTest(unittest.TestCase):
                   'heroic':2,
                   'mythic':0,
                   'bosses':2
+               },
+               'tomb_of_sargeras': {
+                  'lfr':1,
+                  'normal':1,
+                  'heroic':1,
+                  'mythic':1,
+                  'bosses':1
                }
         }
 

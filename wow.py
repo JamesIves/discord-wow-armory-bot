@@ -53,6 +53,7 @@ def character_achievements(achievement_data, faction):
     en_feat = ''
     tov_feat = ''
     nh_feat = ''
+    tos_feat = ''
 
     if AC_CHALLENGING_LOOK in achievements['achievementsCompleted']:
         challenging_look = 'Completed'
@@ -96,6 +97,12 @@ def character_achievements(achievement_data, faction):
 
         if AC_CE_NH in achievements['achievementsCompleted']:
             nh_feat = 'Cutting Edge'
+
+    if AC_AOTC_TOS in achievements['achievementsCompleted']:
+        tos_feat = 'Ahead of the Curve'
+
+        if AC_CE_TOS in achievements['achievementsCompleted']:
+            tos_feat = 'Cutting Edge'
 
 
     # RBG achievements have a different id/name based on faction, checks these
@@ -145,7 +152,8 @@ def character_achievements(achievement_data, faction):
         'rbg_1500': rbg_1500,
         'en_feat': en_feat,
         'tov_feat': tov_feat,
-        'nh_feat': nh_feat
+        'nh_feat': nh_feat,
+        'tos_feat': tos_feat
     }
 
     return achievement_list
@@ -205,10 +213,14 @@ def character_progression(progression_data):
         if raid['id'] == RAID_NH:
             the_nighthold = calculate_boss_kills(raid)
 
+        if raid['id'] == RAID_TOS:
+            tomb_of_sargeras = calculate_boss_kills(raid)
+
     raid_stats = {
         'emerald_nightmare': emerald_nightmare,
         'trial_of_valor': trial_of_valor,
-        'the_nighthold': the_nighthold
+        'the_nighthold': the_nighthold,
+        'tomb_of_sargeras': tomb_of_sargeras
     }
 
     return raid_stats
@@ -391,9 +403,11 @@ def character_info(name, realm, query):
                 'en_feat': achievements['en_feat'],
                 'tov_feat': achievements['tov_feat'],
                 'nh_feat': achievements['nh_feat'],
+                'tos_feat': achievements['tos_feat'],
                 'emerald_nightmare': progression['emerald_nightmare'],
                 'trial_of_valor': progression['trial_of_valor'],
-                'the_nighthold': progression['the_nighthold']
+                'the_nighthold': progression['the_nighthold'],
+                'tomb_of_sargeras': progression['tomb_of_sargeras']
             }
 
             return pve_character_sheet
