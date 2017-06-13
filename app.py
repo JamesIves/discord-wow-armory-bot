@@ -37,6 +37,7 @@ async def on_message(message):
             en_feat = ''
             tov_feat = ''
             nh_feat = ''
+            tos_feat = ''
 
             if info['en_feat'] != '':
                 en_feat = '**`%s`**' % (info['en_feat'])
@@ -46,6 +47,9 @@ async def on_message(message):
 
             if info['nh_feat'] != '':
                 nh_feat = '**`%s`**' % (info['nh_feat'])
+
+            if info['tos_feat'] != '':
+                tos_feat = '**`%s`**' % (info['tos_feat'])
 
             msg = discord.Embed(
                 title="%s" % (info['name']),
@@ -58,7 +62,7 @@ async def on_message(message):
                     WOW_REGION, info['thumb']))
             msg.set_footer(
                 text="!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues",
-                icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
+                icon_url="https://raw.githubusercontent.com/JamesIves/discord-wow-armory-bot/master/assets/icon.png")
             msg.add_field(
                 name="Character",
                 value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Item Level`:** `%s`\n**`Artifact Challenge`:** `%s`" % (
@@ -93,6 +97,14 @@ async def on_message(message):
                     info['the_nighthold']['heroic'], info['the_nighthold']['bosses'],
                     info['the_nighthold']['mythic'], info['the_nighthold']['bosses'],
                     nh_feat),
+                inline=True)
+            msg.add_field(
+                name="Tomb of Sargeras",
+                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
+                    info['tomb_of_sargeras']['normal'], info['tomb_of_sargeras']['bosses'],
+                    info['tomb_of_sargeras']['heroic'], info['tomb_of_sargeras']['bosses'],
+                    info['tomb_of_sargeras']['mythic'], info['tomb_of_sargeras']['bosses'],
+                    tos_feat),
                 inline=True)
 
             await client.send_message(message.channel, embed=msg)
