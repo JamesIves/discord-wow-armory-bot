@@ -62,7 +62,7 @@ async def on_message(message):
                     WOW_REGION, info['thumb']))
             msg.set_footer(
                 text="!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues",
-                icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
+                icon_url="https://raw.githubusercontent.com/JamesIves/discord-wow-armory-bot/master/assets/icon.png")
             msg.add_field(
                 name="Character",
                 value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Item Level`:** `%s`\n**`Artifact Challenge`:** `%s`" % (
