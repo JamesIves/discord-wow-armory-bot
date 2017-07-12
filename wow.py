@@ -15,9 +15,6 @@ def get_data(name, realm, field):
     path = 'https://%s.api.battle.net/wow/character/%s/%s?fields=%s&locale=%s&apikey=%s' % (
         WOW_REGION, realm, name, field, LOCALE, WOW_API_KEY)
 
-    request = requests.get(path)
-    request_json = request.json()
-
     try:
         request = requests.get(path)
         # Make sure the request doesn't error.
