@@ -34,7 +34,7 @@ async def on_message(message):
 
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
-            # Current time (Used for cache busting character thumbnails)
+            # Current time (Used for cache busting character thumbnails).
             epoch_time = int(time.time())
 
             # Format the AOTC/CE strings if they exist.
@@ -105,7 +105,7 @@ async def on_message(message):
             msg.add_field(
                 name="Tomb of Sargeras",
                 value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
-                    info['tomb_of_sargeras']['normal'], info['tomb_of_sargeras']['bosses'],
+                    epoch_time, info['tomb_of_sargeras']['bosses'],
                     info['tomb_of_sargeras']['heroic'], info['tomb_of_sargeras']['bosses'],
                     info['tomb_of_sargeras']['mythic'], info['tomb_of_sargeras']['bosses'],
                     tos_feat),
