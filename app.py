@@ -105,7 +105,7 @@ async def on_message(message):
             msg.add_field(
                 name="Tomb of Sargeras",
                 value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
-                    epoch_time, info['tomb_of_sargeras']['bosses'],
+                    info['tomb_of_sargeras']['normal'], info['tomb_of_sargeras']['bosses'],
                     info['tomb_of_sargeras']['heroic'], info['tomb_of_sargeras']['bosses'],
                     info['tomb_of_sargeras']['mythic'], info['tomb_of_sargeras']['bosses'],
                     tos_feat),
