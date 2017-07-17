@@ -3,6 +3,7 @@
 import discord
 import os
 import re
+import time
 from wow import *
 from util import *
 
@@ -33,6 +34,9 @@ async def on_message(message):
 
         # Otherwise respond with an incredibly long string of data holding all of the info.
         else:
+            # Current time (Used for cache busting character thumbnails).
+            epoch_time = int(time.time())
+
             # Format the AOTC/CE strings if they exist.
             en_feat = ''
             tov_feat = ''
@@ -58,8 +62,8 @@ async def on_message(message):
                 description="%s %s %s %s" % (
                     info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
-                url="https://render-%s.worldofwarcraft.com/character/%s" % (
-                    WOW_REGION, info['thumb']))
+                url="https://render-%s.worldofwarcraft.com/character/%s?_%s" % (
+                    WOW_REGION, info['thumb'], epoch_time))
             msg.set_footer(
                 text="!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues",
                 icon_url="https://raw.githubusercontent.com/JamesIves/discord-wow-armory-bot/master/assets/icon.png")
