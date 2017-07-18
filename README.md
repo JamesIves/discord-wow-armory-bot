@@ -58,9 +58,11 @@ The following commands are accepted by the bot.
 ```
 # Displays a players PVE progression, dungeon kills, keystone achievements, etc.
 !armory pve <name> <realm>
+!armory pve <armory-link>
 
 # Displays a players PVP progression, arena ratings, honorable kills, etc.
 !armory pvp <name> <realm>
+!armory pvp <armory-link>
 
 # Command list/help
 !armory help
