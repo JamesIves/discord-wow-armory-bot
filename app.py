@@ -229,7 +229,7 @@ async def on_ready():
         print('Missing Discord bot token. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
 
     else:
-        print('Launch Succesful!')
+        print('Launch Succesful! The bot is now listening for commands...')
 
 
 client.run(DISCORD_BOT_TOKEN)
