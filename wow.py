@@ -1,19 +1,14 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import requests
-import json
-import os
+from settings import WOW_API_KEY, LOCALE
 from constants import *
 
-# Blizzard API values
-WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
-WOW_REGION = str(os.environ.get('WOW_REGION'))
-LOCALE = str(os.environ.get('LOCALE'))
 
-def get_data(name, realm, field):
+def get_data(name, realm, field, region):
     """Helper function that grabs data from the World of Warcraft API."""
     path = 'https://%s.api.battle.net/wow/character/%s/%s?fields=%s&locale=%s&apikey=%s' % (
-        WOW_REGION, realm, name, field, LOCALE, WOW_API_KEY)
+        region, realm, name, field, LOCALE, WOW_API_KEY)
 
     try:
         request = requests.get(path)
@@ -352,15 +347,13 @@ def class_details(class_type):
     return class_data
 
 
-def character_info(name, realm, query):
+def character_info(name, realm, query, region):
     """Main function which accepts a name/realm/query(pvp or pve).
     Builds a character sheet out of their name, realm,
     armory link, player thumbnail, ilvl, achievement and raid progress and more."""
-    name = name
-    realm = realm
 
     # Grabs overall character data including their ilvl.
-    info = get_data(name, realm, 'items')
+    info = get_data(name, realm, 'items', region)
 
     # If the data returned isn't an empty string assume it found a character.
     if info != '':
@@ -368,16 +361,16 @@ def character_info(name, realm, query):
         faction_name = faction_details(info['faction'])
 
         # Gathers achievement data from the achievements API.
-        achievement_data = get_data(name, realm, 'achievements')
+        achievement_data = get_data(name, realm, 'achievements', region)
         achievements = character_achievements(achievement_data, faction_name)
 
         # Gathers talent data
-        talent_data = get_data(name, realm, 'talents')
+        talent_data = get_data(name, realm, 'talents', region)
         talents = character_talents(talent_data)
 
         # Builds a character sheet depending on the function argument.
         if query == 'pve':
-            progression_data = get_data(name, realm, 'progression')
+            progression_data = get_data(name, realm, 'progression', region)
             progression = character_progression(progression_data)
 
             pve_character_sheet = {
@@ -390,7 +383,7 @@ def character_info(name, realm, query):
                 'class_colour': class_data['colour'],
                 'class_type': class_data['name'],
                 'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (
-                    WOW_REGION, realm, name),
+                   region, realm, name),
                 'thumb': info['thumbnail'],
                 'ilvl': info['items']['averageItemLevelEquipped'],
                 'challenging_look': achievements['challenging_look'],
@@ -410,7 +403,7 @@ def character_info(name, realm, query):
             return pve_character_sheet
 
         if query == 'pvp':
-            pvp_data = get_data(name, realm, 'pvp')
+            pvp_data = get_data(name, realm, 'pvp', region)
             pvp = character_arena_progress(pvp_data)
 
             pvp_character_sheet = {
@@ -423,7 +416,7 @@ def character_info(name, realm, query):
                 'class_colour': class_data['colour'],
                 'class_type': class_data['name'],
                 'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (
-                    WOW_REGION, realm, name),
+                    region, realm, name),
                 'thumb': info['thumbnail'],
                 'ilvl': info['items']['averageItemLevelEquipped'],
                 'arena_challenger': achievements['arena_challenger'],

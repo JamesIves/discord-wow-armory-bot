@@ -37,7 +37,7 @@ In order to power this bot you'll require a [Discord API bot token]((https://dis
 | `LOCALE`  | The language for your selected WoW region, for example `en_US`, or `en_GB`. Locale depends on region, please refer to the [Blizzard API documents](https://dev.battle.net/) for more information. At this time this bot will only return data in English.   |
 | `DISCORD_BOT_TOKEN`  | The token for your Discord bot user, you can sign up for one [here](https://discordapp.com/developers/docs/intro). |
 
-Once you've configured the variables you may need to restart the service.
+Once you've configured the variables you may need to restart the service. If a variable is missing the terminal you executed the bot from will display an error message.
 
 
 ## Inviting the Bot
@@ -63,6 +63,10 @@ The following commands are accepted by the bot.
 # Displays a players PVP progression, arena ratings, honorable kills, etc.
 !armory pvp <name> <realm>
 !armory pvp <armory-link>
+
+# You can also provide an optional region to each query to display players from other WoW regions outside of the bot default, for example EU, US, etc.
+!armory pve <name> <realm> <region>
+!armory pvp <armory-link> <region>
 
 # Command list/help
 !armory help
