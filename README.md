@@ -77,10 +77,13 @@ Here's a list of frequently asked questions.
 ```
 Q: Why does it show that my alt has completed an achievement?
 A: Some achievements are account wide so the API response for your alt will be the same as your main.
+
+Q: Do you plan on supporting Mythic+ scores?
+A: Only if the official Blizzard API begins supporting their own metric.
 ```
 
-## Issues and Feedback
-Please post any issues or feedback [here](https://github.com/JamesIves/discord-wow-armory-bot/issues).
+## Issues, Feedback and Feature Requests
+Please post any issues, feedback, or feature requests [here](https://github.com/JamesIves/discord-wow-armory-bot/issues).
 
 
 ![Screenshot](assets/screenshot.png)
