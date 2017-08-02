@@ -1,20 +1,20 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import discord
 import os
+import discord
 import re
 import time
 from wow import *
 from util import *
+from settings import *
 
-# Discord API values
-DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
+
 client = discord.Client()
 
 @client.event
 async def on_message(message):
     """Listens for specific user messages."""
-    bot_error = 'Could not find a player with that name/realm combination. Type `!armory help` for more a list of valid commands.'
+    bot_error = 'Could not find a player with that name, realm or region combination. Type `!armory help` for more a list of valid commands.'
 
     # If the author is the bot do nothing.
     if message.author == client.user:
@@ -24,10 +24,14 @@ async def on_message(message):
     if message.content.startswith('!armory pve'):
         # Sends the query to be split via a utility function. Accepts either a character/realm, or an armory link.
         split = split_query(message.content, 'pve')
-        # Sends the returned data to the character_info function to build a character sheet.
-        info = character_info(split[0], split[1], split[2])
 
-        # If the returned data is an empty string send a message saying the player/realm couldn't be found.
+        # Assigns the 3rd index in the split to the region
+        region = split[3]
+
+        # Sends the returned data to the character_info function to build a character sheet.
+        info = character_info(split[0], split[1], split[2], region)
+
+        # If the returned data is an empty string send a message saying the player/realm/region couldn't be found.
         if info == '':
             msg = bot_error.format(message)
             await client.send_message(message.channel, msg)
@@ -63,14 +67,14 @@ async def on_message(message):
                     info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
                 url="https://render-%s.worldofwarcraft.com/character/%s?_%s" % (
-                    WOW_REGION, info['thumb'], epoch_time))
+                    region, info['thumb'], epoch_time))
             msg.set_footer(
                 text="!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues",
                 icon_url="https://raw.githubusercontent.com/JamesIves/discord-wow-armory-bot/master/assets/icon.png")
             msg.add_field(
                 name="Character",
-                value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Item Level`:** `%s`\n**`Artifact Challenge`:** `%s`" % (
-                    info['name'], info['realm'], info['ilvl'], info['challenging_look']),
+                value="**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Item Level`:** `%s`\n**`Artifact Challenge`:** `%s`" % (
+                    info['name'], info['realm'], region.upper(), info['ilvl'], info['challenging_look']),
                 inline=True)
             msg.add_field(
                 name="Keystone Achievements",
@@ -117,7 +121,8 @@ async def on_message(message):
     # Same as before, except this time it's building data for PVP.
     if message.content.startswith('!armory pvp'):
         split = split_query(message.content, 'pvp')
-        info = character_info(split[0], split[1], split[2])
+        region = split[3]
+        info = character_info(split[0], split[1], split[2], split[3])
 
         if info == '':
             msg = bot_error.format(message)
@@ -133,14 +138,14 @@ async def on_message(message):
                     info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
                 url="https://render-%s.worldofwarcraft.com/character/%s" % (
-                    WOW_REGION, info['thumb']))
+                    region, info['thumb']))
             msg.set_footer(
                 text="!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues",
                 icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
             msg.add_field(
                 name="Character",
-                value="**`Name`:** `%s`\n**`Realm`:** `%s`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`" % (
-                    info['name'], info['realm'], info['battlegroup'], info['ilvl']),
+                value="**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`" % (
+                    info['name'], info['realm'], region.upper(), info['battlegroup'], info['ilvl']),
                 inline=True)
             msg.add_field(
                 name="Arena Achievements",
@@ -196,6 +201,10 @@ async def on_message(message):
             !armory pvp <name> <realm>
             !armory pvp <armory-link>
 
+            # You can also provide an optional region to each query to display players from other WoW regions outside of the bot default, for example EU, US, etc.
+            !armory pve <name> <realm> <region>
+            !armory pvp <armory-link> <region>
+
             ```
             • Bot created by James Ives (jamesives.co.uk)
             • Feedback, Issues and Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
@@ -203,6 +212,24 @@ async def on_message(message):
 
         msg = '%s'.format(message) % re.sub(r'(^[ \t]+|[ \t]+(?=:))', '', msg, flags=re.M)
         await client.send_message(message.channel, msg)
+
+
+@client.event
+async def on_ready():
+    if WOW_API_KEY == '':
+        print('Missing World of Warcraft API key. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+
+    if WOW_REGION == '':
+        print('Missing World of Warcraft player region. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+
+    if LOCALE == '':
+        print('Missing locale. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+
+    if DISCORD_BOT_TOKEN == '':
+        print('Missing Discord bot token. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+
+    else:
+        print('Launch Succesful! The bot is now listening for commands...')
 
 
 client.run(DISCORD_BOT_TOKEN)

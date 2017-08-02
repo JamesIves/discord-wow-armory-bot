@@ -7,20 +7,20 @@ class BaseTest(unittest.TestCase):
 
     def test_for_normal_query_split(self):
         # Tests to ensure that the query gets split properly when the bot gets a message.
-        # Example query: '!armory pve/pvp <name> <realm>'
-        sample_query = '!armory pve jimo burning-legion'
+        # Example query: '!armory pve/pvp <name> <realm> <region>'
+        sample_query = '!armory pve jimo burning-legion us'
 
-        self.assertEqual(split_query(sample_query, 'pve'), ['jimo', 'burning-legion', 'pve'])
+        self.assertEqual(split_query(sample_query, 'pve'), ['jimo', 'burning-legion', 'pve', 'us'])
 
 
     def test_for_url_query_split(self):
         # Tests to ensure that the query string gets split properly when the bot gets a url based message.
-        # Example query: '!armory pve/pvp <armory-link>' (Accepts either a world of warcraft or battle net link)
-        sample_wow_url = 'https://worldofwarcraft.com/en-us/character/burning-legion/jimo'
-        sample_battlenet_url = 'http://us.battle.net/wow/en/character/burning-legion/jimo/advanced'
+        # Example query: '!armory pve/pvp <armory-link> <region>' (Accepts either a world of warcraft or battle net link)
+        sample_wow_url = '!armory pve https://worldofwarcraft.com/en-us/character/burning-legion/jimo us'
+        sample_battlenet_url = '!armory pve http://us.battle.net/wow/en/character/burning-legion/jimo/advanced us'
 
-        self.assertEqual(split_query(sample_wow_url, 'pve'), ['jimo', 'burning-legion', 'pve'])
-        self.assertEqual(split_query(sample_battlenet_url, 'pvp'), ['jimo', 'burning-legion', 'pvp'])
+        self.assertEqual(split_query(sample_wow_url, 'pve'), ['jimo', 'burning-legion', 'pve', 'us'])
+        self.assertEqual(split_query(sample_battlenet_url, 'pvp'), ['jimo', 'burning-legion', 'pvp', 'us'])
 
 
     def test_for_warrior_class(self):
