@@ -1,6 +1,6 @@
 # World of Warcraft Armory Discord Bot
 
-[![Build Status](https://travis-ci.org/JamesIves/discord-wow-armory-bot.svg?branch=master)](https://travis-ci.org/JamesIves/discord-wow-armory-bot) [![Issues](https://img.shields.io/github/issues/JamesIves/discord-wow-armory-bot.svg)](https://github.com/JamesIves/discord-wow-armory-bot/issues) [![Read the Blog](https://img.shields.io/badge/Read-Blog%20Post-orange.svg)](https://jamesiv.es/python/2017/07/18/discord-wow-bot)
+[![Build Status](https://travis-ci.org/JamesIves/discord-wow-armory-bot.svg?branch=master)](https://travis-ci.org/JamesIves/discord-wow-armory-bot) [![Issues](https://img.shields.io/github/issues/JamesIves/discord-wow-armory-bot.svg)](https://github.com/JamesIves/discord-wow-armory-bot/issues)
 
 This is a simple Discord bot for World of Warcraft built on [discord.py](https://github.com/Rapptz/discord.py). You're able to enter a character name and realm to get a quick view at a characters item level, notable achievements, and pve/pvp progression.
 
