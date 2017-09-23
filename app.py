@@ -46,6 +46,7 @@ async def on_message(message):
             tov_feat = ''
             nh_feat = ''
             tos_feat = ''
+            atbt_feat = ''
 
             if info['en_feat'] != '':
                 en_feat = '**`%s`**' % (info['en_feat'])
@@ -58,6 +59,9 @@ async def on_message(message):
 
             if info['tos_feat'] != '':
                 tos_feat = '**`%s`**' % (info['tos_feat'])
+
+            if info['atbt_feat'] != '':
+                atbt_feat = '**`%s`**' % (info['atbt_feat'])
 
             msg = discord.Embed(
                 title="%s" % (info['name']),
@@ -113,6 +117,14 @@ async def on_message(message):
                     info['tomb_of_sargeras']['heroic'], info['tomb_of_sargeras']['bosses'],
                     info['tomb_of_sargeras']['mythic'], info['tomb_of_sargeras']['bosses'],
                     tos_feat),
+                inline=True)
+            msg.add_field(
+                name="Antorus, the Burning Throne",
+                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
+                    info['antorus_the_burning_throne']['normal'], info['antorus_the_burning_throne']['bosses'],
+                    info['antorus_the_burning_throne']['heroic'], info['antorus_the_burning_throne']['bosses'],
+                    info['antorus_the_burning_throne']['mythic'], info['antorus_the_burning_throne']['bosses'],
+                    atbt_feat),
                 inline=True)
 
             await client.send_message(message.channel, embed=msg)
