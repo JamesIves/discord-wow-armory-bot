@@ -121,14 +121,14 @@ class BaseTest(unittest.TestCase):
         input_data_horde_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192, 11874]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192, 11874, 12110, 12111]
             }
         }
 
         input_data_alliance_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192, 11874, 11875]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192, 11874, 11875, 12110]
             }
         }
 
@@ -150,7 +150,8 @@ class BaseTest(unittest.TestCase):
             'en_feat': 'Cutting Edge',
             'tov_feat': 'Ahead of the Curve',
             'nh_feat': 'Cutting Edge',
-            'tos_feat': 'Ahead of the Curve'
+            'tos_feat': 'Ahead of the Curve',
+            'atbt_feat': 'Cutting Edge'
         }
 
         expected_alliance_data = {
@@ -171,7 +172,8 @@ class BaseTest(unittest.TestCase):
             'en_feat': 'Ahead of the Curve',
             'tov_feat': 'Ahead of the Curve',
             'nh_feat': 'Cutting Edge',
-            'tos_feat': 'Cutting Edge'
+            'tos_feat': 'Cutting Edge',
+            'atbt_feat': 'Ahead of the Curve'
         }
 
         self.assertEqual(character_achievements(input_data_horde_sample, 'Horde'), expected_horde_data)
@@ -265,6 +267,27 @@ class BaseTest(unittest.TestCase):
                         "heroicKills": 2,
                         "mythicKills": 0,
                         }]
+                    },
+                    {
+                    "id": 8638,
+                    "bosses": [{
+                        "lfrKills": 0,
+                        "normalKills": 2,
+                        "heroicKills": 1,
+                        "mythicKills": 0,
+                        },
+                        {
+                        "lfrKills": 0,
+                        "normalKills": 2,
+                        "heroicKills": 2,
+                        "mythicKills": 0,
+                        },
+                        {
+                        "lfrKills": 0,
+                        "normalKills": 2,
+                        "heroicKills": 2,
+                        "mythicKills": 0,
+                        }]
                     }]
                 }
             }
@@ -297,6 +320,13 @@ class BaseTest(unittest.TestCase):
                   'heroic':1,
                   'mythic':1,
                   'bosses':1
+               },
+               'antorus_the_burning_throne': {
+                  'lfr':0,
+                  'normal':3,
+                  'heroic':3,
+                  'mythic':0,
+                  'bosses':3
                }
         }
 
