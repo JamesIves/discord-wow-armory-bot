@@ -80,6 +80,9 @@ A: Some achievements are account wide so the API response for your alt will be t
 
 Q: Do you plan on supporting Mythic+ scores?
 A: Only if the official Blizzard API begins supporting their own metric.
+
+Q: Why don't you show this raid?
+A: I aim to support the most recent raids in the current expansion. Because Discord has a character limit I will start trimming the oldest raid in the current expansion if necessary.
 ```
 
 ## Issues, Feedback and Feature Requests
