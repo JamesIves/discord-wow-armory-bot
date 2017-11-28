@@ -119,7 +119,7 @@ async def on_message(message):
                     tos_feat),
                 inline=True)
             msg.add_field(
-                name="Antorus, the Burning Throne",
+                name="Antorus, The Burning Throne",
                 value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
                     info['antorus_the_burning_throne']['normal'], info['antorus_the_burning_throne']['bosses'],
                     info['antorus_the_burning_throne']['heroic'], info['antorus_the_burning_throne']['bosses'],
