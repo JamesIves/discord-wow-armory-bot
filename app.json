@@ -25,6 +25,5 @@
       "DISCORD_BOT_TOKEN": {
         "description": "The token for your Discord bot user, you can sign up for one here: https://discordapp.com/developers/docs/intro"
       }
-    }
-  }
+   }
 }
