@@ -19,11 +19,11 @@
 			"description": "Required to make calls to the Blizzard API key, you can sign up for a key here: https://dev.battle.net/"
 		},
 		"WOW_REGION": {
-			"description": "The region you'd like to query, for example 'us' or 'eu'.",
+			"description": "The server region you'd like to query, for example `us`, or `eu`.",
 			"value": "us"
 		},
 		"LOCALE": {
-			"description": "The language for your selected WoW region, for example 'en_US'. You can obtain a list of available WoW regions here: https://dev.battle.net/io-docs by changing the API in the dropdown and observing the value in the box called 'locale'.",
+			"description": "The language for your selected WoW region, for example `en_US`, or `en_GB`. Locale depends on region, please refer to the Blizzard API documents (https://dev.battle.net/) for more information. At this time this bot will only return data in English.",
 			"value": "en_US"
 		},
 		"DISCORD_BOT_TOKEN": {
