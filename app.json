@@ -1,5 +1,5 @@
 {
-	"name": "World of Warcraft Armory Discord Bot",
+	"name": "WoW Armory Discord Bot",
 	"description": "Discord bot which displays notable PVE/PVP achievements and progress.",
 	"repository": "https://github.com/JamesIves/discord-wow-armory-bot",
 	"keywords": [
@@ -8,7 +8,10 @@
 		"discord",
 		"discord-bot",
 		"blizzard",
-		"blizzard-api", "world-of-warcraft", "wow", "wow-api"
+		"blizzard-api", 
+		"world-of-warcraft", 
+		"wow",
+		"wow-api"
 	],
 	"website": "https://jamesiv.es",
 	"env": {
