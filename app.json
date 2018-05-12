@@ -12,20 +12,16 @@
     "website": "https://jamesiv.es",
     "env": {
       "WOW_API_KEY": {
-        "description": "Required to make calls to the Blizzard API key, you can sign up for a key here: https://dev.battle.net/",
-        "value": "replace_me"
+        "description": "Required to make calls to the Blizzard API key, you can sign up for a key here: https://dev.battle.net/"
       },
       "WOW_REGION": {
-        "description": "The region you'd like to query, for example us or eu.",
-        "value": "us"
+        "description": "The region you'd like to query, for example 'us' or 'eu'."
       },
       "LOCALE": {
-        "description": "The language for your selected WoW region, for example en_US.",
-        "value": "en_US"
+        "description": "The language for your selected WoW region, for example 'en_US'. You can obtain a list of available WoW regions here: https://dev.battle.net/io-docs by changing the API in the dropdown and observing the value in the box called 'locale'."
       },
       "DISCORD_BOT_TOKEN": {
-        "description": "The token for your Discord bot user, you can sign up for one here: https://discordapp.com/developers/docs/intro",
-        "value": "replace_me"
+        "description": "The token for your Discord bot user, you can sign up for one here: https://discordapp.com/developers/docs/intro"
       }
     }
   }
