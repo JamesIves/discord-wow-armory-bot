@@ -28,7 +28,7 @@ For one-click install to [Heroku](https://www.heroku.com) you can use the button
 
 
 ## Configuration
-In order to power this bot you'll require a [Discord API bot token]((https://discordapp.com/developers/docs/intro)), and a [key for the Blizzard API]((https://dev.battle.net/)). These credentials are stored as environment variables. If you're deploying the bot to [Heroku](https://www.heroku.com) you'll need to go to the `Settings` tab of the application and click `Reveal Config Vars` and replace or add the fields depending on your chosen method of installation.
+In order to power this bot you'll require a [Discord API bot token](https://discordapp.com/developers/docs/intro), and a [key for the Blizzard API](https://dev.battle.net/). These credentials are stored as environment variables. If you're deploying the bot to [Heroku](https://www.heroku.com) you'll be promoted to configure these when you click install button. If you need to make changes after the fact you'll need to go to the `Settings` tab of the application and click `Reveal Config Vars` and replace or add the fields depending on your chosen method of installation.
 
 | Key  | Value Information |
 | ------------- | ------------- |
