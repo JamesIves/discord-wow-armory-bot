@@ -345,7 +345,6 @@ def character_info(name, realm, query, region):
                     region, realm, name),
                 'thumb': info['thumbnail'],
                 'ilvl': info['items']['averageItemLevelEquipped'],
-                'challenging_look': achievements['challenging_look'],
                 'keystone_master': achievements['keystone_master'],
                 'keystone_conqueror': achievements['keystone_conqueror'],
                 'keystone_challenger': achievements['keystone_challenger'],
