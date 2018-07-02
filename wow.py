@@ -102,7 +102,6 @@ def character_achievements(achievement_data, faction):
             rbg_1500 = 'Completed'
 
     achievement_list = {
-        'challenging_look': challenging_look,
         'keystone_master': keystone_master,
         'keystone_conqueror': keystone_conqueror,
         'keystone_challenger': keystone_challenger,
