@@ -4,7 +4,6 @@
 """Dictionary of constants used throughout the application."""
 
 # Achievement Constants
-AC_CHALLENGING_LOOK = 11611
 AC_KEYSTONE_MASTER = 11162
 AC_KEYSTONE_CONQUEROR = 11185
 AC_KEYSTONE_CHALLENGER = 11184
@@ -30,7 +29,6 @@ AC_LIEAUTENANT_COMMANDER_NAME = 'Lieutenant Commander'
 AC_SERGEANT_MAJOR_NAME = 'Sergeant Major'
 
 # Raid Constants
-RAID_EN = 8026
 RAID_UD = 9389
 
 # Faction Constants

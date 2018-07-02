@@ -33,7 +33,6 @@ def character_achievements(achievement_data, faction):
     keystone_master = 'In Progress'
     keystone_conqueror = 'In Progress'
     keystone_challenger = 'In Progress'
-    challenging_look = 'In Progress'
     arena_challenger = 'In Progress'
     arena_rival = 'In Progress'
     arena_duelist = 'In Progress'
@@ -42,9 +41,6 @@ def character_achievements(achievement_data, faction):
     rbg_2000 = 'In Progress'
     rbg_1500 = 'In Progress'
     ud_feat = ''
-
-    if AC_CHALLENGING_LOOK in achievements['achievementsCompleted']:
-        challenging_look = 'Completed'
 
     if AC_KEYSTONE_MASTER in achievements['achievementsCompleted']:
         keystone_master = 'Completed'

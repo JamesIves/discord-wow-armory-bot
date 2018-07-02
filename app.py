@@ -60,8 +60,8 @@ async def on_message(message):
                 icon_url="https://raw.githubusercontent.com/JamesIves/discord-wow-armory-bot/master/assets/icon.png")
             msg.add_field(
                 name="Character",
-                value="**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Item Level`:** `%s`\n**`Artifact Challenge`:** `%s`" % (
-                    info['name'], info['realm'], region.upper(), info['ilvl'], info['challenging_look']),
+                value="**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Item Level`:** `%s`" % (
+                    info['name'], info['realm'], region.upper(), info['ilvl']),
                 inline=True)
             msg.add_field(
                 name="Keystone Achievements",
