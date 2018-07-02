@@ -133,7 +133,6 @@ class BaseTest(unittest.TestCase):
         }
 
         expected_horde_data = {
-            'challenging_look': 'Completed',
             'keystone_master': 'Completed',
             'keystone_conqueror': 'Completed',
             'keystone_challenger': 'Completed',
@@ -151,7 +150,6 @@ class BaseTest(unittest.TestCase):
         }
 
         expected_alliance_data = {
-            'challenging_look': 'Completed',
             'keystone_master': 'Completed',
             'keystone_conqueror': 'Completed',
             'keystone_challenger': 'Completed',
