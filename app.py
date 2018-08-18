@@ -145,7 +145,7 @@ async def on_message(message):
                 inline=True)
             msg.add_field(
                 name="Lifetime Honorable Kills",
-                value="**`Rating`:** `%s`" % (
+                value="`%s`" % (
                     info['kills']),
                 inline=True)
 
