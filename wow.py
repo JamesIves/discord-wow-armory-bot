@@ -4,7 +4,6 @@ import requests
 from settings import WOW_API_KEY, LOCALE
 from constants import *
 
-
 def get_data(name, realm, field, region):
     """Helper function that grabs data from the World of Warcraft API."""
     path = 'https://%s.api.battle.net/wow/character/%s/%s?fields=%s&locale=%s&apikey=%s' % (
@@ -18,7 +17,7 @@ def get_data(name, realm, field, region):
 
     except requests.exceptions.RequestException as error:
         # If there's an issue or a character doesn't exist, return an empty
-        # string.
+        # string and print the error to the console.
         request_json = ''
         print(error)
 
@@ -34,7 +33,6 @@ def character_achievements(achievement_data, faction):
     keystone_master = 'In Progress'
     keystone_conqueror = 'In Progress'
     keystone_challenger = 'In Progress'
-    challenging_look = 'In Progress'
     arena_challenger = 'In Progress'
     arena_rival = 'In Progress'
     arena_duelist = 'In Progress'
@@ -42,14 +40,7 @@ def character_achievements(achievement_data, faction):
     rbg_2400 = 'In Progress'
     rbg_2000 = 'In Progress'
     rbg_1500 = 'In Progress'
-    en_feat = ''
-    tov_feat = ''
-    nh_feat = ''
-    tos_feat = ''
-    atbt_feat = ''
-
-    if AC_CHALLENGING_LOOK in achievements['achievementsCompleted']:
-        challenging_look = 'Completed'
+    ud_feat = ''
 
     if AC_KEYSTONE_MASTER in achievements['achievementsCompleted']:
         keystone_master = 'Completed'
@@ -72,36 +63,12 @@ def character_achievements(achievement_data, faction):
     if AC_ARENA_GLADIATOR in achievements['achievementsCompleted']:
         arena_gladiator = 'Completed'
 
-    if AC_AOTC_EN in achievements['achievementsCompleted']:
-        en_feat = 'Ahead of the Curve'
+    if AC_AOTC_UD in achievements['achievementsCompleted']:
+        ud_feat = 'Ahead of the Curve'
 
         # Checks to see if the user has completed tier 2 of the AOTC achievement.
-        if AC_CE_EN in achievements['achievementsCompleted']:
-            en_feat = 'Cutting Edge'
-
-    if AC_AOTC_TOV in achievements['achievementsCompleted']:
-        tov_feat = 'Ahead of the Curve'
-
-        if AC_CE_TOV in achievements['achievementsCompleted']:
-            tov_feat = 'Cutting Edge'
-
-    if AC_AOTC_NH in achievements['achievementsCompleted']:
-        nh_feat = 'Ahead of the Curve'
-
-        if AC_CE_NH in achievements['achievementsCompleted']:
-            nh_feat = 'Cutting Edge'
-
-    if AC_AOTC_TOS in achievements['achievementsCompleted']:
-        tos_feat = 'Ahead of the Curve'
-
-        if AC_CE_TOS in achievements['achievementsCompleted']:
-            tos_feat = 'Cutting Edge'
-
-    if AC_AOTC_ATBT in achievements['achievementsCompleted']:
-        atbt_feat = 'Ahead of the Curve'
-
-        if AC_CE_ATBT in achievements['achievementsCompleted']:
-            atbt_feat = 'Cutting Edge'
+        if AC_CE_UD in achievements['achievementsCompleted']:
+            ud_feat = 'Cutting Edge'
 
 
     # RBG achievements have a different id/name based on faction, checks these
@@ -135,7 +102,6 @@ def character_achievements(achievement_data, faction):
             rbg_1500 = 'Completed'
 
     achievement_list = {
-        'challenging_look': challenging_look,
         'keystone_master': keystone_master,
         'keystone_conqueror': keystone_conqueror,
         'keystone_challenger': keystone_challenger,
@@ -149,11 +115,7 @@ def character_achievements(achievement_data, faction):
         'rbg_2400': rbg_2400,
         'rbg_2000': rbg_2000,
         'rbg_1500': rbg_1500,
-        'en_feat': en_feat,
-        'tov_feat': tov_feat,
-        'nh_feat': nh_feat,
-        'tos_feat': tos_feat,
-        'atbt_feat': atbt_feat
+        'ud_feat': ud_feat,
     }
 
     return achievement_list
@@ -204,27 +166,11 @@ def character_progression(progression_data):
 
     for raid in raids:
         # Loop over the raids and filter the most recent.
-        if raid['id'] == RAID_EN:
-            emerald_nightmare = calculate_boss_kills(raid)
-
-        if raid['id'] == RAID_TOV:
-            trial_of_valor = calculate_boss_kills(raid)
-
-        if raid['id'] == RAID_NH:
-            the_nighthold = calculate_boss_kills(raid)
-
-        if raid['id'] == RAID_TOS:
-            tomb_of_sargeras = calculate_boss_kills(raid)
-
-        if raid['id'] == RAID_ATBT:
-            antorus_the_burning_throne = calculate_boss_kills(raid)
+        if raid['id'] == RAID_UD:
+            uldir = calculate_boss_kills(raid)
 
     raid_stats = {
-        'emerald_nightmare': emerald_nightmare,
-        'trial_of_valor': trial_of_valor,
-        'the_nighthold': the_nighthold,
-        'tomb_of_sargeras': tomb_of_sargeras,
-        'antorus_the_burning_throne': antorus_the_burning_throne
+        'uldir': uldir
     }
 
     return raid_stats
@@ -395,23 +341,14 @@ def character_info(name, realm, query, region):
                 'class_colour': class_data['colour'],
                 'class_type': class_data['name'],
                 'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (
-                   region, realm, name),
+                    region, realm, name),
                 'thumb': info['thumbnail'],
                 'ilvl': info['items']['averageItemLevelEquipped'],
-                'challenging_look': achievements['challenging_look'],
                 'keystone_master': achievements['keystone_master'],
                 'keystone_conqueror': achievements['keystone_conqueror'],
                 'keystone_challenger': achievements['keystone_challenger'],
-                'en_feat': achievements['en_feat'],
-                'tov_feat': achievements['tov_feat'],
-                'nh_feat': achievements['nh_feat'],
-                'tos_feat': achievements['tos_feat'],
-                'atbt_feat': achievements['atbt_feat'],
-                'emerald_nightmare': progression['emerald_nightmare'],
-                'trial_of_valor': progression['trial_of_valor'],
-                'the_nighthold': progression['the_nighthold'],
-                'tomb_of_sargeras': progression['tomb_of_sargeras'],
-                'antorus_the_burning_throne': progression['antorus_the_burning_throne']
+                'ud_feat': achievements['ud_feat'],
+                'uldir': progression['uldir']
             }
 
             return pve_character_sheet

@@ -121,19 +121,18 @@ class BaseTest(unittest.TestCase):
         input_data_horde_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192, 11874, 12110, 12111]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192, 11874, 12110, 12111, 12536, 12535]
             }
         }
 
         input_data_alliance_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192, 11874, 11875, 12110]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192, 11874, 11875, 12110, 12536]
             }
         }
 
         expected_horde_data = {
-            'challenging_look': 'Completed',
             'keystone_master': 'Completed',
             'keystone_conqueror': 'Completed',
             'keystone_challenger': 'Completed',
@@ -147,15 +146,10 @@ class BaseTest(unittest.TestCase):
             'rbg_2400': 'Completed',
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
-            'en_feat': 'Cutting Edge',
-            'tov_feat': 'Ahead of the Curve',
-            'nh_feat': 'Cutting Edge',
-            'tos_feat': 'Ahead of the Curve',
-            'atbt_feat': 'Cutting Edge'
+            'ud_feat': 'Cutting Edge'
         }
 
         expected_alliance_data = {
-            'challenging_look': 'Completed',
             'keystone_master': 'Completed',
             'keystone_conqueror': 'Completed',
             'keystone_challenger': 'Completed',
@@ -169,11 +163,7 @@ class BaseTest(unittest.TestCase):
             'rbg_2400': 'Completed',
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
-            'en_feat': 'Ahead of the Curve',
-            'tov_feat': 'Ahead of the Curve',
-            'nh_feat': 'Cutting Edge',
-            'tos_feat': 'Cutting Edge',
-            'atbt_feat': 'Ahead of the Curve'
+            'ud_feat': 'Ahead of the Curve'
         }
 
         self.assertEqual(character_achievements(input_data_horde_sample, 'Horde'), expected_horde_data)
@@ -184,7 +174,7 @@ class BaseTest(unittest.TestCase):
         # Tests for accuracy on each data check, not API data.
         self.maxDiff = None
         sample_data = {
-           "pvp": {
+            "pvp": {
                 "brackets": {
                     "ARENA_BRACKET_2v2": {
                         "rating": 5928,
@@ -221,7 +211,7 @@ class BaseTest(unittest.TestCase):
             "progression": {
                 "raids": [
                     {
-                    "id": 8026,
+                    "id": 9389,
                     "bosses": [{
                         "lfrKills": 19,
                         "normalKills": 8,
@@ -234,100 +224,18 @@ class BaseTest(unittest.TestCase):
                         "heroicKills": 3,
                         "mythicKills": 2,
                         }]
-                    },
-                    {
-                    "id": 8440,
-                    "bosses": [{
-                        "lfrKills": 7,
-                        "normalKills": 1,
-                        "heroicKills": 1,
-                        "mythicKills": 0,
-                        }]
-                    },
-                    {
-                    "id": 8524,
-                    "bosses": [{
-                        "lfrKills": 3,
-                        "normalKills": 2,
-                        "heroicKills": 4,
-                        "mythicKills": 1,
-                        }]
-                    },
-                    {
-                    "id": 8025,
-                    "bosses": [{
-                        "lfrKills": 3,
-                        "normalKills": 2,
-                        "heroicKills": 1,
-                        "mythicKills": 0,
-                        },
-                        {
-                        "lfrKills": 5,
-                        "normalKills": 2,
-                        "heroicKills": 2,
-                        "mythicKills": 0,
-                        }]
-                    },
-                    {
-                    "id": 8638,
-                    "bosses": [{
-                        "lfrKills": 0,
-                        "normalKills": 2,
-                        "heroicKills": 1,
-                        "mythicKills": 0,
-                        },
-                        {
-                        "lfrKills": 0,
-                        "normalKills": 2,
-                        "heroicKills": 2,
-                        "mythicKills": 0,
-                        },
-                        {
-                        "lfrKills": 0,
-                        "normalKills": 2,
-                        "heroicKills": 2,
-                        "mythicKills": 0,
-                        }]
                     }]
                 }
             }
 
         expected_data = {
-            'emerald_nightmare':{
-                  'lfr':2,
-                  'normal':2,
-                  'heroic':2,
-                  'mythic':2,
-                  'bosses':2
-               },
-               'trial_of_valor':{
-                  'lfr':1,
-                  'normal':1,
-                  'heroic':1,
-                  'mythic':0,
-                  'bosses':1
-               },
-               'the_nighthold':{
-                  'lfr':2,
-                  'normal':2,
-                  'heroic':2,
-                  'mythic':0,
-                  'bosses':2
-               },
-               'tomb_of_sargeras': {
-                  'lfr':1,
-                  'normal':1,
-                  'heroic':1,
-                  'mythic':1,
-                  'bosses':1
-               },
-               'antorus_the_burning_throne': {
-                  'lfr':0,
-                  'normal':3,
-                  'heroic':3,
-                  'mythic':0,
-                  'bosses':3
-               }
+            'uldir':{
+                'lfr':2,
+                'normal':2,
+                'heroic':2,
+                'mythic':2,
+                'bosses':2
+                }
         }
 
         self.assertEqual(character_progression(sample_data), expected_data)
@@ -339,7 +247,7 @@ class BaseTest(unittest.TestCase):
         sample_data = {
             'talents': [
             {
-                'selected':True,
+                'selected': True,
                 'spec':{
                     'name':'Holy',
                     'role':'HEALING'

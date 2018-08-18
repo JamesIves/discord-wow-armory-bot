@@ -8,7 +8,6 @@ from wow import *
 from util import *
 from settings import *
 
-
 client = discord.Client()
 
 @client.event
@@ -42,26 +41,10 @@ async def on_message(message):
             epoch_time = int(time.time())
 
             # Format the AOTC/CE strings if they exist.
-            en_feat = ''
-            tov_feat = ''
-            nh_feat = ''
-            tos_feat = ''
-            atbt_feat = ''
+            ud_feat = ''
 
-            if info['en_feat'] != '':
-                en_feat = '**`%s`**' % (info['en_feat'])
-
-            if info['tov_feat'] != '':
-                tov_feat = '**`%s`**' % (info['tov_feat'])
-
-            if info['nh_feat'] != '':
-                nh_feat = '**`%s`**' % (info['nh_feat'])
-
-            if info['tos_feat'] != '':
-                tos_feat = '**`%s`**' % (info['tos_feat'])
-
-            if info['atbt_feat'] != '':
-                atbt_feat = '**`%s`**' % (info['atbt_feat'])
+            if info['ud_feat'] != '':
+                ud_feat = '**`%s`**' % (info['ud_feat'])
 
             msg = discord.Embed(
                 title="%s" % (info['name']),
@@ -77,8 +60,8 @@ async def on_message(message):
                 icon_url="https://raw.githubusercontent.com/JamesIves/discord-wow-armory-bot/master/assets/icon.png")
             msg.add_field(
                 name="Character",
-                value="**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Item Level`:** `%s`\n**`Artifact Challenge`:** `%s`" % (
-                    info['name'], info['realm'], region.upper(), info['ilvl'], info['challenging_look']),
+                value="**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Item Level`:** `%s`" % (
+                    info['name'], info['realm'], region.upper(), info['ilvl']),
                 inline=True)
             msg.add_field(
                 name="Keystone Achievements",
@@ -87,44 +70,12 @@ async def on_message(message):
                     info['keystone_challenger']),
                 inline=True)
             msg.add_field(
-                name="Emerald Nightmare",
+                name="Uldir",
                 value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
-                    info['emerald_nightmare']['normal'], info['emerald_nightmare']['bosses'],
-                    info['emerald_nightmare']['heroic'], info['emerald_nightmare']['bosses'],
-                    info['emerald_nightmare']['mythic'], info['emerald_nightmare']['bosses'],
-                    en_feat),
-                inline=True)
-            msg.add_field(
-                name="Trial of Valor",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
-                    info['trial_of_valor']['normal'], info['trial_of_valor']['bosses'],
-                    info['trial_of_valor']['heroic'], info['trial_of_valor']['bosses'],
-                    info['trial_of_valor']['mythic'], info['trial_of_valor']['bosses'],
-                    tov_feat),
-                inline=True)
-            msg.add_field(
-                name="The Nighthold",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
-                    info['the_nighthold']['normal'], info['the_nighthold']['bosses'],
-                    info['the_nighthold']['heroic'], info['the_nighthold']['bosses'],
-                    info['the_nighthold']['mythic'], info['the_nighthold']['bosses'],
-                    nh_feat),
-                inline=True)
-            msg.add_field(
-                name="Tomb of Sargeras",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
-                    info['tomb_of_sargeras']['normal'], info['tomb_of_sargeras']['bosses'],
-                    info['tomb_of_sargeras']['heroic'], info['tomb_of_sargeras']['bosses'],
-                    info['tomb_of_sargeras']['mythic'], info['tomb_of_sargeras']['bosses'],
-                    tos_feat),
-                inline=True)
-            msg.add_field(
-                name="Antorus, the Burning Throne",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
-                    info['antorus_the_burning_throne']['normal'], info['antorus_the_burning_throne']['bosses'],
-                    info['antorus_the_burning_throne']['heroic'], info['antorus_the_burning_throne']['bosses'],
-                    info['antorus_the_burning_throne']['mythic'], info['antorus_the_burning_throne']['bosses'],
-                    atbt_feat),
+                    info['uldir']['normal'], info['uldir']['bosses'],
+                    info['uldir']['heroic'], info['uldir']['bosses'],
+                    info['uldir']['mythic'], info['uldir']['bosses'],
+                    ud_feat),
                 inline=True)
 
             await client.send_message(message.channel, embed=msg)
@@ -194,7 +145,7 @@ async def on_message(message):
                 inline=True)
             msg.add_field(
                 name="Lifetime Honorable Kills",
-                value="**`Rating`:** `%s`" % (
+                value="`%s`" % (
                     info['kills']),
                 inline=True)
 
@@ -218,7 +169,7 @@ async def on_message(message):
             !armory pvp <armory-link> <region>
 
             ```
-            • Bot created by James Ives (jamesives.co.uk)
+            • Bot created by James Ives (jamesiv.es)
             • Feedback, Issues and Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
             """
 
