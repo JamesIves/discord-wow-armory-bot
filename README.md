@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/JamesIves/discord-wow-armory-bot.svg?branch=master)](https://travis-ci.org/JamesIves/discord-wow-armory-bot) [![Issues](https://img.shields.io/github/issues/JamesIves/discord-wow-armory-bot.svg)](https://github.com/JamesIves/discord-wow-armory-bot/issues)
 
-This is a simple Discord bot for World of Warcraft built on [discord.py](https://github.com/Rapptz/discord.py). You're able to enter a character name and realm to get a quick view at a characters item level, notable achievements, and pve/pvp progression.
+This is a simple Discord bot for World of Warcraft built on [discord.py](https://github.com/Rapptz/discord.py). You're able to enter a character name and realm to get a quick view at a character's item level, notable achievements, and pve/pvp progression.
 
 
 ## Requirements
@@ -28,13 +28,13 @@ For one-click install to [Heroku](https://www.heroku.com) you can use the button
 
 
 ## Configuration
-In order to power this bot you'll require a [Discord API bot token](https://discordapp.com/developers/docs/intro), and a [key for the Blizzard API](https://dev.battle.net/). These credentials are stored as environment variables. If you're deploying the bot to [Heroku](https://www.heroku.com) you'll be promoted to configure these when you click install button. If you need to make changes after the fact you'll need to go to the `Settings` tab of the application and click `Reveal Config Vars` and replace or add the fields depending on your chosen method of installation.
+In order to power this bot you'll need a [Discord API bot token](https://discordapp.com/developers/docs/intro), and a [key for the Blizzard API](https://dev.battle.net/). These credentials are stored as environment variables. If you're deploying the bot to [Heroku](https://www.heroku.com) you'll be promoted to configure these when you click the install button. If you need to make changes after the fact you'll need to go to the `Settings` tab of the application and click `Reveal Config Vars` and replace or add the fields depending on your chosen method of installation.
 
 | Key  | Value Information |
 | ------------- | ------------- |
 | `WOW_API_KEY`  | Required to make calls to the Blizzard API, you can sign up for a key [here](https://dev.battle.net/).  |
 | `WOW_REGION`  | The server region you'd like to query, for example `us`, or `eu`.  |
-| `LOCALE`  | The language for your selected WoW region, for example `en_US`, or `en_GB`. Locale depends on region, please refer to the [Blizzard API documents](https://dev.battle.net/) for more information. At this time this bot will only return data in English.   |
+| `LOCALE`  | The language for your selected WoW region, for example `en_US`, or `en_GB`. Locale depends on region. Please refer to the [Blizzard API documents](https://dev.battle.net/) for more information. At this time this bot will only return data in English.   |
 | `DISCORD_BOT_TOKEN`  | The token for your Discord bot user, you can sign up for one [here](https://discordapp.com/developers/docs/intro). |
 
 Once you've configured the variables you may need to restart the service. If a variable is missing the terminal you executed the bot from will display an error message.
