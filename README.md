@@ -49,7 +49,7 @@ Once the application is running you'll need to invite the bot to your Discord se
 ## Running the Application
 This application can be executed locally by running `$ python3 app.py`. This will initialize the script and connect the bot. If the bot has already been invited to a server it will change its status to online.
 
-There are a number of tests that can be run using `$ python3 tests.py` which check returned values of core functions with sample API data for accuracy.
+There are a number of tests that can be run using `$ python3 tests.py`. These tests check returned values of core functions with sample API data for accuracy.
 
 
 ## Commands
