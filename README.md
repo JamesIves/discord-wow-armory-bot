@@ -10,7 +10,7 @@ This application requires [Python 3.6.1](https://www.python.org/) and the follow
 
 ```
 discord.py==0.16.7
-requests==2.14.2
+requests==2.20.0
 ```
 
 ## Deploying the Bot
