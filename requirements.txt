@@ -1,2 +1,2 @@
 discord.py==0.16.7
-requests>=2.20.0
+requests==2.20.0
