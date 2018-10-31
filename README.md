@@ -13,6 +13,8 @@ With this bot you're able to lookup a World of Warcraft character's item level, 
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/JamesIves/discord-wow-armory-bot/master)
 
+---
+
 If you'd like to run the application outside of Heroku you can run add the required secrets as environment variables and then run the following commands using Python and Pip.
 
 ```
