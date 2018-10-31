@@ -28,16 +28,16 @@ $ python tests.py
 
 ## Configuration :file_folder: 
 
-The installation button will require you to enter a number of API keys. Below you'll find an explanation of each.
+The installation will require you to enter a number of API keys and settings. Below you'll find an explanation of each.
 
-| Key  | Value Information |
-| ------------- | ------------- |
-| `WOW_API_KEY`  | Required to make calls to the Blizzard API, you can sign up for a key [here](https://dev.battle.net/).  |
-| `WOW_REGION`  | The server region you'd like to query, for example `us`, or `eu`.  |
-| `LOCALE`  | The language for your selected WoW region, for example `en_US`, or `en_GB`. Locale depends on region. Please refer to the [Blizzard API documents](https://dev.battle.net/) for more information. At this time this bot will only return data in English.   |
-| `DISCORD_BOT_TOKEN`  | The token for your Discord bot user, you can sign up for one [here](https://discordapp.com/developers/docs/intro). |
+| Key  | Value Information | Required |
+| ------------- | ------------- | ------------- |
+| `WOW_API_KEY`  | Required to make calls to the Blizzard API, you can sign up for a key [here](https://dev.battle.net/).  | **Yes** |
+| `WOW_REGION`  | The server region you'd like to query, for example `us`, or `eu`.  | **Yes** |
+| `LOCALE`  | The language for your selected WoW region, for example `en_US`, or `en_GB`. Locale depends on region. Please refer to the [Blizzard API documents](https://dev.battle.net/) for more information. At this time this bot will only return data in English.   | **Yes** |
+| `DISCORD_BOT_TOKEN`  | The token for your Discord bot user, you can sign up for one [here](https://discordapp.com/developers/docs/intro). | **Yes** |
 
-If a variable is missing the terminal you executed the bot from will display an error message.
+If a required variable is missing the terminal you executed the bot from will display an error message.
 
 
 ## Commands :computer: 
