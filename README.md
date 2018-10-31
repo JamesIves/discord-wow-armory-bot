@@ -28,7 +28,7 @@ $ python tests.py
 
 ## Configuration :file_folder: 
 
-The installation will require you to enter a number of API keys and settings. Below you'll find an explanation of each.
+The installation will require you to enter a number of API keys and settings as environment variables. Below you'll find an explanation of each.
 
 | Key  | Value Information | Required |
 | ------------- | ------------- | ------------- |
