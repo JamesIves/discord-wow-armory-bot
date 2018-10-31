@@ -15,7 +15,7 @@ With this bot you're able to lookup a World of Warcraft character's item level, 
 
 ---
 
-If you'd like to run the application outside of Heroku you can run add the required secrets as environment variables and then run the following commands using [Python](https://www.python.org/) and [Pip](https://pypi.org/project/pip/).
+If you'd like to run the application outside of [Heroku](http://heroku.com) you can run add the required secrets as environment variables and then run the following commands using [Python](https://www.python.org/) and [Pip](https://pypi.org/project/pip/).
 
 ```
 # Install & Run
