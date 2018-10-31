@@ -6,16 +6,16 @@ With this bot you're able to lookup a World of Warcraft character's item level, 
 
 ## Installation Steps :minidisc: 
 
-1. Visit the Blizzard API site and sign up for an API key.
-2. Visit the Discord API site and sign up. You'll need to create a bot user and retrieve the provided bot token.
-3. Invite the bot to your server using the following URL, replacing the `YOUR_CLIENT_SECRET` portion with the one found within your Discord API settings: `https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0`
-4. Click the button below and enter the required fields to deploy the bot to Heroku.
+1. Visit the [Blizzard API website](https://dev.battle.net/) and sign up for an API key.
+2. Visit the [Discord API website and create an application](https://discordapp.com/developers/applications/). You'll need to create a bot user and retrieve the [bot token](https://discordapp.com/developers/docs/intro#bots-and-apps) it provides.
+3. Invite the bot user to your server using the following URL by replacing the `YOUR_CLIENT_SECRET` portion with the one found within your [Discord API settings](https://discordapp.com/developers/applications/): `https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0`
+4. Click the button below and enter the required fields to deploy the bot to [Heroku](http://heroku.com). If the required tokens were provided correctly the bot should appear online within Discord and begin responding to commands. 
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/JamesIves/discord-wow-armory-bot/master)
 
 ---
 
-If you'd like to run the application outside of Heroku you can run add the required secrets as environment variables and then run the following commands using Python and Pip.
+If you'd like to run the application outside of Heroku you can run add the required secrets as environment variables and then run the following commands using [Python](https://www.python.org/) and [Pip](https://pypi.org/project/pip/).
 
 ```
 # Install & Run
