@@ -205,9 +205,13 @@ async def on_message(message):
             !armory pvp <name> <realm>
             !armory pvp <armory-link>
 
+            # Displays the WoW token price
+            !armory token
+
             # You can also provide an optional region to each query to display players from other WoW regions outside of the bot default, for example EU, US, etc.
             !armory pve <name> <realm> <region>
             !armory pvp <armory-link> <region>
+            !armory token <region>
 
             ```
             • Bot created by James Ives (https://jamesiv.es)

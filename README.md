@@ -57,6 +57,10 @@ The following commands are accepted by the bot.
 !armory pve <name> <realm> <region>
 !armory pvp <armory-link> <region>
 
+# Displays the currnet wow token price.
+!armory token
+!armory token <region>
+
 # Command list/help
 !armory help
 ```
