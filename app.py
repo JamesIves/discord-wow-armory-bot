@@ -55,31 +55,31 @@ async def on_message(message):
                 ud_feat = '**`%s`**' % (info['ud_feat'])
 
             msg = discord.Embed(
-                title="%s" % (info['name']),
+                title='%s' % (info['name']),
                 colour=discord.Colour(info['class_colour']),
-                url="%s" % (info['armory']),
-                description="%s %s %s %s" % (
+                url='%s' % (info['armory']),
+                description='%s %s %s %s' % (
                     info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
-                url="https://render-%s.worldofwarcraft.com/character/%s?_%s" % (
+                url='https://render-%s.worldofwarcraft.com/character/%s?_%s' % (
                     region, info['thumb'], epoch_time))
             msg.set_footer(
-                text="!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues",
-                icon_url="https://raw.githubusercontent.com/JamesIves/discord-wow-armory-bot/master/assets/icon.png")
+                text='!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues',
+                icon_url='https://raw.githubusercontent.com/JamesIves/discord-wow-armory-bot/master/assets/icon.png')
             msg.add_field(
-                name="Character",
-                value="**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Item Level`:** `%s`" % (
+                name='Character',
+                value='**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Item Level`:** `%s`' % (
                     info['name'], info['realm'], region.upper(), info['ilvl']),
                 inline=True)
             msg.add_field(
-                name="Keystone Achievements",
-                value="**`Master(+15)`:** `%s`\n**`Conqueror(+10)`:** `%s` \n**`Challenger(+5)`:** `%s`" % (
+                name='Keystone Achievements',
+                value='**`Master(+15)`:** `%s`\n**`Conqueror(+10)`:** `%s` \n**`Challenger(+5)`:** `%s`' % (
                     info['keystone_master'], info['keystone_conqueror'],
                     info['keystone_challenger']),
                 inline=True)
             msg.add_field(
-                name="Uldir",
-                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s" % (
+                name='Uldir',
+                value='**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s' % (
                     info['uldir']['normal'], info['uldir']['bosses'],
                     info['uldir']['heroic'], info['uldir']['bosses'],
                     info['uldir']['mythic'], info['uldir']['bosses'],
@@ -113,58 +113,58 @@ async def on_message(message):
 
         else:
             msg = discord.Embed(
-                title="%s" % (info['name']),
+                title='%s' % (info['name']),
                 colour=discord.Colour(info['class_colour']),
-                url="%s" % (info['armory']),
-                description="%s %s %s %s" % (
+                url='%s' % (info['armory']),
+                description='%s %s %s %s' % (
                     info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
-                url="https://render-%s.worldofwarcraft.com/character/%s?_%s" % (
+                url='https://render-%s.worldofwarcraft.com/character/%s?_%s' % (
                     region, info['thumb'], epoch_time))
             msg.set_footer(
-                text="!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues",
-                icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
+                text='!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues',
+                icon_url='https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true')
             msg.add_field(
-                name="Character",
-                value="**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`" % (
+                name='Character',
+                value='**`Name`:** `%s`\n**`Realm`:** `%s (%s)`\n**`Battlegroup`:** `%s`\n**`Item Level`:** `%s`' % (
                     info['name'], info['realm'], region.upper(), info['battlegroup'], info['ilvl']),
                 inline=True)
             msg.add_field(
-                name="Arena Achievements",
-                value="**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`" % (
+                name='Arena Achievements',
+                value='**`Challenger`:** `%s`\n**`Rival`:** `%s`\n**`Duelist`:** `%s`\n**`Gladiator`:** `%s`' % (
                     info['arena_challenger'], info['arena_rival'],
                     info['arena_duelist'], info['arena_gladiator']),
                 inline=True)
             msg.add_field(
-                name="RBG Achievements",
-                value="**`%s`:** `%s`\n**`%s`:** `%s`\n**`%s`:** `%s`" % (
+                name='RBG Achievements',
+                value='**`%s`:** `%s`\n**`%s`:** `%s`\n**`%s`:** `%s`' % (
                     info['rbg_2400_name'], info['rbg_2400'],
                     info['rbg_2000_name'], info['rbg_2000'],
                     info['rbg_1500_name'], info['rbg_1500']),
                 inline=True)
             msg.add_field(
-                name="Rated 2v2",
-                value="**`Rating`:** `%s`" % (
+                name='Rated 2v2',
+                value='**`Rating`:** `%s`' % (
                     info['2v2']),
                 inline=True)
             msg.add_field(
-                name="Rated 3v3",
-                value="**`Rating`:** `%s`" % (
+                name='Rated 3v3',
+                value='**`Rating`:** `%s`' % (
                     info['3v3']),
                 inline=True)
             msg.add_field(
-                name="Rated Battlegrounds",
-                value="**`Rating`:** `%s`" % (
+                name='Rated Battlegrounds',
+                value='**`Rating`:** `%s`' % (
                     info['rbg']),
                 inline=True)
             msg.add_field(
-                name="Skirmish 2v2",
-                value="**`Rating`:** `%s`" % (
+                name='Skirmish 2v2',
+                value='**`Rating`:** `%s`' % (
                     info['2v2s']),
                 inline=True)
             msg.add_field(
-                name="Lifetime Honorable Kills",
-                value="`%s`" % (
+                name='Lifetime Honorable Kills',
+                value='`%s`' % (
                     info['kills']),
                 inline=True)
 
