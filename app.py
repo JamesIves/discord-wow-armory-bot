@@ -13,8 +13,8 @@ client = discord.Client()
 @client.event
 async def on_message(message):
     """Listens for specific user messages."""
-    not_found_error = 'Either there was an error connecting or I could not find a player with that name, realm or region combination. Type `!armory help` for a list of valid commands. :hammer_pick:'
-    connection_error = 'There was an issue establishing a connection to the Blizzard API. Please try again or refer to the setup guide. :electric_plug:'
+    # Current time (Used for cache busting character thumbnails).
+    epoch_time = int(time.time())
 
     # If the author is the bot do nothing.
     if message.author == client.user:
@@ -28,18 +28,23 @@ async def on_message(message):
         region = split[3]
 
         # Sends the returned data to the character_info function to build a character sheet.
-        info = character_info(split[0], split[1], split[2], region)
-
-        # Current time (Used for cache busting character thumbnails).
-        epoch_time = int(time.time())
+        info = await character_info(split[0], split[1], split[2], region)
 
         # Returns a message to the channel if there's an error fetching.
         if info == 'not_found':
-            msg = not_found_error.format(message)
+            msg = NOT_FOUND_ERROR.format(message)
             await client.send_message(message.channel, msg)
 
         elif info == 'connection_error':
-            msg = connection_error.format(message)
+            msg = CONNECTION_ERROR.format(message)
+            await client.send_message(message.channel, msg)
+
+        elif info == 'credential_error':
+            msg = CREDENTIAL_ERROR.format(message)
+            await client.send_message(message.channel, msg)
+
+        elif info == 'unknown_error':
+            msg = UNKNOWN_ERROR.format(message)
             await client.send_message(message.channel, msg)
 
         else:
@@ -88,14 +93,22 @@ async def on_message(message):
     if message.content.startswith('!armory pvp'):
         split = split_query(message.content, 'pvp')
         region = split[3]
-        info = character_info(split[0], split[1], split[2], split[3])
+        info = await character_info(split[0], split[1], split[2], split[3])
 
         if info == 'not_found':
-            msg = not_found_error.format(message)
+            msg = NOT_FOUND_ERROR.format(message)
             await client.send_message(message.channel, msg)
 
         elif info == 'connection_error':
-            msg = connection_error.format(message)
+            msg = CONNECTION_ERROR.format(message)
+            await client.send_message(message.channel, msg)
+
+        elif info == 'credential_error':
+            msg = CREDENTIAL_ERROR.format(message)
+            await client.send_message(message.channel, msg)
+
+        elif info == 'unknown_error':
+            msg = UNKNOWN_ERROR.format(message)
             await client.send_message(message.channel, msg)
 
         else:
@@ -145,7 +158,7 @@ async def on_message(message):
                     info['rbg']),
                 inline=True)
             msg.add_field(
-                name="2v2 Skirmish",
+                name="Skirmish 2v2",
                 value="**`Rating`:** `%s`" % (
                     info['2v2s']),
                 inline=True)
@@ -175,7 +188,7 @@ async def on_message(message):
             !armory pvp <armory-link> <region>
 
             ```
-            • Bot created by James Ives (jamesiv.es)
+            • Bot created by James Ives (https://jamesiv.es)
             • Feedback, Issues and Source: https://github.com/JamesIves/discord-wow-armory-bot/issues
             """
 

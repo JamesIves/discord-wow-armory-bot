@@ -1,49 +1,60 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import requests
+import aiohttp
 from settings import WOW_CLIENT_ID, WOW_CLIENT_SECRET, LOCALE
 from constants import *
 
-def get_data(name, realm, field, region):
+async def get_data(name, realm, field, region):
     """Helper function that grabs data from the World of Warcraft API."""
 
-    if region == 'cn':
-        base_api_path = 'https://gateway.battlenet.com.cn'
-    
-    else:
-        base_api_path = 'https://%s.api.blizzard.com' % (region)
+    access_token = await get_access_token(region)
 
-    token_path = 'https://%s.battle.net/oauth/token' % (region)
+    if access_token == 'credential_error':
+        return access_token
+
+    else:
+        if region == 'cn':
+            base_api_path = 'https://gateway.battlenet.com.cn'
+        else:
+            base_api_path = 'https://%s.api.blizzard.com' % (region)
+        
+        try:
+            async with aiohttp.ClientSession() as client:
+                api_path = '%s/wow/character/%s/%s?fields=%s&locale=%s&access_token=%s' % (
+                    base_api_path, realm, name, field, LOCALE, access_token)
+                
+                async with client.get(api_path, headers={'Authorization': 'Bearer %s' % (access_token)}) as api_response:
+                    if api_response.status == 200:
+                        api_json = await api_response.json()
+                        return api_json
+
+                    elif api_response.status == 404:
+                        print('Error: Character not found')
+                        return 'not_found'
+
+                    else: raise
+
+        except Exception as error:
+            # Error receiving game data:
+            print('Error: Connection error occurred when retrieving game data.')
+            return 'connection_error'
+
+
+async def get_access_token(region):
+    auth_path = 'https://%s.battle.net/oauth/token' % (region)
+    auth_credentials = aiohttp.BasicAuth(login=WOW_CLIENT_ID, password=WOW_CLIENT_SECRET)
 
     try:
-        # Fetches a token
-        request_token = requests.get(token_path, auth=(WOW_CLIENT_ID, WOW_CLIENT_SECRET), \
-            params={'grant_type': 'client_credentials'})
-        request_token.raise_for_status()
-        access_token = request_token.json()['access_token']
+        async with aiohttp.ClientSession(auth=auth_credentials) as client:
+            async with client.get(auth_path, params={'grant_type': 'client_credentials'}) as auth_response:
+                assert auth_response.status == 200
+                auth_json = await auth_response.json()
+                return auth_json['access_token']
 
-        path = '%s/wow/character/%s/%s?fields=%s&locale=%s&access_token=%s' % (
-            base_api_path, realm, name, field, LOCALE, access_token)
-
-        request_api = requests.get(path, headers={'Authorization': 'Bearer %s' % (access_token)} )
-        request_api.raise_for_status()
-        request_json = request_api.json()
-
-    except requests.exceptions.ConnectionError as error:
-        request_json = 'connection_error'
-        print ('Connection Error: ', error)
-
-    except requests.exceptions.Timeout as error:
-        request_json = 'connection_error'
-        print ('Timeout Error: ', error)
-
-    except requests.exceptions.RequestException as error:
-        # If there's an issue or a character doesn't exist, return an empty
-        # string and print the error to the console.
-        request_json = 'not_found'
-        print('Character not found')
-
-    return request_json
+    except Exception as error:
+        # Error receiving token:
+        print('Error: Unable to retrieve auth token')
+        return 'credential_error'
 
 
 def character_achievements(achievement_data, faction):
@@ -327,89 +338,97 @@ def class_details(class_type):
     return class_data
 
 
-def character_info(name, realm, query, region):
+async def character_info(name, realm, query, region):
     """Main function which accepts a name/realm/query(pvp or pve).
     Builds a character sheet out of their name, realm,
     armory link, player thumbnail, ilvl, achievement and raid progress and more."""
 
     # Grabs overall character data including their ilvl.
-    info = get_data(name, realm, 'items', region)
+    info = await get_data(name, realm, 'items', region)
 
-    if info == 'not_found' or info == 'connection_error':
+    if info == 'not_found' or info == 'connection_error' or info == 'credential_error':
         return info
 
     # If the data returned isn't an error string assume it found a character.
     else:
-        class_data = class_details(info['class'])
-        faction_name = faction_details(info['faction'])
+        try:
+            class_data = class_details(info['class'])
+            faction_name = faction_details(info['faction'])
 
-        # Gathers achievement data from the achievements API.
-        achievement_data = get_data(name, realm, 'achievements', region)
-        achievements = character_achievements(achievement_data, faction_name)
+            # Gathers achievement data from the achievements API.
+            achievement_data = await get_data(name, realm, 'achievements', region)
+            achievements = character_achievements(achievement_data, faction_name)
 
-        # Gathers talent data
-        talent_data = get_data(name, realm, 'talents', region)
-        talents = character_talents(talent_data)
+            # Gathers talent data
+            talent_data = await get_data(name, realm, 'talents', region)
+            talents = character_talents(talent_data)
 
-        # Builds a character sheet depending on the function argument.
-        if query == 'pve':
-            progression_data = get_data(name, realm, 'progression', region)
-            progression = character_progression(progression_data)
+            # Builds a character sheet depending on the function argument.
+            if query == 'pve':
+                progression_data = await get_data(name, realm, 'progression', region)
+                progression = character_progression(progression_data)
 
-            pve_character_sheet = {
-                'name': info['name'],
-                'level': info['level'],
-                'realm': info['realm'],
-                'faction': faction_name,
-                'spec': talents['active_spec'],
-                'battlegroup': info['battlegroup'],
-                'class_colour': class_data['colour'],
-                'class_type': class_data['name'],
-                'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (
-                    region, realm, name),
-                'thumb': info['thumbnail'],
-                'ilvl': info['items']['averageItemLevelEquipped'],
-                'keystone_master': achievements['keystone_master'],
-                'keystone_conqueror': achievements['keystone_conqueror'],
-                'keystone_challenger': achievements['keystone_challenger'],
-                'ud_feat': achievements['ud_feat'],
-                'uldir': progression['uldir']
-            }
+                pve_character_sheet = {
+                    'name': info['name'],
+                    'level': info['level'],
+                    'realm': info['realm'],
+                    'faction': faction_name,
+                    'spec': talents['active_spec'],
+                    'battlegroup': info['battlegroup'],
+                    'class_colour': class_data['colour'],
+                    'class_type': class_data['name'],
+                    'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (
+                        region, realm, name),
+                    'thumb': info['thumbnail'],
+                    'ilvl': info['items']['averageItemLevelEquipped'],
+                    'keystone_master': achievements['keystone_master'],
+                    'keystone_conqueror': achievements['keystone_conqueror'],
+                    'keystone_challenger': achievements['keystone_challenger'],
+                    'ud_feat': achievements['ud_feat'],
+                    'uldir': progression['uldir']
+                }
 
-            return pve_character_sheet
+                return pve_character_sheet
 
-        if query == 'pvp':
-            pvp_data = get_data(name, realm, 'pvp', region)
-            pvp = character_arena_progress(pvp_data)
+            if query == 'pvp':
+                pvp_data = await get_data(name, realm, 'pvp', region)
+                pvp = character_arena_progress(pvp_data)
 
-            pvp_character_sheet = {
-                'name': info['name'],
-                'level': info['level'],
-                'realm': info['realm'],
-                'faction': faction_name,
-                'spec': talents['active_spec'],
-                'battlegroup': info['battlegroup'],
-                'class_colour': class_data['colour'],
-                'class_type': class_data['name'],
-                'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (
-                    region, realm, name),
-                'thumb': info['thumbnail'],
-                'ilvl': info['items']['averageItemLevelEquipped'],
-                'arena_challenger': achievements['arena_challenger'],
-                'arena_rival': achievements['arena_rival'],
-                'arena_duelist': achievements['arena_duelist'],
-                'arena_gladiator': achievements['arena_gladiator'],
-                '2v2': pvp['2v2'],
-                '2v2s': pvp['2v2s'],
-                '3v3': pvp['3v3'],
-                'rbg': pvp['rbg'],
-                'kills': pvp['kills'],
-                'rbg_2400_name': achievements['rbg_2400_name'],
-                'rbg_2400': achievements['rbg_2400'],
-                'rbg_2000_name': achievements['rbg_2000_name'],
-                'rbg_2000': achievements['rbg_2000'],
-                'rbg_1500_name': achievements['rbg_1500_name'],
-                'rbg_1500': achievements['rbg_1500'],
-            }
+                pvp_character_sheet = {
+                    'name': info['name'],
+                    'level': info['level'],
+                    'realm': info['realm'],
+                    'faction': faction_name,
+                    'spec': talents['active_spec'],
+                    'battlegroup': info['battlegroup'],
+                    'class_colour': class_data['colour'],
+                    'class_type': class_data['name'],
+                    'armory': 'http://%s.battle.net/wow/en/character/%s/%s' % (
+                        region, realm, name),
+                    'thumb': info['thumbnail'],
+                    'ilvl': info['items']['averageItemLevelEquipped'],
+                    'arena_challenger': achievements['arena_challenger'],
+                    'arena_rival': achievements['arena_rival'],
+                    'arena_duelist': achievements['arena_duelist'],
+                    'arena_gladiator': achievements['arena_gladiator'],
+                    '2v2': pvp['2v2'],
+                    '2v2s': pvp['2v2s'],
+                    '3v3': pvp['3v3'],
+                    'rbg': pvp['rbg'],
+                    'kills': pvp['kills'],
+                    'rbg_2400_name': achievements['rbg_2400_name'],
+                    'rbg_2400': achievements['rbg_2400'],
+                    'rbg_2000_name': achievements['rbg_2000_name'],
+                    'rbg_2000': achievements['rbg_2000'],
+                    'rbg_1500_name': achievements['rbg_1500_name'],
+                    'rbg_1500': achievements['rbg_1500'],
+                }
 
-            return pvp_character_sheet
+                return pvp_character_sheet
+            
+        except Exception as error:
+            # Catches any generic errors during character sheet generation,
+            # returns an unknown error.
+            print('Error: ', error)
+            return 'unknown_error'
+
