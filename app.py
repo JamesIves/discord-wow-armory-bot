@@ -35,7 +35,7 @@ async def on_message(message):
 
         # Returns a message to the channel if there's an error fetching.
         if info == 'not_found':
-            msg = bot_error.format(message)
+            msg = not_found_error.format(message)
             await client.send_message(message.channel, msg)
 
         elif info == 'connection_error':
@@ -91,7 +91,7 @@ async def on_message(message):
         info = character_info(split[0], split[1], split[2], split[3])
 
         if info == 'not_found':
-            msg = bot_error.format(message)
+            msg = not_found_error.format(message)
             await client.send_message(message.channel, msg)
 
         elif info == 'connection_error':
