@@ -15,8 +15,11 @@
 	],
 	"website": "https://jamesiv.es",
 	"env": {
-		"WOW_API_KEY": {
-			"description": "Required to make calls to the Blizzard API key, you can sign up for a key here: https://dev.battle.net/"
+		"WOW_CLIENT_ID": {
+			"description": "Required to make calls to the Blizzard API key, you can sign up for a client id here: https://dev.battle.net/"
+		},
+		"WOW_CLIENT_SECRET": {
+			"description": "Required to make calls to the Blizzard API key, you can sign up for a client secret here: https://dev.battle.net/"
 		},
 		"WOW_REGION": {
 			"description": "The server region you'd like to query, for example `us`, or `eu`.",

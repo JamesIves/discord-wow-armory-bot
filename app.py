@@ -20,7 +20,29 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    # If the author is not the bot, and the message starts with '!armory pve', display the characters PVE data sheet.
+    if message.content.startswith('!armory token'):
+        split = split_query(message.content, 'wow_token')
+        region = split[0]
+        info = await wow_token_price(region)
+
+        # Returns a message to the channel if there's an error fetching.
+        if info == 'not_found':
+            msg = GOLD_ERROR.format(message)
+            await client.send_message(message.channel, msg)
+
+        elif info == 'connection_error':
+            msg = CONNECTION_ERROR.format(message)
+            await client.send_message(message.channel, msg)
+
+        elif info == 'credential_error':
+            msg = CREDENTIAL_ERROR.format(message)
+            await client.send_message(message.channel, msg)
+
+        else:
+            msg = '`The current price of a WoW Token on %s realms is %s gold.` :moneybag:' % (region, info)
+            await client.send_message(message.channel, msg)
+
+
     if message.content.startswith('!armory pve'):
         split = split_query(message.content, 'pve')
 

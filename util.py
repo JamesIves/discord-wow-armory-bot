@@ -24,7 +24,15 @@ def split_query(message, content):
     else:
         split = message.split(' ')
 
-        try:
-            return [split[2], split[3], content, split[4]]
-        except IndexError:
-            return [split[2], split[3], content, WOW_REGION]
+        # Handles the wow_token case
+        if content == 'wow_token':
+            try:
+                return [split[2]]
+            except IndexError:
+                return [WOW_REGION]
+
+        else:
+            try:
+                return [split[2], split[3], content, split[4]]
+            except IndexError:
+                return [split[2], split[3], content, WOW_REGION]

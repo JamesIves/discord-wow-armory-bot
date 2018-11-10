@@ -4,10 +4,8 @@ import aiohttp
 from settings import WOW_CLIENT_ID, WOW_CLIENT_SECRET, LOCALE
 from constants import *
 
-async def get_data(name, realm, field, region):
+async def get_data(region, access_token, **kwargs):
     """Helper function that grabs data from the World of Warcraft API."""
-
-    access_token = await get_access_token(region)
 
     if access_token == 'credential_error':
         return access_token
@@ -20,22 +18,36 @@ async def get_data(name, realm, field, region):
         
         try:
             async with aiohttp.ClientSession() as client:
-                api_path = '%s/wow/character/%s/%s?fields=%s&locale=%s&access_token=%s' % (
-                    base_api_path, realm, name, field, LOCALE, access_token)
-                
+                # Fires off a different API call depending on the type of requested content.
+                if (kwargs.get('field') == 'wow_token'):
+                    api_path = '%s/data/wow/token/?namespace=dynamic-%s&access_token=%s' % (
+                        base_api_path, region, access_token)
+                    print(api_path)
+
+                else:
+                    api_path = '%s/wow/character/%s/%s?fields=%s&locale=%s&access_token=%s' % (
+                        base_api_path, kwargs.get('realm'), kwargs.get('name'), kwargs.get('field'), LOCALE, access_token)
+                    
                 async with client.get(api_path, headers={'Authorization': 'Bearer %s' % (access_token)}) as api_response:
+                    
                     if api_response.status == 200:
                         api_json = await api_response.json()
                         return api_json
 
                     elif api_response.status == 404:
                         print('Error: Character not found')
-                        return 'not_found'
+
+                        if (kwargs.get('field') == 'wow_token'):
+                            return 'gold_error'
+
+                        else:
+                            return 'not_found'
 
                     else: raise
 
         except Exception as error:
             # Error receiving game data:
+            print(error)
             print('Error: Connection error occurred when retrieving game data.')
             return 'connection_error'
 
@@ -339,12 +351,13 @@ def class_details(class_type):
 
 
 async def character_info(name, realm, query, region):
-    """Main function which accepts a name/realm/query(pvp or pve).
+    """Main function which accepts a name/realm/query (pvp or pve).
     Builds a character sheet out of their name, realm,
     armory link, player thumbnail, ilvl, achievement and raid progress and more."""
 
     # Grabs overall character data including their ilvl.
-    info = await get_data(name, realm, 'items', region)
+    access_token = await get_access_token(region)
+    info = await get_data(region, access_token, name=name, realm=realm, field='items')
 
     if info == 'not_found' or info == 'connection_error' or info == 'credential_error':
         return info
@@ -356,16 +369,16 @@ async def character_info(name, realm, query, region):
             faction_name = faction_details(info['faction'])
 
             # Gathers achievement data from the achievements API.
-            achievement_data = await get_data(name, realm, 'achievements', region)
+            achievement_data = await get_data(region, access_token, name=name, realm=realm, field='achievements')
             achievements = character_achievements(achievement_data, faction_name)
 
             # Gathers talent data
-            talent_data = await get_data(name, realm, 'talents', region)
+            talent_data = await get_data(region, access_token, name=name, realm=realm, field='talents')
             talents = character_talents(talent_data)
 
             # Builds a character sheet depending on the function argument.
             if query == 'pve':
-                progression_data = await get_data(name, realm, 'progression', region)
+                progression_data = await get_data(region, access_token, name=name, realm=realm, field='progression')
                 progression = character_progression(progression_data)
 
                 pve_character_sheet = {
@@ -391,7 +404,8 @@ async def character_info(name, realm, query, region):
                 return pve_character_sheet
 
             if query == 'pvp':
-                pvp_data = await get_data(name, realm, 'pvp', region)
+                pvp_data = await get_data(region, access_token, name=name, realm=realm, field='pvp')
+                print(pvp_data)
                 pvp = character_arena_progress(pvp_data)
 
                 pvp_character_sheet = {
@@ -432,3 +446,15 @@ async def character_info(name, realm, query, region):
             print('Error: ', error)
             return 'unknown_error'
 
+async def wow_token_price(region):
+    """Gets the current price for the WoW token based on
+    the specified region."""
+
+    access_token = await get_access_token(region)
+    info = await get_data(region, access_token, field='wow_token')
+
+    if info == 'gold_error' or info == 'connection_error' or info == 'credential_error':
+        return info
+
+    # Formats the token price before returning
+    return '{:,}'.format(info['price'] / 10000)
