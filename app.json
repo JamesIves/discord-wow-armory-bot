@@ -15,19 +15,27 @@
 	],
 	"website": "https://jamesiv.es",
 	"env": {
-		"WOW_API_KEY": {
-			"description": "Required to make calls to the Blizzard API key, you can sign up for a key here: https://dev.battle.net/"
+		"WOW_CLIENT_ID": {
+			"description": "Required to make calls to the Blizzard API key, you can sign up for a client id here: https://dev.battle.net/",
+			"required": true
+		},
+		"WOW_CLIENT_SECRET": {
+			"description": "Required to make calls to the Blizzard API key, you can sign up for a client secret here: https://dev.battle.net/",
+			"required": true
 		},
 		"WOW_REGION": {
 			"description": "The server region you'd like to query, for example `us`, or `eu`.",
-			"value": "us"
+			"value": "us",
+			"required": true
 		},
 		"LOCALE": {
 			"description": "The language for your selected WoW region, for example `en_US`, or `en_GB`. Locale depends on region, please refer to the Blizzard API documents (https://dev.battle.net/) for more information. At this time this bot will only return data in English.",
-			"value": "en_US"
+			"value": "en_US",
+			"required": true
 		},
 		"DISCORD_BOT_TOKEN": {
-			"description": "The token for your Discord bot user, you can sign up for one here: https://discordapp.com/developers/docs/intro"
+			"description": "The token for your Discord bot user, you can sign up for one here: https://discordapp.com/developers/docs/intro",
+			"required": true
 		}
 	}
 }

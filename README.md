@@ -6,7 +6,7 @@ With this bot you're able to lookup a [World of Warcraft](http://worldofwarcraft
 
 ## Installation Steps :minidisc: 
 
-1. Visit the [Blizzard API website](https://dev.battle.net/) and sign up for an API key.
+1. Visit the [Blizzard API website](https://dev.battle.net/) and sign up for an API client id/secret.
 2. Visit the [Discord API website and create an application](https://discordapp.com/developers/applications/). You'll need to create a bot user and retrieve the [bot token](https://discordapp.com/developers/docs/intro#bots-and-apps) it provides.
 3. Invite the bot user to your server using the following URL by replacing the `YOUR_CLIENT_SECRET` portion with the one found within your [Discord API settings](https://discordapp.com/developers/applications/): `https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0`
 4. Click the button below and enter the required fields to deploy the bot to [Heroku](http://heroku.com). If the required tokens were provided correctly the bot should appear online within Discord and begin responding to commands. 
@@ -32,7 +32,8 @@ The installation will require you to enter a number of API keys and settings as 
 
 | Key  | Value Information | Required |
 | ------------- | ------------- | ------------- |
-| `WOW_API_KEY`  | Required to make calls to the Blizzard API, you can sign up for a key [here](https://dev.battle.net/).  | **Yes** |
+| `WOW_CLIENT_ID`  | Required to make calls to the Blizzard API, you can sign up for a client id [here](https://dev.battle.net/).  | **Yes** |
+| `WOW_CLIENT_SECRET`  | Required to make calls to the Blizzard API, you can sign up for a client secret [here](https://dev.battle.net/).  | **Yes** |
 | `WOW_REGION`  | The server region you'd like to query, for example `us`, or `eu`.  | **Yes** |
 | `LOCALE`  | The language for your selected WoW region, for example `en_US`, or `en_GB`. Locale depends on region. Please refer to the [Blizzard API documents](https://dev.battle.net/) for more information. At this time this bot will only return data in English.   | **Yes** |
 | `DISCORD_BOT_TOKEN`  | The token for your Discord bot user, you can sign up for one [here](https://discordapp.com/developers/docs/intro). | **Yes** |
@@ -55,6 +56,10 @@ The following commands are accepted by the bot.
 # You can also provide an optional region to each query to display players from other WoW regions outside of the bot default, for example EU, US, etc.
 !armory pve <name> <realm> <region>
 !armory pvp <armory-link> <region>
+
+# Displays the currnet wow token price.
+!armory token
+!armory token <region>
 
 # Command list/help
 !armory help
