@@ -1,25 +1,47 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import requests
-from settings import WOW_API_KEY, LOCALE
+from settings import WOW_CLIENT_ID, WOW_CLIENT_SECRET, LOCALE
 from constants import *
 
 def get_data(name, realm, field, region):
     """Helper function that grabs data from the World of Warcraft API."""
-    path = 'https://%s.api.battle.net/wow/character/%s/%s?fields=%s&locale=%s&apikey=%s' % (
-        region, realm, name, field, LOCALE, WOW_API_KEY)
+
+    if region == 'cn':
+        base_api_path = 'https://gateway.battlenet.com.cn'
+    
+    else:
+        base_api_path = 'https://%s.api.blizzard.com' % (region)
+
+    token_path = 'https://%s.battle.net/oauth/token' % (region)
 
     try:
-        request = requests.get(path)
-        # Make sure the request doesn't error.
-        request.raise_for_status()
-        request_json = request.json()
+        # Fetches a token
+        request_token = requests.get(token_path, auth=(WOW_CLIENT_ID, WOW_CLIENT_SECRET), \
+            params={'grant_type': 'client_credentials'})
+        request_token.raise_for_status()
+        access_token = request_token.json()['access_token']
+
+        path = '%s/wow/character/%s/%s?fields=%s&locale=%s&access_token=%s' % (
+            base_api_path, realm, name, field, LOCALE, access_token)
+
+        request_api = requests.get(path, headers={'Authorization': 'Bearer %s' % (access_token)} )
+        request_api.raise_for_status()
+        request_json = request_api.json()
+
+    except requests.exceptions.ConnectionError as error:
+        request_json = 'connection_error'
+        print ('Connection Error: ', error)
+
+    except requests.exceptions.Timeout as error:
+        request_json = 'connection_error'
+        print ('Timeout Error: ', error)
 
     except requests.exceptions.RequestException as error:
         # If there's an issue or a character doesn't exist, return an empty
         # string and print the error to the console.
-        request_json = ''
-        print(error)
+        request_json = 'not_found'
+        print('Character not found')
 
     return request_json
 
@@ -313,8 +335,11 @@ def character_info(name, realm, query, region):
     # Grabs overall character data including their ilvl.
     info = get_data(name, realm, 'items', region)
 
-    # If the data returned isn't an empty string assume it found a character.
-    if info != '':
+    if info == 'not_found' or info == 'connection_error':
+        return info
+
+    # If the data returned isn't an error string assume it found a character.
+    else:
         class_data = class_details(info['class'])
         faction_name = faction_details(info['faction'])
 
@@ -388,8 +413,3 @@ def character_info(name, realm, query, region):
             }
 
             return pvp_character_sheet
-
-    else:
-        # Otherwise return another empty string so the calling function knows
-        # how to handle it.
-        return ''

@@ -5,7 +5,9 @@ import os
 """Application settings such as API keys are stored here."""
 
 # World of Warcraft API Settings
-WOW_API_KEY = str(os.environ.get('WOW_API_KEY'))
+WOW_CLIENT_ID = str(os.environ.get('WOW_CLIENT_ID'))
+WOW_CLIENT_SECRET = str(os.environ.get('WOW_CLIENT_SECRET'))
+
 WOW_REGION = str(os.environ.get('WOW_REGION'))
 LOCALE = str(os.environ.get('LOCALE'))
 

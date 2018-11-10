@@ -13,7 +13,8 @@ client = discord.Client()
 @client.event
 async def on_message(message):
     """Listens for specific user messages."""
-    bot_error = 'Could not find a player with that name, realm or region combination. Type `!armory help` for more a list of valid commands.'
+    not_found_error = 'Either there was an error connecting or I could not find a player with that name, realm or region combination. Type `!armory help` for a list of valid commands. :hammer_pick:'
+    connection_error = 'There was an issue establishing a connection to the Blizzard API. Please try again or refer to the setup guide. :electric_plug:'
 
     # If the author is the bot do nothing.
     if message.author == client.user:
@@ -21,7 +22,6 @@ async def on_message(message):
 
     # If the author is not the bot, and the message starts with '!armory pve', display the characters PVE data sheet.
     if message.content.startswith('!armory pve'):
-        # Sends the query to be split via a utility function. Accepts either a character/realm, or an armory link.
         split = split_query(message.content, 'pve')
 
         # Assigns the 3rd index in the split to the region
@@ -30,16 +30,19 @@ async def on_message(message):
         # Sends the returned data to the character_info function to build a character sheet.
         info = character_info(split[0], split[1], split[2], region)
 
-        # If the returned data is an empty string send a message saying the player/realm/region couldn't be found.
-        if info == '':
+        # Current time (Used for cache busting character thumbnails).
+        epoch_time = int(time.time())
+
+        # Returns a message to the channel if there's an error fetching.
+        if info == 'not_found':
             msg = bot_error.format(message)
             await client.send_message(message.channel, msg)
 
-        # Otherwise respond with an incredibly long string of data holding all of the info.
-        else:
-            # Current time (Used for cache busting character thumbnails).
-            epoch_time = int(time.time())
+        elif info == 'connection_error':
+            msg = connection_error.format(message)
+            await client.send_message(message.channel, msg)
 
+        else:
             # Format the AOTC/CE strings if they exist.
             ud_feat = ''
 
@@ -87,12 +90,15 @@ async def on_message(message):
         region = split[3]
         info = character_info(split[0], split[1], split[2], split[3])
 
-        if info == '':
+        if info == 'not_found':
             msg = bot_error.format(message)
             await client.send_message(message.channel, msg)
 
-        else:
+        elif info == 'connection_error':
+            msg = connection_error.format(message)
+            await client.send_message(message.channel, msg)
 
+        else:
             msg = discord.Embed(
                 title="%s" % (info['name']),
                 colour=discord.Colour(info['class_colour']),
@@ -100,8 +106,8 @@ async def on_message(message):
                 description="%s %s %s %s" % (
                     info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
-                url="https://render-%s.worldofwarcraft.com/character/%s" % (
-                    region, info['thumb']))
+                url="https://render-%s.worldofwarcraft.com/character/%s?_%s" % (
+                    region, info['thumb'], epoch_time))
             msg.set_footer(
                 text="!armory help | Feedback: https://github.com/JamesIves/discord-wow-armory-bot/issues",
                 icon_url="https://github.com/JamesIves/discord-wow-armory-bot/blob/master/assets/icon.png?raw=true")
@@ -179,8 +185,8 @@ async def on_message(message):
 
 @client.event
 async def on_ready():
-    if WOW_API_KEY == '':
-        print('Missing World of Warcraft API key. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+    if WOW_CLIENT_ID == '' or WOW_CLIENT_SECRET == '':
+        print('Missing World of Warcraft Client ID/Secret. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
 
     if WOW_REGION == '':
         print('Missing World of Warcraft player region. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
