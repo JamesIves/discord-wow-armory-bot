@@ -22,7 +22,6 @@ async def get_data(region, access_token, **kwargs):
                 if (kwargs.get('field') == 'wow_token'):
                     api_path = '%s/data/wow/token/?namespace=dynamic-%s&access_token=%s' % (
                         base_api_path, region, access_token)
-                    print(api_path)
 
                 else:
                     api_path = '%s/wow/character/%s/%s?fields=%s&locale=%s&access_token=%s' % (
