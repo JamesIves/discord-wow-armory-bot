@@ -68,6 +68,9 @@ The following commands are accepted by the bot.
 ## FAQ :speech_balloon: 
 Here's a list of frequently asked questions.
 ```
+Q: Why does the bot not recognize my realm?
+A: Realm names with multiple words must be seperated by a dash, for example burning legion would be burning-legion.
+
 Q: Why does it show that my alt has completed an achievement?
 A: Some achievements are account wide so the API response for your alt will be the same as your main.
 
