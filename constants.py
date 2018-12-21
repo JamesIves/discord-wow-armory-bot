@@ -23,6 +23,8 @@ AC_AOTC_UD = 12536
 AC_CE_UD = 12535
 AC_AOTC_COS = 13418
 AC_CE_COS = 13419
+AC_AOTC_BOD = 13322
+AC_CE_BOD = 13323
 
 
 # Achievement Title Constants
