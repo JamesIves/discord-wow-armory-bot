@@ -107,6 +107,22 @@ async def on_message(message):
                     info['uldir']['mythic'], info['uldir']['bosses'],
                     ud_feat),
                 inline=True)
+            msg.add_field(
+                name='Crucible of Storms',
+                value='**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s' % (
+                    info['crucible_of_storms']['normal'], info['crucible_of_storms']['bosses'],
+                    info['crucible_of_storms']['heroic'], info['crucible_of_storms']['bosses'],
+                    info['crucible_of_storms']['mythic'], info['crucible_of_storms']['bosses'],
+                    cos_feat),
+                inline=True)
+            msg.add_field(
+                name="Battle of Dazar'alor",
+                value='**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s' % (
+                    info['battle_of_dazaralor']['normal'], info['battle_of_dazaralor']['bosses'],
+                    info['battle_of_dazaralor']['heroic'], info['battle_of_dazaralor']['bosses'],
+                    info['battle_of_dazaralor']['mythic'], info['battle_of_dazaralor']['bosses'],
+                    bod_feat),
+                inline=True)
 
             await client.send_message(message.channel, embed=msg)
 

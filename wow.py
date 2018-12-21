@@ -85,6 +85,8 @@ def character_achievements(achievement_data, faction):
     rbg_2000 = 'In Progress'
     rbg_1500 = 'In Progress'
     ud_feat = ''
+    cos_feat = ''
+    bod_feat = ''
 
     if AC_KEYSTONE_MASTER in achievements['achievementsCompleted']:
         keystone_master = 'Completed'
@@ -113,6 +115,18 @@ def character_achievements(achievement_data, faction):
         # Checks to see if the user has completed tier 2 of the AOTC achievement.
         if AC_CE_UD in achievements['achievementsCompleted']:
             ud_feat = 'Cutting Edge'
+
+    if AC_AOTC_COS in achievements['achievementsCompleted']:
+        cos_feat = 'Ahead of the Curve'
+
+        if AC_CE_COS in achievements['achievementsCompleted']:
+            cos_feat = 'Cutting Edge'
+
+    if AC_AOTC_BOD in achievements['achievementsCompleted']:
+        bod_feat = 'Ahead of the Curve'
+
+        if AC_CE_BOD in achievements['achievementsCompleted']:
+            bod_feat = 'Cutting Edge'
 
 
     # RBG achievements have a different id/name based on faction, checks these
@@ -160,6 +174,8 @@ def character_achievements(achievement_data, faction):
         'rbg_2000': rbg_2000,
         'rbg_1500': rbg_1500,
         'ud_feat': ud_feat,
+        'cos_feat': cos_feat,
+        'bod_feat': bod_feat
     }
 
     return achievement_list
@@ -212,9 +228,17 @@ def character_progression(progression_data):
         # Loop over the raids and filter the most recent.
         if raid['id'] == RAID_UD:
             uldir = calculate_boss_kills(raid)
+        
+        if raid['id'] == RAID_COS:
+            crucible_of_storms = calculate_boss_kills(raid)
+
+        if raid['id'] == RAID_BOD:
+            battle_of_dazaralor = calculate_boss_kills(raid)
 
     raid_stats = {
-        'uldir': uldir
+        'uldir': uldir,
+        'crucible_of_storms': crucible_of_storms,
+        'battle_of_dazaralor': battle_of_dazaralor
     }
 
     return raid_stats
@@ -397,7 +421,11 @@ async def character_info(name, realm, query, region):
                     'keystone_conqueror': achievements['keystone_conqueror'],
                     'keystone_challenger': achievements['keystone_challenger'],
                     'ud_feat': achievements['ud_feat'],
-                    'uldir': progression['uldir']
+                    'uldir': progression['uldir'],
+                    'cos_feat': achievements['cos_feat'],
+                    'crucible_of_storms': progression['crucible_of_storms'],
+                    'bod_feat': achievements['bod_feat']
+                    'battle_of_dazaralor': progression['battle_of_dazaralor']
                 }
 
                 return pve_character_sheet
