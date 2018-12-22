@@ -120,14 +120,14 @@ class BaseTest(unittest.TestCase):
         self.maxDiff = None
         input_data_horde_sample = {
             "achievements": {
-                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
+                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093, 13418, 13419, 13322, 13323,
                     2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192, 11874, 12110, 12111, 12536, 12535]
             }
         }
 
         input_data_alliance_sample = {
             "achievements": {
-                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
+                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093, 13418, 13322,
                     2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192, 11874, 11875, 12110, 12536]
             }
         }
@@ -228,18 +228,69 @@ class BaseTest(unittest.TestCase):
                         "heroicKills": 3,
                         "mythicKills": 2,
                         }]
-                    }]
+                    },
+                    {
+                    "id": 10057,
+                    "bosses": [{
+                        "lfrKills": 19,
+                        "normalKills": 8,
+                        "heroicKills": 5,
+                        "mythicKills": 3,
+                        },
+                        {
+                        "lfrKills": 3,
+                        "normalKills": 7,
+                        "heroicKills": 3,
+                        "mythicKills": 2,
+                        }]
+                    }, 
+                    {
+                    "id": 10076,
+                    "bosses": [{
+                        "lfrKills": 19,
+                        "normalKills": 8,
+                        "heroicKills": 5,
+                        "mythicKills": 3,
+                        },
+                        {
+                        "lfrKills": 3,
+                        "normalKills": 7,
+                        "heroicKills": 3,
+                        "mythicKills": 2,
+                        },
+                        {
+                        "lfrKills": 3,
+                        "normalKills": 7,
+                        "heroicKills": 3,
+                        "mythicKills": 0,
+                        }]
+                    },
+                    ]
                 }
             }
 
         expected_data = {
-            'uldir':{
+            'uldir': {
                 'lfr':2,
                 'normal':2,
                 'heroic':2,
                 'mythic':2,
                 'bosses':2
-                }
+                },
+            'crucible_of_storms': {
+                'lfr':2,
+                'normal':2,
+                'heroic':2,
+                'mythic':2,
+                'bosses':2
+            },
+            'battle_of_dazaralor': {
+                'lfr':3,
+                'normal':3,
+                'heroic':3,
+                'mythic':2,
+                'bosses':3
+            }
         }
 
         self.assertEqual(character_progression(sample_data), expected_data)
