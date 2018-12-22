@@ -240,20 +240,25 @@ async def on_message(message):
 
 @client.event
 async def on_ready():
-    if WOW_CLIENT_ID == '' or WOW_CLIENT_SECRET == '':
+    if WOW_CLIENT_ID is None or WOW_CLIENT_ID == '' or WOW_CLIENT_SECRET is None or WOW_CLIENT_SECRET == '':
         print('Missing World of Warcraft Client ID/Secret. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+        quit()
 
-    if WOW_REGION == '':
+    if WOW_REGION is None or WOW_REGION == '':
         print('Missing World of Warcraft player region. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+        quit()
 
-    if LOCALE == '':
+    if LOCALE is None or LOCALE == '':
         print('Missing locale. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
-
-    if DISCORD_BOT_TOKEN == '':
-        print('Missing Discord bot token. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+        quit()
 
     else:
         print('Launch Succesful! The bot is now listening for commands...')
 
 
-client.run(DISCORD_BOT_TOKEN)
+if DISCORD_BOT_TOKEN is None or DISCORD_BOT_TOKEN == '':
+    print('Missing Discord bot token. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+    quit()
+
+else:
+    client.run(DISCORD_BOT_TOKEN)

@@ -5,14 +5,14 @@ import os
 """Application settings such as API keys are stored here."""
 
 # World of Warcraft API Settings
-WOW_CLIENT_ID = str(os.environ.get('WOW_CLIENT_ID'))
-WOW_CLIENT_SECRET = str(os.environ.get('WOW_CLIENT_SECRET'))
+WOW_CLIENT_ID = os.environ.get('WOW_CLIENT_ID')
+WOW_CLIENT_SECRET = os.environ.get('WOW_CLIENT_SECRET')
 
-WOW_REGION = str(os.environ.get('WOW_REGION'))
-LOCALE = str(os.environ.get('LOCALE'))
+WOW_REGION = os.environ.get('WOW_REGION')
+LOCALE = os.environ.get('LOCALE')
 
 # Discord API Settings
-DISCORD_BOT_TOKEN = str(os.environ.get('DISCORD_BOT_TOKEN'))
+DISCORD_BOT_TOKEN = os.environ.get('DISCORD_BOT_TOKEN')
 
 # API Connection Errors
 NOT_FOUND_ERROR = 'Could not find a character with that name, realm or region combination. \

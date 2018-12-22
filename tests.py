@@ -146,7 +146,9 @@ class BaseTest(unittest.TestCase):
             'rbg_2400': 'Completed',
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
-            'ud_feat': 'Cutting Edge'
+            'ud_feat': 'Cutting Edge',
+            'cos_feat': 'Cutting Edge',
+            'bod_feat': 'Cutting Edge'
         }
 
         expected_alliance_data = {
@@ -163,7 +165,9 @@ class BaseTest(unittest.TestCase):
             'rbg_2400': 'Completed',
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
-            'ud_feat': 'Ahead of the Curve'
+            'ud_feat': 'Ahead of the Curve',
+            'cos_feat': 'Ahead of the Curve',
+            'bod_feat': 'Ahead of the Curve'
         }
 
         self.assertEqual(character_achievements(input_data_horde_sample, 'Horde'), expected_horde_data)

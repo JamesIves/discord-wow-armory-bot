@@ -424,7 +424,7 @@ async def character_info(name, realm, query, region):
                     'uldir': progression['uldir'],
                     'cos_feat': achievements['cos_feat'],
                     'crucible_of_storms': progression['crucible_of_storms'],
-                    'bod_feat': achievements['bod_feat']
+                    'bod_feat': achievements['bod_feat'],
                     'battle_of_dazaralor': progression['battle_of_dazaralor']
                 }
 
