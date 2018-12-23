@@ -4,12 +4,14 @@
 """Dictionary of constants used throughout the application."""
 
 # Mythic Keystone Achievement Constants
-AC_SEASON_KEYSTONE_CONQUEROR = 13079
-AC_SEASON_KEYSTONE_MASTER = 13080
+AC_SEASON_KEYSTONE_CONQUEROR = 13448
+AC_SEASON_KEYSTONE_MASTER = 13449
 
 # Raid Achievement Constants
 AC_AOTC_UD = 12536
 AC_CE_UD = 12535
+AC_AOTC_BOD = 13322
+AC_CE_BOD = 13323
 
 # PVP Achievement Constants
 AC_ARENA_CHALLENGER = 2090
@@ -33,6 +35,7 @@ AC_SERGEANT_MAJOR_NAME = 'Sergeant Major'
 
 # Raid Constants
 RAID_UD = 9389
+RAID_BOD = 10076
 
 # Faction Constants
 FACTION_HORDE = 1
