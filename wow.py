@@ -74,9 +74,8 @@ def character_achievements(achievement_data, faction):
     achievements = achievement_data['achievements']
 
     # Return In Progress or empty unless they are found.
-    keystone_master = 'In Progress'
-    keystone_conqueror = 'In Progress'
-    keystone_challenger = 'In Progress'
+    keystone_season_master = 'In Progress'
+    keystone_season_conqueror = 'In Progress'
     arena_challenger = 'In Progress'
     arena_rival = 'In Progress'
     arena_duelist = 'In Progress'
@@ -86,14 +85,11 @@ def character_achievements(achievement_data, faction):
     rbg_1500 = 'In Progress'
     ud_feat = ''
 
-    if AC_KEYSTONE_MASTER in achievements['achievementsCompleted']:
-        keystone_master = 'Completed'
+    if AC_SEASON_KEYSTONE_MASTER in achievements['achievementsCompleted']:
+        keystone_season_master = 'Completed'
 
-    if AC_KEYSTONE_CONQUEROR in achievements['achievementsCompleted']:
-        keystone_conqueror = 'Completed'
-
-    if AC_KEYSTONE_CHALLENGER in achievements['achievementsCompleted']:
-        keystone_challenger = 'Completed'
+    if AC_SEASON_KEYSTONE_CONQUEROR in achievements['achievementsCompleted']:
+        keystone_season_conqueror = 'Completed'
 
     if AC_ARENA_CHALLENGER in achievements['achievementsCompleted']:
         arena_challenger = 'Completed'
@@ -146,9 +142,8 @@ def character_achievements(achievement_data, faction):
             rbg_1500 = 'Completed'
 
     achievement_list = {
-        'keystone_master': keystone_master,
-        'keystone_conqueror': keystone_conqueror,
-        'keystone_challenger': keystone_challenger,
+        'keystone_season_master': keystone_season_master,
+        'keystone_season_conqueror': keystone_season_conqueror,
         'arena_challenger': arena_challenger,
         'arena_rival': arena_rival,
         'arena_duelist': arena_duelist,
@@ -393,9 +388,8 @@ async def character_info(name, realm, query, region):
                         region, realm, name),
                     'thumb': info['thumbnail'],
                     'ilvl': info['items']['averageItemLevelEquipped'],
-                    'keystone_master': achievements['keystone_master'],
-                    'keystone_conqueror': achievements['keystone_conqueror'],
-                    'keystone_challenger': achievements['keystone_challenger'],
+                    'keystone_season_master': achievements['keystone_season_master'],
+                    'keystone_season_conqueror': achievements['keystone_season_conqueror'],
                     'ud_feat': achievements['ud_feat'],
                     'uldir': progression['uldir']
                 }
