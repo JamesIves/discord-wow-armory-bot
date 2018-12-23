@@ -94,10 +94,9 @@ async def on_message(message):
                     info['name'], info['realm'], region.upper(), info['ilvl']),
                 inline=True)
             msg.add_field(
-                name='Keystone Achievements',
-                value='**`Master(+15)`:** `%s`\n**`Conqueror(+10)`:** `%s` \n**`Challenger(+5)`:** `%s`' % (
-                    info['keystone_master'], info['keystone_conqueror'],
-                    info['keystone_challenger']),
+                name='Keystone Achievements (Season 1)',
+                value='**`Conqueror (+10)`:** `%s`\n**`Master (+15)`:** `%s` \n' % (
+                    info['keystone_season_conqueror'], info['keystone_season_master']),
                 inline=True)
             msg.add_field(
                 name='Uldir',
@@ -138,7 +137,7 @@ async def on_message(message):
                 title='%s' % (info['name']),
                 colour=discord.Colour(info['class_colour']),
                 url='%s' % (info['armory']),
-                description='%s %s %s %s' % (
+                description='%s %s %s %s (BFA)' % (
                     info['level'], info['faction'], info['spec'], info['class_type']))
             msg.set_thumbnail(
                 url='https://render-%s.worldofwarcraft.com/character/%s?_%s' % (
@@ -224,20 +223,25 @@ async def on_message(message):
 
 @client.event
 async def on_ready():
-    if WOW_CLIENT_ID == '' or WOW_CLIENT_SECRET == '':
+    if WOW_CLIENT_ID is None or WOW_CLIENT_ID == '' or WOW_CLIENT_SECRET is None or WOW_CLIENT_SECRET == '':
         print('Missing World of Warcraft Client ID/Secret. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+        quit()
 
-    if WOW_REGION == '':
+    if WOW_REGION is None or WOW_REGION == '':
         print('Missing World of Warcraft player region. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+        quit()
 
-    if LOCALE == '':
+    if LOCALE is None or LOCALE == '':
         print('Missing locale. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
-
-    if DISCORD_BOT_TOKEN == '':
-        print('Missing Discord bot token. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+        quit()
 
     else:
         print('Launch Succesful! The bot is now listening for commands...')
 
 
-client.run(DISCORD_BOT_TOKEN)
+if DISCORD_BOT_TOKEN is None or DISCORD_BOT_TOKEN == '':
+    print('Missing Discord bot token. Please refer to https://github.com/JamesIves/discord-wow-armory-bot#configuration for more details')
+    quit()
+
+else:
+    client.run(DISCORD_BOT_TOKEN)

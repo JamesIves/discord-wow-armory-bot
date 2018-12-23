@@ -121,21 +121,20 @@ class BaseTest(unittest.TestCase):
         input_data_horde_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192, 11874, 12110, 12111, 12536, 12535]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192, 11874, 12110, 12111, 12536, 12535, 13079]
             }
         }
 
         input_data_alliance_sample = {
             "achievements": {
                 "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192, 11874, 11875, 12110, 12536]
+                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192, 11874, 11875, 12110, 12536, 13079, 13080]
             }
         }
 
         expected_horde_data = {
-            'keystone_master': 'Completed',
-            'keystone_conqueror': 'Completed',
-            'keystone_challenger': 'Completed',
+            'keystone_season_master': 'In Progress',
+            'keystone_season_conqueror': 'Completed',
             'arena_challenger': 'Completed',
             'arena_rival': 'Completed',
             'arena_duelist': 'Completed',
@@ -150,9 +149,8 @@ class BaseTest(unittest.TestCase):
         }
 
         expected_alliance_data = {
-            'keystone_master': 'Completed',
-            'keystone_conqueror': 'Completed',
-            'keystone_challenger': 'Completed',
+            'keystone_season_master': 'Completed',
+            'keystone_season_conqueror': 'Completed',
             'arena_challenger': 'Completed',
             'arena_rival': 'Completed',
             'arena_duelist': 'Completed',
