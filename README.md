@@ -66,7 +66,7 @@ The following commands are accepted by the bot.
 ```
 
 ## FAQ :speech_balloon: 
-Here's a list of frequently asked questions.
+Here's a list of frequently asked questions. Please review the [contribution guide](https://github.com/JamesIves/discord-wow-armory-bot/blob/master/.github/CONTRIBUTING.md) if you'd like to support the project.
 ```
 Q: Why does the bot not recognize my realm?
 A: Realm names with multiple words must be seperated by a dash, for example burning legion would be burning-legion.
