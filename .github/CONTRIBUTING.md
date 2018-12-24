@@ -9,3 +9,6 @@ There are a few key points to keep in mind when it comes to the scope of this pr
 * Only data which is surfaced in official Blizzard API's should be used. Maintaining multiple third party API's can be a bit of a hassle, and not something the bot supports right now.
 * Only data which is relevent to the current expansion should be used by the bot. This means that Legion raids shouldn't be added when BFA comes out, etc.
 * Things such as raid and achievement id's should be added to the [constants.py](https://github.com/JamesIves/discord-wow-armory-bot/blob/master/constants.py) file, this makes the code much more readable.
+
+## Questions / Comments
+Please get in touch with me via [Email or Twitter](https://jamesiv.es/) if you have any questions or comments.
