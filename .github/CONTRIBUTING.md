@@ -1,5 +1,5 @@
 ## Contributing Guide
-> Before contributing please review the provided license. 
+> Before contributing please review the [provided license](https://github.com/JamesIves/discord-wow-armory-bot/blob/master/LICENSE). 
 
 Welcome! Thank you for your interest in contributing to the Discord WoW Armory Bot project. Before you start writing code please post an issue on Github with your idea so it can be disucssed. Once discussed please fork the repository and open a pull request with your feature, code should be commented and tested.
 
