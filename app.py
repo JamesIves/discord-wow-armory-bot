@@ -76,6 +76,9 @@ async def on_message(message):
             if info['ud_feat'] != '':
                 ud_feat = '**`%s`**' % (info['ud_feat'])
 
+            if info['bod_feat'] != '':
+                bod_feat = '**`%s`**' % (info['bod_feat'])
+
             msg = discord.Embed(
                 title='%s' % (info['name']),
                 colour=discord.Colour(info['class_colour']),
