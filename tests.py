@@ -120,15 +120,15 @@ class BaseTest(unittest.TestCase):
         self.maxDiff = None
         input_data_horde_sample = {
             "achievements": {
-                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5356, 5353, 5349, 11191, 11192, 11874, 12110, 12111, 12536, 12535, 13079]
+                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093, 2092, 2091, 11194, 11581, 11195, 11874, 
+                5356, 5353, 5349, 11191, 11192, 11874, 12110, 12111, 12536, 12535, 13079, 13448, 13322, 13323]
             }
         }
 
         input_data_alliance_sample = {
             "achievements": {
-                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,
-                    2092, 2091, 11194, 11581, 11195, 11874, 5343, 5339, 5334, 11192, 11874, 11875, 12110, 12536, 13079, 13080]
+                "achievementsCompleted": [11611, 11162, 11185, 11184, 2090, 2093,2092, 2091, 11194, 11581, 11195, 11874, 
+                5343, 5339, 5334, 11192, 11874, 11875, 12110, 12536, 13079, 13080, 13448, 13449, 13322]
             }
         }
 
@@ -145,7 +145,8 @@ class BaseTest(unittest.TestCase):
             'rbg_2400': 'Completed',
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
-            'ud_feat': 'Cutting Edge'
+            'ud_feat': 'Cutting Edge',
+            'bod_feat': 'Cutting Edge'
         }
 
         expected_alliance_data = {
@@ -161,7 +162,8 @@ class BaseTest(unittest.TestCase):
             'rbg_2400': 'Completed',
             'rbg_2000': 'Completed',
             'rbg_1500': 'Completed',
-            'ud_feat': 'Ahead of the Curve'
+            'ud_feat': 'Ahead of the Curve',
+            'bod_feat': 'Ahead of the Curve'
         }
 
         self.assertEqual(character_achievements(input_data_horde_sample, 'Horde'), expected_horde_data)
@@ -201,6 +203,7 @@ class BaseTest(unittest.TestCase):
 
         self.assertEqual(character_arena_progress(sample_data), expected_data)
 
+
     def test_pve_progression(self):
         # Passes in some mock API data and expects it to return an object with the correct data.
         # Tests for accuracy on each data check, not API data.
@@ -222,18 +225,47 @@ class BaseTest(unittest.TestCase):
                         "heroicKills": 3,
                         "mythicKills": 2,
                         }]
-                    }]
+                    },
+                    {
+                    "id": 10076,
+                    "bosses": [{
+                        "lfrKills": 19,
+                        "normalKills": 8,
+                        "heroicKills": 5,
+                        "mythicKills": 3,
+                        },
+                        {
+                        "lfrKills": 3,
+                        "normalKills": 7,
+                        "heroicKills": 3,
+                        "mythicKills": 2,
+                        },
+                        {
+                        "lfrKills": 3,
+                        "normalKills": 7,
+                        "heroicKills": 3,
+                        "mythicKills": 0,
+                        }]
+                    },
+                    ]
                 }
             }
 
         expected_data = {
-            'uldir':{
+            'uldir': {
                 'lfr':2,
                 'normal':2,
                 'heroic':2,
                 'mythic':2,
                 'bosses':2
-                }
+            },
+            'battle_of_dazaralor': {
+                'lfr':3,
+                'normal':3,
+                'heroic':3,
+                'mythic':2,
+                'bosses':3
+            }
         }
 
         self.assertEqual(character_progression(sample_data), expected_data)

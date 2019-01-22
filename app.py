@@ -94,7 +94,7 @@ async def on_message(message):
                     info['name'], info['realm'], region.upper(), info['ilvl']),
                 inline=True)
             msg.add_field(
-                name='Keystone Achievements (Season 1)',
+                name='Keystone Achievements (Season 2)',
                 value='**`Conqueror (+10)`:** `%s`\n**`Master (+15)`:** `%s` \n' % (
                     info['keystone_season_conqueror'], info['keystone_season_master']),
                 inline=True)
@@ -105,6 +105,14 @@ async def on_message(message):
                     info['uldir']['heroic'], info['uldir']['bosses'],
                     info['uldir']['mythic'], info['uldir']['bosses'],
                     ud_feat),
+                inline=True)
+            msg.add_field(
+                name="Battle of Dazar'alor",
+                value='**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s' % (
+                    info['battle_of_dazaralor']['normal'], info['battle_of_dazaralor']['bosses'],
+                    info['battle_of_dazaralor']['heroic'], info['battle_of_dazaralor']['bosses'],
+                    info['battle_of_dazaralor']['mythic'], info['battle_of_dazaralor']['bosses'],
+                    bod_feat),
                 inline=True)
 
             await client.send_message(message.channel, embed=msg)

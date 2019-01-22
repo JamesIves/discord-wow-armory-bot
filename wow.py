@@ -84,6 +84,7 @@ def character_achievements(achievement_data, faction):
     rbg_2000 = 'In Progress'
     rbg_1500 = 'In Progress'
     ud_feat = ''
+    bod_feat = ''
 
     if AC_SEASON_KEYSTONE_MASTER in achievements['achievementsCompleted']:
         keystone_season_master = 'Completed'
@@ -109,6 +110,12 @@ def character_achievements(achievement_data, faction):
         # Checks to see if the user has completed tier 2 of the AOTC achievement.
         if AC_CE_UD in achievements['achievementsCompleted']:
             ud_feat = 'Cutting Edge'
+
+    if AC_AOTC_BOD in achievements['achievementsCompleted']:
+        bod_feat = 'Ahead of the Curve'
+
+        if AC_CE_BOD in achievements['achievementsCompleted']:
+            bod_feat = 'Cutting Edge'
 
 
     # RBG achievements have a different id/name based on faction, checks these
@@ -155,6 +162,7 @@ def character_achievements(achievement_data, faction):
         'rbg_2000': rbg_2000,
         'rbg_1500': rbg_1500,
         'ud_feat': ud_feat,
+        'bod_feat': bod_feat
     }
 
     return achievement_list
@@ -208,8 +216,12 @@ def character_progression(progression_data):
         if raid['id'] == RAID_UD:
             uldir = calculate_boss_kills(raid)
 
+        if raid['id'] == RAID_BOD:
+            battle_of_dazaralor = calculate_boss_kills(raid)
+
     raid_stats = {
-        'uldir': uldir
+        'uldir': uldir,
+        'battle_of_dazaralor': battle_of_dazaralor
     }
 
     return raid_stats
@@ -391,7 +403,9 @@ async def character_info(name, realm, query, region):
                     'keystone_season_master': achievements['keystone_season_master'],
                     'keystone_season_conqueror': achievements['keystone_season_conqueror'],
                     'ud_feat': achievements['ud_feat'],
-                    'uldir': progression['uldir']
+                    'uldir': progression['uldir'],
+                    'bod_feat': achievements['bod_feat'],
+                    'battle_of_dazaralor': progression['battle_of_dazaralor']
                 }
 
                 return pve_character_sheet
