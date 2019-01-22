@@ -35,7 +35,7 @@ AC_SERGEANT_MAJOR_NAME = 'Sergeant Major'
 
 # Raid Constants
 RAID_UD = 9389
-RAID_BOD = 10076
+RAID_BOD = 8670
 
 # Faction Constants
 FACTION_HORDE = 1
