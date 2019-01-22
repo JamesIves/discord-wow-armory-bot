@@ -99,7 +99,7 @@ async def on_message(message):
                 inline=True)
             msg.add_field(
                 name='Keystone Achievements (Season 2)',
-                value='**`Conqueror (+10)`:** `%s`\n**`Master (+15)`:** `%s` \n' % (
+                value='**`Conqueror (+10)`: ** `%s`\n**`Master (+15)`: ** `%s` \n' % (
                     info['keystone_season_conqueror'], info['keystone_season_master']),
                 inline=True)
             msg.add_field(
