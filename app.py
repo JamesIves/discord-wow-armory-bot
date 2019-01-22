@@ -72,6 +72,7 @@ async def on_message(message):
         else:
             # Format the AOTC/CE strings if they exist.
             ud_feat = ''
+            bod_feat = ''
 
             if info['ud_feat'] != '':
                 ud_feat = '**`%s`**' % (info['ud_feat'])
