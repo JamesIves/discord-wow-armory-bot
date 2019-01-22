@@ -227,7 +227,7 @@ class BaseTest(unittest.TestCase):
                         }]
                     },
                     {
-                    "id": 10076,
+                    "id": 8670,
                     "bosses": [{
                         "lfrKills": 19,
                         "normalKills": 8,
