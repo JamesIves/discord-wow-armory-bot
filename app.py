@@ -80,6 +80,9 @@ async def on_message(message):
             if info['bod_feat'] != '':
                 bod_feat = '**`%s`**' % (info['bod_feat'])
 
+            if info['cos_feat'] != '':
+                cos_feat = '**`%s`**' % (info['cos_feat'])
+
             msg = discord.Embed(
                 title='%s' % (info['name']),
                 colour=discord.Colour(info['class_colour']),
@@ -116,6 +119,14 @@ async def on_message(message):
                     info['battle_of_dazaralor']['normal'], info['battle_of_dazaralor']['bosses'],
                     info['battle_of_dazaralor']['heroic'], info['battle_of_dazaralor']['bosses'],
                     info['battle_of_dazaralor']['mythic'], info['battle_of_dazaralor']['bosses'],
+                    bod_feat),
+                inline=True)
+            msg.add_field(
+                name="Crucible of Storms",
+                value='**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s' % (
+                    info['crucible_of_storms']['normal'], info['crucible_of_storms']['bosses'],
+                    info['crucible_of_storms']['heroic'], info['crucible_of_storms']['bosses'],
+                    info['crucible_of_storms']['mythic'], info['crucible_of_storms']['bosses'],
                     bod_feat),
                 inline=True)
 
