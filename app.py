@@ -73,6 +73,7 @@ async def on_message(message):
             # Format the AOTC/CE strings if they exist.
             ud_feat = ''
             bod_feat = ''
+            cos_feat = ''
             tep_feat = ''
 
             if info['ud_feat'] != '':
@@ -131,7 +132,7 @@ async def on_message(message):
                     info['crucible_of_storms']['normal'], info['crucible_of_storms']['bosses'],
                     info['crucible_of_storms']['heroic'], info['crucible_of_storms']['bosses'],
                     info['crucible_of_storms']['mythic'], info['crucible_of_storms']['bosses'],
-                    bod_feat),
+                    cos_feat),
                 inline=True)
             msg.add_field(
                 name="The Eternal Palace",
@@ -139,7 +140,7 @@ async def on_message(message):
                     info['the_eternal_palace']['normal'], info['the_eternal_palace']['bosses'],
                     info['the_eternal_palace']['heroic'], info['the_eternal_palace']['bosses'],
                     info['the_eternal_palace']['mythic'], info['the_eternal_palace']['bosses'],
-                    bod_feat),
+                    tep_feat),
                 inline=True)
 
             await client.send_message(message.channel, embed=msg)
