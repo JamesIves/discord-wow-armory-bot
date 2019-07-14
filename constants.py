@@ -3,9 +3,9 @@
 
 """Dictionary of constants used throughout the application."""
 
-# Mythic Keystone Achievement Constants
-AC_SEASON_KEYSTONE_CONQUEROR = 13448
-AC_SEASON_KEYSTONE_MASTER = 13449
+# Mythic Keystone Achievement Constants (Updated each season)
+AC_SEASON_KEYSTONE_CONQUEROR = 13780
+AC_SEASON_KEYSTONE_MASTER = 13781
 
 # Raid Achievement Constants
 AC_AOTC_UD = 12536
@@ -14,6 +14,8 @@ AC_AOTC_BOD = 13322
 AC_CE_BOD = 13323
 AC_AOTC_COS = 13418
 AC_CE_COS = 13419
+AC_AOTC_TEP = 13784
+AC_CE_TEP = 13785
 
 # PVP Achievement Constants
 AC_ARENA_CHALLENGER = 2090
@@ -28,25 +30,26 @@ AC_LIEUTENANT_COMMANDER = 5339
 AC_SERGEANT_MAJOR = 5334
 
 # Achievement Title Constants
-AC_HIGH_WARLORD_NAME = 'High Warlord'
-AC_CHAMPION_NAME = 'Champion'
-AC_FIRST_SERGEANT_NAME = 'First Sergeant'
-AC_GRAND_MARSHALL_NAME = 'Grand Marshall'
-AC_LIEAUTENANT_COMMANDER_NAME = 'Lieutenant Commander'
-AC_SERGEANT_MAJOR_NAME = 'Sergeant Major'
+AC_HIGH_WARLORD_NAME = "High Warlord"
+AC_CHAMPION_NAME = "Champion"
+AC_FIRST_SERGEANT_NAME = "First Sergeant"
+AC_GRAND_MARSHALL_NAME = "Grand Marshall"
+AC_LIEAUTENANT_COMMANDER_NAME = "Lieutenant Commander"
+AC_SERGEANT_MAJOR_NAME = "Sergeant Major"
 
 # Raid Constants
 RAID_UD = 9389
 RAID_BOD = 8670
 RAID_COS = 10057
+RAID_TEP = 10425
 
 # Faction Constants
 FACTION_HORDE = 1
 FACTION_ALLIANCE = 0
 
 # Faction Name Constants
-FACTION_HORDE_NAME = 'Horde'
-FACTION_ALLIANCE_NAME = 'Alliance'
+FACTION_HORDE_NAME = "Horde"
+FACTION_ALLIANCE_NAME = "Alliance"
 
 # Classs Constants
 CLASS_WARRIOR = 1
@@ -63,18 +66,18 @@ CLASS_DRUID = 11
 CLASS_DEMON_HUNTER = 12
 
 # Class Name Constants
-CLASS_WARRIOR_NAME = 'Warrior'
-CLASS_PALADIN_NAME = 'Paladin'
-CLASS_HUNTER_NAME = 'Hunter'
-CLASS_ROGUE_NAME = 'Rogue'
-CLASS_PRIEST_NAME = 'Priest'
-CLASS_DEATH_KNIGHT_NAME = 'Death Knight'
-CLASS_SHAMAN_NAME = 'Shaman'
-CLASS_MAGE_NAME = 'Mage'
-CLASS_WARLOCK_NAME = 'Warlock'
-CLASS_MONK_NAME = 'Monk'
-CLASS_DRUID_NAME = 'Druid'
-CLASS_DEMON_HUNTER_NAME = 'Demon Hunter'
+CLASS_WARRIOR_NAME = "Warrior"
+CLASS_PALADIN_NAME = "Paladin"
+CLASS_HUNTER_NAME = "Hunter"
+CLASS_ROGUE_NAME = "Rogue"
+CLASS_PRIEST_NAME = "Priest"
+CLASS_DEATH_KNIGHT_NAME = "Death Knight"
+CLASS_SHAMAN_NAME = "Shaman"
+CLASS_MAGE_NAME = "Mage"
+CLASS_WARLOCK_NAME = "Warlock"
+CLASS_MONK_NAME = "Monk"
+CLASS_DRUID_NAME = "Druid"
+CLASS_DEMON_HUNTER_NAME = "Demon Hunter"
 
 # Class Colour Constants
 CLASS_WARRIOR_COLOUR = 0xC79C6E
