@@ -73,6 +73,7 @@ async def on_message(message):
             # Format the AOTC/CE strings if they exist.
             ud_feat = ''
             bod_feat = ''
+            tep_feat = ''
 
             if info['ud_feat'] != '':
                 ud_feat = '**`%s`**' % (info['ud_feat'])
@@ -82,6 +83,9 @@ async def on_message(message):
 
             if info['cos_feat'] != '':
                 cos_feat = '**`%s`**' % (info['cos_feat'])
+
+            if info['tep_feat'] != '':
+                tep_feat = '**`%s`**' % (info['tep_feat'])
 
             msg = discord.Embed(
                 title='%s' % (info['name']),
@@ -101,7 +105,7 @@ async def on_message(message):
                     info['name'], info['realm'], region.upper(), info['ilvl']),
                 inline=True)
             msg.add_field(
-                name='Keystone Achievements (Season 2)',
+                name='Keystone Achievements (Season 3)',
                 value='**`Conqueror (+10)`: ** `%s`\n**`Master (+15)`: ** `%s` \n' % (
                     info['keystone_season_conqueror'], info['keystone_season_master']),
                 inline=True)
@@ -127,6 +131,14 @@ async def on_message(message):
                     info['crucible_of_storms']['normal'], info['crucible_of_storms']['bosses'],
                     info['crucible_of_storms']['heroic'], info['crucible_of_storms']['bosses'],
                     info['crucible_of_storms']['mythic'], info['crucible_of_storms']['bosses'],
+                    bod_feat),
+                inline=True)
+            msg.add_field(
+                name="The Eternal Palace",
+                value='**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s' % (
+                    info['the_eternal_palace']['normal'], info['the_eternal_palace']['bosses'],
+                    info['the_eternal_palace']['heroic'], info['the_eternal_palace']['bosses'],
+                    info['the_eternal_palace']['mythic'], info['the_eternal_palace']['bosses'],
                     bod_feat),
                 inline=True)
 

@@ -86,6 +86,7 @@ def character_achievements(achievement_data, faction):
     ud_feat = ''
     bod_feat = ''
     cos_feat = ''
+    tep_feat = ''
 
     if AC_SEASON_KEYSTONE_MASTER in achievements['achievementsCompleted']:
         keystone_season_master = 'Completed'
@@ -123,6 +124,12 @@ def character_achievements(achievement_data, faction):
 
         if AC_CE_COS in achievements['achievementsCompleted']:
             cos_feat = 'Cutting Edge'
+
+    if AC_AOTC_TEP in achievements['achievementsCompleted']:
+        tep_feat = 'Ahead of the Curve'
+
+        if AC_CE_TEP in achievements['achievementsCompleted']:
+            tep_feat = 'Cutting Edge'
 
 
     # RBG achievements have a different id/name based on faction, checks these
@@ -170,7 +177,8 @@ def character_achievements(achievement_data, faction):
         'rbg_1500': rbg_1500,
         'ud_feat': ud_feat,
         'bod_feat': bod_feat,
-        'cos_feat': cos_feat
+        'cos_feat': cos_feat,
+        'tep_feat': tep_feat
     }
 
     return achievement_list
@@ -230,10 +238,14 @@ def character_progression(progression_data):
         if raid['id'] == RAID_COS:
             crucible_of_storms = calculate_boss_kills(raid)
 
+        if raid['id'] == RAID_TEP:
+            the_eternal_palace = calculate_boss_kills(raid)
+
     raid_stats = {
         'uldir': uldir,
         'battle_of_dazaralor': battle_of_dazaralor,
-        'crucible_of_storms': crucible_of_storms
+        'crucible_of_storms': crucible_of_storms,
+        'the_eternal_palace': the_eternal_palace
     }
 
     return raid_stats
@@ -419,7 +431,9 @@ async def character_info(name, realm, query, region):
                     'bod_feat': achievements['bod_feat'],
                     'battle_of_dazaralor': progression['battle_of_dazaralor'],
                     'cos_feat': achievements['cos_feat'],
-                    'crucible_of_storms': progression['crucible_of_storms']
+                    'crucible_of_storms': progression['crucible_of_storms'],
+                    'tep_feat': achievements['tep_feat'],
+                    'the_eternal_palace': progression['the_eternal_palace']
                 }
 
                 return pve_character_sheet
