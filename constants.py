@@ -4,8 +4,8 @@
 """Dictionary of constants used throughout the application."""
 
 # Mythic Keystone Achievement Constants (Updated each season)
-AC_SEASON_KEYSTONE_CONQUEROR = 13780
-AC_SEASON_KEYSTONE_MASTER = 13781 #TODO: Update these ids...
+AC_SEASON_KEYSTONE_CONQUEROR = 14144
+AC_SEASON_KEYSTONE_MASTER = 14145
 
 # Raid Achievement Constants
 AC_AOTC_UD = 12536
