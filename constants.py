@@ -4,8 +4,8 @@
 """Dictionary of constants used throughout the application."""
 
 # Mythic Keystone Achievement Constants (Updated each season)
-AC_SEASON_KEYSTONE_CONQUEROR = 13780
-AC_SEASON_KEYSTONE_MASTER = 13781
+AC_SEASON_KEYSTONE_CONQUEROR = 14144
+AC_SEASON_KEYSTONE_MASTER = 14145
 
 # Raid Achievement Constants
 AC_AOTC_UD = 12536
@@ -16,6 +16,8 @@ AC_AOTC_COS = 13418
 AC_CE_COS = 13419
 AC_AOTC_TEP = 13784
 AC_CE_TEP = 13785
+AC_AOTC_NYA = 14068
+AC_CE_NYA = 14069
 
 # PVP Achievement Constants
 AC_ARENA_CHALLENGER = 2090
@@ -42,6 +44,7 @@ RAID_UD = 9389
 RAID_BOD = 8670
 RAID_COS = 10057
 RAID_TEP = 10425
+RAID_NYA = 10522
 
 # Faction Constants
 FACTION_HORDE = 1

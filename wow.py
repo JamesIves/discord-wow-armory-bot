@@ -106,6 +106,7 @@ def character_achievements(achievement_data, faction):
     bod_feat = ""
     cos_feat = ""
     tep_feat = ""
+    nya_feat = ""
 
     if AC_SEASON_KEYSTONE_MASTER in achievements["achievementsCompleted"]:
         keystone_season_master = "Completed"
@@ -149,6 +150,12 @@ def character_achievements(achievement_data, faction):
 
         if AC_CE_TEP in achievements["achievementsCompleted"]:
             tep_feat = "Cutting Edge"
+
+    if AC_AOTC_NYA in achievements["achievementsCompleted"]:
+        nya_feat = "Ahead of the Curve"
+
+        if AC_CE_NYA in achievements["achievementsCompleted"]:
+            nya_feat = "Cutting Edge"
 
     # RBG achievements have a different id/name based on faction, checks these
     # based on function argument.
@@ -197,6 +204,7 @@ def character_achievements(achievement_data, faction):
         "bod_feat": bod_feat,
         "cos_feat": cos_feat,
         "tep_feat": tep_feat,
+        "nya_feat": nya_feat
     }
 
     return achievement_list
@@ -259,11 +267,15 @@ def character_progression(progression_data):
         if raid["id"] == RAID_TEP:
             the_eternal_palace = calculate_boss_kills(raid)
 
+        if raid["id"] == RAID_NYA:
+            nyalotha = calculate_boss_kills(raid)
+
     raid_stats = {
         "uldir": uldir,
         "battle_of_dazaralor": battle_of_dazaralor,
         "crucible_of_storms": crucible_of_storms,
         "the_eternal_palace": the_eternal_palace,
+        "nyalotha": nyalotha
     }
 
     return raid_stats
@@ -455,6 +467,8 @@ async def character_info(name, realm, query, region):
                     "crucible_of_storms": progression["crucible_of_storms"],
                     "tep_feat": achievements["tep_feat"],
                     "the_eternal_palace": progression["the_eternal_palace"],
+                    "nyalotha": progression["nyalotha"],
+                    "nya_feat": achievements["nya_feat"]
                 }
 
                 return pve_character_sheet

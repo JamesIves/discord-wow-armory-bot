@@ -78,6 +78,7 @@ async def on_message(message):
             bod_feat = ""
             cos_feat = ""
             tep_feat = ""
+            nya_feat = ""
 
             if info["ud_feat"] != "":
                 ud_feat = "**`%s`**" % (info["ud_feat"])
@@ -90,6 +91,9 @@ async def on_message(message):
 
             if info["tep_feat"] != "":
                 tep_feat = "**`%s`**" % (info["tep_feat"])
+
+            if info["nya_feat"] != "":
+                nya_feat = "**`%s`**" % (info["nya_feat"])
 
             msg = discord.Embed(
                 title="%s" % (info["name"]),
@@ -170,6 +174,21 @@ async def on_message(message):
                     info["the_eternal_palace"]["bosses"],
                     info["the_eternal_palace"]["mythic"],
                     info["the_eternal_palace"]["bosses"],
+                    tep_feat,
+                ),
+                inline=True,
+            )
+
+            msg.add_field(
+                name="Ny'alotha, the Waking City",
+                value="**`Normal`:** `%s/%s`\n**`Heroic`:** `%s/%s`\n**`Mythic`:** `%s/%s`\n%s"
+                % (
+                    info["nyalotha"]["normal"],
+                    info["nyalotha"]["bosses"],
+                    info["nyalotha"]["heroic"],
+                    info["nyalotha"]["bosses"],
+                    info["nyalotha"]["mythic"],
+                    info["nyalotha"]["bosses"],
                     tep_feat,
                 ),
                 inline=True,
