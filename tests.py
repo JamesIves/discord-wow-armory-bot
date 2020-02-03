@@ -157,6 +157,8 @@ class BaseTest(unittest.TestCase):
                     13323,
                     13784,
                     13780,
+                    14068,
+                    14144
                 ]
             }
         }
@@ -194,6 +196,10 @@ class BaseTest(unittest.TestCase):
                     13785,
                     13780,
                     13781,
+                    14068,
+                    14069,
+                    14144,
+                    14145
                 ]
             }
         }
@@ -215,6 +221,7 @@ class BaseTest(unittest.TestCase):
             "bod_feat": "Cutting Edge",
             "cos_feat": "Cutting Edge",
             "tep_feat": "Ahead of the Curve",
+            "nya_feat": "Ahead of the Curve"
         }
 
         expected_alliance_data = {
@@ -234,6 +241,7 @@ class BaseTest(unittest.TestCase):
             "bod_feat": "Ahead of the Curve",
             "cos_feat": "Ahead of the Curve",
             "tep_feat": "Cutting Edge",
+            "nya_feat": "Cutting Edge"
         }
 
         self.assertEqual(
@@ -364,6 +372,29 @@ class BaseTest(unittest.TestCase):
                             },
                         ],
                     },
+                    {
+                        "id": 10522,
+                        "bosses": [
+                            {
+                                "lfrKills": 19,
+                                "normalKills": 8,
+                                "heroicKills": 5,
+                                "mythicKills": 3,
+                            },
+                            {
+                                "lfrKills": 3,
+                                "normalKills": 7,
+                                "heroicKills": 3,
+                                "mythicKills": 2,
+                            },
+                            {
+                                "lfrKills": 3,
+                                "normalKills": 7,
+                                "heroicKills": 3,
+                                "mythicKills": 0,
+                            },
+                        ],
+                    },
                 ]
             }
         }
@@ -385,6 +416,13 @@ class BaseTest(unittest.TestCase):
                 "bosses": 3,
             },
             "the_eternal_palace": {
+                "lfr": 3,
+                "normal": 3,
+                "heroic": 3,
+                "mythic": 2,
+                "bosses": 3,
+            },
+            "nyalotha": {
                 "lfr": 3,
                 "normal": 3,
                 "heroic": 3,
