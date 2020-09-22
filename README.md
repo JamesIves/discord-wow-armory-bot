@@ -1,6 +1,6 @@
 # World of Warcraft Armory Discord Bot ⚔️🗡️
 
-> Battle for Azeroth is the final expansion this bot supports, and `4.0.6` is the last release.
+> Battle for Azeroth is the final expansion this bot supports, and `4.0.6` is the last release. This bot was not created by Blizzard.
 
 With this bot you're able to lookup a [World of Warcraft](http://worldofwarcraft.com/) character's item level, notable achievements, and pve/pvp progression with a command within [Discord](https://discordapp.com/). 
 
