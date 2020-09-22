@@ -1,5 +1,7 @@
 # World of Warcraft Armory Discord Bot ⚔️🗡️
 
+> Battle for Azeroth will be the final expansion this bot will support, and `4.0.6` is the final version.
+
 [![Build Status](https://travis-ci.org/JamesIves/discord-wow-armory-bot.svg?branch=master)](https://travis-ci.org/JamesIves/discord-wow-armory-bot) [![Issues](https://img.shields.io/github/issues/JamesIves/discord-wow-armory-bot.svg)](https://github.com/JamesIves/discord-wow-armory-bot/issues)
 
 With this bot you're able to lookup a [World of Warcraft](http://worldofwarcraft.com/) character's item level, notable achievements, and pve/pvp progression with a command within [Discord](https://discordapp.com/). 
